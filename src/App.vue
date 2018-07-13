@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <div class="mt-30">
-      <x-button >这是按钮</x-button>
-      <x-button type="primary radius-button" >这是按钮</x-button>
-    </div>
+    <!--<div class="mt-30">-->
+      <!--<x-button >这是按钮</x-button>-->
+      <!--<x-button type="primary radius-button" >这是按钮</x-button>-->
+    <!--</div>-->
 
-    <div class="mt-30">
-      <group>
-        <x-input v-model="input0" placeholder="123456498faeawfesa"></x-input>
-        <x-input v-model="input1"></x-input>
-      </group>
-    </div>
+    <!--<div class="mt-30">-->
+      <!--<group>-->
+        <!--<x-input v-model="input0" placeholder="123456498faeawfesa"></x-input>-->
+        <!--<x-input v-model="input1"></x-input>-->
+      <!--</group>-->
+    <!--</div>-->
+    <router-view name="default"></router-view>
   </div>
 </template>
 

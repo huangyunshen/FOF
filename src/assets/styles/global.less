@@ -3,55 +3,93 @@
  */
 @import "./theme";
 
+html,body{
+  height: 100%;
+  margin: 0;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-size: @base-font-size;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background: fade(#F8F8F8, 75%);
+  min-height: 100%;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 #app {
-  .weui-btn {
-    &:after{
-      border: none;
-    }
+  /*  search  */
+  .vux-search-box {
+
   }
+
+  /*  cells  */
   .weui-cells {
-    line-height: 120px;
+    line-height: @base-cell-height;
     .weui-icon-clear {
       font-size: @input-height;
       color: fade(@primary-text-color, 45%);
     }
   }
+
+  /*  input  */
   .weui-input {
     height: @input-height;
     line-height: @input-height;
     color: @stext-color-1;
-    &::-webkit-input-placeholder {
-      color: @stext-color-3;
-      // webkit
-    }
-    &:-moz-placeholder {
-      color: @stext-color-3;
-      // moz4-18
-    }
-    &::-moz-placeholder {
-      color: @stext-color-3;
-      // moz19+
-    }
-    &::-ms-input-placeholder {
-      color: @stext-color-3;
-      // ie 10+
+  }
+
+  /*  button  */
+  .weui-btn {
+    &:after{
+      border: none;
     }
   }
-  /*
-    圆角按钮
-   */
   .radius-button {
     border-radius: 100px;
   }
 }
 
+/*
+resest
+ */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: #555;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+img {
+  border: none;
+  vertical-align: middle;
+}
+ol, ul, li {
+  list-style: none;
+}
+
+input::-webkit-input-placeholder {
+  color: @stext-color-3;
+  // webkit
+}
+input:-moz-placeholder {
+  color: @stext-color-3;
+  // moz4-18
+}
+input::-moz-placeholder {
+  color: @stext-color-3;
+  // moz19+
+}
+input::-ms-input-placeholder {
+  color: @stext-color-3;
+  // ie 10+
+}
 /*
   margin
  */
@@ -70,6 +108,9 @@
 }
 .mt-50{
   margin-top: 50px;
+}
+.mt-60{
+  margin-top: 60px;
 }
 //right
 .mr-10{
@@ -238,4 +279,17 @@ clear float
 }
 .inline-block {
   display: inline-block;
+}
+
+/*
+text color
+ */
+.text-c1 {
+  color:  @stext-color-1;
+}
+.text-c2 {
+  color:  @stext-color-2;
+}
+.text-c3 {
+  color:  @stext-color-3;
 }
