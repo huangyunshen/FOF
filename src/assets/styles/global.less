@@ -14,8 +14,8 @@ html,body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background: fade(#F8F8F8, 75%);
-  min-height: 100%;
-  padding: 40px;
+  height: 100%;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -64,7 +64,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 img {
   border: none;
@@ -292,4 +292,20 @@ text color
 }
 .text-c3 {
   color:  @stext-color-3;
+}
+
+/*
+base box-shadow
+ */
+.base-shadow {
+  box-shadow:0px 8px 20px 0px rgba(0,0,0,0.07);
+}
+
+/*
+文字溢出不换行，显示省略号
+ */
+.no-wrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
