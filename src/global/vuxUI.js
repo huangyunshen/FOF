@@ -13,6 +13,9 @@ import {
   TabbarItem,
   Tab,
   TabItem,
+  XHeader,
+  CheckIcon,
+  XTextarea,
 } from 'vux'
 
 import MyPanel from '../components/utils/MyPanel'
@@ -28,6 +31,9 @@ export default (Vue) => {
   Vue.component('tabbar-item', TabbarItem)
   Vue.component('tab', Tab)
   Vue.component('tab-item', TabItem)
+  Vue.component('x-header', XHeader)
+  Vue.component('check-icon', CheckIcon)
+  Vue.component('x-textarea', XTextarea)
 
 
   Vue.component('my-panel', MyPanel)

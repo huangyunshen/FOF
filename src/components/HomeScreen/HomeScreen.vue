@@ -38,10 +38,25 @@
         <tab-item>赛事</tab-item>
       </tab>
 
-      <div class="game-content">
+      <div class="game-content base-shadow">
         <my-panel :list="gameList"></my-panel>
       </div>
     </div>
+
+    <tabbar icon-class="tab-bar-icon">
+      <tabbar-item selected link="/">
+        <img slot="icon" src="../../assets/images/longhudou.png">
+      </tabbar-item>
+      <tabbar-item>
+        <img slot="icon" src="../../assets/images/longhudou.png">
+      </tabbar-item>
+      <tabbar-item>
+        <img slot="icon" src="../../assets/images/longhudou.png">
+      </tabbar-item>
+      <tabbar-item>
+        <img slot="icon" src="../../assets/images/longhudou.png">
+      </tabbar-item>
+    </tabbar>
   </div>
 </template>
 
@@ -107,7 +122,7 @@
       .search-input {
         width: @base-cel-width;
         font-size: @base-font-size;
-        color: @stext-color-1;
+        color: @text-color-1;
         line-height: @base-font-size;
         box-sizing: border-box;
         border: none;
@@ -190,6 +205,19 @@
         margin-bottom: 150px;
         background: @base-background-color;
         border-radius: @base-radius;
+      }
+    }
+
+
+    .weui-tabbar {
+      background: @base-background-color;
+      &:before {
+        border-top-color: #c3c3c3;
+      }
+      .tab-bar-icon {
+        height: 88px;
+        width: 88px;
+        padding: 28px 0;
       }
     }
   }

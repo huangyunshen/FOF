@@ -20,6 +20,36 @@ html,body{
 }
 
 #app {
+  /*
+  header
+   */
+  .vux-header {
+    height: 120px;
+    .vux-header-left {
+      top: 35px;
+      .vux-header-back {
+        font-size: 50px;
+        line-height: 50px;
+        padding-left: 40px;
+      }
+      .left-arrow {
+        width: 50px;
+        height: 50px;
+        position: static;
+        &:before {
+          width: 30px;
+          height: 30px;
+          content: "";
+        }
+      }
+    }
+    .vux-header-title {
+      height: 120px;
+      line-height: 120px;
+      font-size: 50px;
+    }
+  }
+
   /*  search  */
   .vux-search-box {
 
@@ -36,9 +66,19 @@ html,body{
 
   /*  input  */
   .weui-input {
-    height: @input-height;
-    line-height: @input-height;
-    color: @stext-color-1;
+    height: @base-cell-height;
+    font-size: @base-font-size;
+    color: @text-color-1;
+    padding: 0 60px;
+    box-sizing: border-box;
+  }
+  /* textarea */
+  .weui-textarea {
+    font-size: @base-font-size;
+    color: @text-color-1;
+    line-height: 70px;
+    padding: 0 60px;
+    box-sizing: border-box;
   }
 
   /*  button  */
@@ -49,6 +89,17 @@ html,body{
   }
   .radius-button {
     border-radius: 100px;
+  }
+
+  /*  vux-check-icon  */
+  .vux-check-icon {
+    i {
+      font-size: @base-font-size;
+      font-weight: 700;
+    }
+    span {
+      color: #959595;
+    }
   }
 }
 
@@ -75,24 +126,27 @@ ol, ul, li {
 }
 
 input::-webkit-input-placeholder {
-  color: @stext-color-3;
+  color: @text-color-3;
   // webkit
 }
 input:-moz-placeholder {
-  color: @stext-color-3;
+  color: @text-color-3;
   // moz4-18
 }
 input::-moz-placeholder {
-  color: @stext-color-3;
+  color: @text-color-3;
   // moz19+
 }
 input::-ms-input-placeholder {
-  color: @stext-color-3;
+  color: @text-color-3;
   // ie 10+
 }
 /*
   margin
  */
+.mg-40 {
+  margin: 40px;
+}
 //top
 .mt-10{
   margin-top: 10px;
@@ -164,6 +218,9 @@ input::-ms-input-placeholder {
 /*
   padding
  */
+.pd-40 {
+  padding: 40px;
+}
 //top
 .pt-10{
   padding-top: 10px;
@@ -282,16 +339,23 @@ clear float
 }
 
 /*
+position
+ */
+.pos-r {
+  position: relative;
+}
+
+/*
 text color
  */
 .text-c1 {
-  color:  @stext-color-1;
+  color:  @text-color-1;
 }
 .text-c2 {
-  color:  @stext-color-2;
+  color:  @text-color-2;
 }
 .text-c3 {
-  color:  @stext-color-3;
+  color:  @text-color-3;
 }
 
 /*
@@ -308,4 +372,19 @@ base box-shadow
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+/*
+warning
+ */
+.warning-bg {
+  background: rgba(223,145,96,0.11);;
+}
+.warning-text {
+  color: #DF9160;
+  font-size: 38px;
+}
+.danger-text {
+  color: #D46F6E;
+  font-size: 42px;
 }
