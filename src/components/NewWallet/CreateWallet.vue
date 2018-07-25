@@ -1,39 +1,39 @@
 <template>
   <div class="create-wallet">
-    <x-header title="创建钱包" :left-options="{preventGoBack:true}" @on-click-back="$router.push({name:'NewWallet'})"></x-header>
+    <x-header :title="$t('createWallet')" :left-options="{preventGoBack:true}" @on-click-back="$router.push({name:'NewWallet'})"></x-header>
 
     <div class="warning-content warning-bg warning-text tl pd-40">
       <ul>
-        <li>为了账户安全，密码长度不能少于9位，不包含空格</li>
-        <li>FOF不存储密码，也无法帮您找回，请务必牢记</li>
-        <li>该密码将会加密您的私钥，并生成加密后的Keystore文件，您需要用该密码解锁钱包</li>
+        <li> {{ $t('createWalletWarning1') }} </li>
+        <li> {{ $t('createWalletWarning2') }} </li>
+        <li> {{ $t('createWalletWarning3') }} </li>
       </ul>
     </div>
 
     <div class="pwd-content">
       <p>
-        <span class="title">密码</span>
+        <span class="title"> {{ $t('password') }} </span>
         <icon type="clear" class="close-btn" v-show="pwd" @click.native="pwd=''"></icon>
         <pwd-strength :pwd="pwd"></pwd-strength>
-        <input type="password" v-model="pwd" placeholder="请输入密码"/>
+        <input type="password" v-model="pwd" :placeholder="$t('enterPwd')"/>
       </p>
       <p>
-        <span class="title">确认密码</span>
+        <span class="title">{{ $t('confirmPwd') }}</span>
         <icon type="clear" class="close-btn" v-show="confirmPwd" @click.native="confirmPwd=''"></icon>
-        <input type="password" v-model="confirmPwd" placeholder="请输入密码"/>
+        <input type="password" v-model="confirmPwd" :placeholder="$t('enterPwd')"/>
       </p>
     </div>
 
     <div class="agreement">
-      <check-icon :value.sync="agreement" type="plain">我已仔细阅读并同意</check-icon><span class="agreement-title">《服务及隐私条款》</span>
+      <check-icon :value.sync="agreement" type="plain">{{ $t('iAmAgree') }}</check-icon><span class="agreement-title">{{ $t('termsOfService') }}</span>
     </div>
 
     <div class="create-btn pd-40">
-      <x-button type="primary" link="/CreateSucc">创建钱包</x-button>
+      <x-button type="primary" link="/CreateSucc">{{ $t('createWallet') }}</x-button>
     </div>
 
     <div class="link-to-import tr pd-40">
-      <router-link :to="{path:'/ImportWallet'}">登录钱包</router-link>
+      <router-link :to="{path:'/ImportWallet'}">{{ $t('loginWallet') }}</router-link>
     </div>
   </div>
 </template>

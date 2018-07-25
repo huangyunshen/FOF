@@ -1,20 +1,20 @@
 <template>
   <div class="backup-wallet">
-    <x-header title="备份钱包"></x-header>
+    <x-header :title="$t('backupWallet')"></x-header>
 
     <div class="backup-info warning-bg tl pd-40">
       <ul>
         <li class="danger-text">
-          离线保存
-          <p class="warning-text mt-20">请复制粘贴Keystore文件内容到安全、离线的地方保存。切勿保存至邮箱、网盘、云笔记、聊天工具等，非常危险！</p>
+          {{ $t('savedOffline') }}
+          <p class="warning-text mt-20">{{ $t('backupWalletWarning1') }}</p>
         </li>
         <li class="danger-text mt-20">
-          请勿使用网络传输
-          <p class="warning-text mt-20">请勿通过网络工具传输Keystore文件，一旦被其他人获取将造成不可挽回的资产损失。</p>
+          {{ $t('donNotUseNetworkTransmission') }}
+          <p class="warning-text mt-20">{{ $t('backupWalletWarning2') }}</p>
         </li>
         <li class="danger-text mt-20">
-          请勿截图
-          <p class="warning-text mt-20">请确保四周无人及无任何摄像头，勿用截图或拍照的方式保存Keystore文件。</p>
+          {{ $t('donNotCapture') }}
+          <p class="warning-text mt-20">{{ $t('backupWalletWarning3') }}</p>
         </li>
       </ul>
     </div>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="mt-20 pd-40">
-      <x-button type="primary">复制钱包Keystore</x-button>
+      <x-button type="primary">{{ $t('copyWalletKeystore') }}</x-button>
     </div>
   </div>
 </template>

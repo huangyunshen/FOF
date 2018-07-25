@@ -3,17 +3,17 @@
     <div v-for="(item, index) in list" class="my-panel tl">
       <div class="panel-line" v-if="(index>0)"></div>
       <div class="my-media-box fl">
-        <img class="my-media-img" :src="item.src" @error="onImgError(item, $event)">
+        <img class="my-media-img" :src="getImgUrl(item)" @error="onImgError(item, $event)">
       </div>
       <div class="my-media-box fl flex-middle">
-        <p class="my-media-title no-wrap" v-html="item.title"></p>
-        <p class="my-media-desc1 no-wrap" v-html="item.desc1"></p>
+        <p class="my-media-title no-wrap" v-html="item.contractName"></p>
+        <p class="my-media-desc1 no-wrap" v-html="getDesc1(item)"></p>
         <p class="my-media-desc2">
           <span  v-for="(desc, descIndex) in item.desc2">{{desc}}</span>
         </p>
       </div>
       <div class="my-media-box fr">
-        <x-button class="radius-button" >我要完</x-button>
+        <x-button class="radius-button" >{{ $t('playGame') }}</x-button>
       </div>
     </div>
   </div>
@@ -32,10 +32,34 @@
         if (item.fallbackSrc) {
           $event.target.src = item.fallbackSrc
         }
-      }
+      },
+      getImgUrl(item) {
+        switch (item.gameType) {
+          case "1":
+            return require('../../assets/images/gameLogo/longhudou.png');
+          case "2":
+            return require('../../assets/images/gameLogo/ssjc.png');
+          case "3":
+            return require('../../assets/images/gameLogo/baijiale.png');
+          case "4":
+            return require('../../assets/images/gameLogo/game_icon8.png');
+        }
+      },
+      getDesc1(item) {
+        switch (item.gameType) {
+          case "1":
+            return this.$t('jackpotAmount') + item.currentCoin + ' FOF';
+          case "2":
+            return  this.$t('jackpotAmount') + item.currentCoin + ' FOF';
+          case "3":
+            return  this.$t('jackpotAmount') + item.currentCoin + ' FOF';
+          case "4":
+            return  this.$t('jackpotAmount') + item.currentCoin + ' FOF';
+        }
+      },
     },
     mounted() {
-      console.log(this.list);
+
     }
   }
 </script>

@@ -5,17 +5,17 @@
         <icon type="success" is-msg></icon>
       </p>
       <p class="mt-30">
-        <span class="create-succ-title">钱包创建成功</span>
+        <span class="create-succ-title">{{ $t('walletCreateSucc') }}</span>
       </p>
     </div>
 
     <div class="succ-btn mt-20 pd-40">
       <flexbox>
         <flexbox-item>
-          <x-button class="radius-button" link="HomeScreen">进入钱包</x-button>
+          <x-button class="radius-button" link="HomeScreen">{{ $t('enterIntoWallet') }}</x-button>
         </flexbox-item>
         <flexbox-item>
-          <x-button class="radius-button" type="primary" link="/BackupWallet">备份钱包</x-button>
+          <x-button class="radius-button" type="primary" link="/BackupWallet">{{ $t('backupWallet') }}</x-button>
         </flexbox-item>
       </flexbox>
     </div>
