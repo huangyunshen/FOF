@@ -1,6 +1,6 @@
 <template>
-  <div class="home-screen">
-    <router-view class="container"></router-view>
+  <div class="home-screen h-100">
+    <router-view class="container bb-content"></router-view>
 
     <tabbar icon-class="tab-bar-icon">
       <tabbar-item @click.native="index = 1" selected link="/HomeScreen">
@@ -40,6 +40,7 @@
     .container {
       height: calc(100% - 144px);
       padding: 40px;
+      /*overflow: hidden;*/
     }
   }
 </style>

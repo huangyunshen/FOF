@@ -1,5 +1,5 @@
 <template>
-  <div class="import-wallet" style="min-height: 100%;">
+  <div class="import-wallet">
     <x-header :title="$t('loginWallet')" :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:'NewWallet'})"></x-header>
 
     <div class="ps-r">

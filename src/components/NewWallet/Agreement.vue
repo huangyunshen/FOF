@@ -1,10 +1,10 @@
 <template>
-  <div class="agreement">
+  <div class="agreement bb-content h-100">
     <div class="header">
       <x-header :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:'CreateWallet'})"></x-header>
     </div>
-    <div class="content tl pd-40">
-      <section class="wrapper">
+    <div class="content bb-content h-100 tl pd-40">
+      <section class="wrapper bb-content h-100">
         <p class="strong mb">尊敬的用户：</p>
 
         <p class="strong mb">感谢您选择FOF服务。此FOF基金会用户协议（“协议”）是一份法律文件，解释了您作为FOF基金会的订户的权利和义务。请仔细阅读。</p>
@@ -96,9 +96,7 @@
 
 <style lang="less" scoped>
   .agreement {
-    height: 100%;
     padding-top: 120px;
-    box-sizing: border-box;
 
     .header {
       width: 100%;
@@ -107,12 +105,7 @@
     }
 
     .content {
-      height: 100%;
-      box-sizing: border-box;
-
       .wrapper {
-        height: 100%;
-        box-sizing: border-box;
         overflow-y: auto;
         padding: 40px;
         border: 1px solid rgba(222,222,222,1);

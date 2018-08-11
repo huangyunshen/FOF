@@ -2,10 +2,12 @@
   <div class="game-lobby">
 
     <div class="search-box">
-      <input class="search-input base-shadow"
-             v-model="searchVal"
-             @click="linkToDetail"
-             :placeholder="$t('enterSearchAddress')">
+      <label>
+        <input class="search-input base-shadow"
+               v-model="searchVal"
+               @click="linkToDetail"
+               :placeholder="$t('enterSearchAddress')">
+      </label>
       <icon class="search-icon" type="search"></icon>
     </div>
 
@@ -27,7 +29,7 @@
       </flexbox>
     </div>
 
-    <div class="games-container mt-60">
+    <div class="games-container mt-60 bb-content h-100">
       <tab custom-bar-width="0">
         <tab-item selected>{{ $t('all') }}</tab-item>
         <tab-item>{{ $t('chessAndCard') }}</tab-item>
@@ -36,7 +38,10 @@
       </tab>
 
       <div class="game-content base-shadow">
-        <my-panel :list="gameList"></my-panel>
+        <div class="my-panel" v-for="(item, index) in gameList" :key="index">
+          <div class="panel-line" v-if="(index>0)"></div>
+          <my-panel :item="item"></my-panel>
+        </div>
       </div>
     </div>
   </div>
@@ -58,7 +63,7 @@
     },
     mounted() {
       this.$axios.getAppListData(0, '', 100, 1)
-        .then( res => {
+        .then(res => {
           console.log(res);
           this.gameList = res
 
@@ -124,14 +129,24 @@
     .games-container {
 
       .game-content {
+        /*height: calc(100% - 700px);*/
+        /*overflow-y: auto;*/
         width: 1000px;
         min-height: 240px;
         padding: 0 40px;
         box-sizing: border-box;
         margin-top: 80px;
-        margin-bottom: 150px;
+        margin-bottom: 186px;
         background: @base-background-color;
         border-radius: @base-radius;
+        .my-panel {
+          height: 240px;
+
+          .panel-line {
+            height: 2px;
+            background: #F3F3F3;
+          }
+        }
       }
     }
   }

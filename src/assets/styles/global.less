@@ -15,14 +15,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background: fade(#F8F8F8, 75%);
-  height: 100%;
   width: 100%;
-  box-sizing: border-box;
 
   position: relative;
   .app-container {
-    box-sizing: border-box;
-    height: 100%;
     overflow-y: auto;
   }
 }
@@ -56,11 +52,6 @@ html, body {
       line-height: 120px;
       font-size: 50px;
     }
-  }
-
-  /*  search  */
-  .vux-search-box {
-
   }
 
   /*  cells  */
@@ -195,7 +186,7 @@ html, body {
 /* loading */
 .vux-loading {
   .weui-toast {
-    top: 45%;
+    top: 40%;
     .weui-loading {
       margin-top: 60px;
       width: 120px;
@@ -480,10 +471,6 @@ float
 /*
 clear float
  */
-.cf:after {
-
-}
-
 .cf:before, .cf:after {
   content: "";
   display: table;
@@ -506,6 +493,12 @@ clear float
 
 .inline-block {
   display: inline-block;
+}
+.bb-content {
+  box-sizing: border-box;
+}
+.h-100 {
+  height: 100%;
 }
 
 /*
@@ -534,7 +527,7 @@ text color
 base box-shadow
  */
 .base-shadow {
-  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.07);
 }
 
 /*

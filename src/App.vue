@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" class="bb-content h-100">
     <keep-alive>
-      <router-view class="app-container" name="default" v-if="$route.meta.keepAlive"></router-view>
+      <router-view class="app-container bb-content h-100" name="default" v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
-    <router-view class="app-container" name="default" v-if="!$route.meta.keepAlive"></router-view>
+    <router-view class="app-container bb-content h-100" name="default" v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 
