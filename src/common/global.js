@@ -5,9 +5,9 @@ import Web3 from 'web3'
 import $router from "../router/index"
 import $store from './store'
 
-const HOST = 'ws://39.104.81.103:8661'
-const UpLoadHost = 'http://39.104.81.103:8651'
-const WEB3OBJ = new Web3(HOST)
+const HOST = 'ws://39.104.81.103:8662'
+const UpLoadHost = 'http://39.104.81.103:8661'
+const WEB3OBJ = new Web3(UpLoadHost)
 
 export default {
   install(Vue, options) {
@@ -40,15 +40,6 @@ export default {
 
     /*  funs  */
     Vue.prototype.$funs = {
-      validatePwd(rule, value, callback) {     //验证创建钱包的密码强度
-        if (value) {
-          if (value.trim().length < 9) {
-            return callback(new Error(msg.createPwd))
-          } else {
-            return callback()
-          }
-        }
-      },
       validateFloatNum(num) {      //验证浮点数
         let reg = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/g
         return reg.test(num)
@@ -71,7 +62,7 @@ export default {
         if (walletJSON) {
           return walletJSON
         } else {
-          $router.replace({name: 'importWallet'})
+          $router.replace({name: 'NewWallet'})
           return false
         }
       },
@@ -208,19 +199,19 @@ export default {
             callback(balance)
         })
       },
-      getV3Filename(address) {
-        let ts = new Date()
-        // return ['UTC--', ts.toJSON().replace(/:/g, '-'), '--', address.toString('hex')].join('')
-        return ['FOF-Wallet-', ts.toJSON().slice(0, 11), ts.toTimeString().slice(0, 8).replace(/:/g, "-")].join('')
-      },
-      getBlob(mime, str) {
-        str = (typeof str === 'object') ? JSON.stringify(str) : str
-        if (str == null) return ''
-        let blob = new Blob([str], {
-          type: mime
-        })
-        return window.URL.createObjectURL(blob)
-      },
+      // getV3Filename(address) {
+      //   let ts = new Date()
+      //   // return ['UTC--', ts.toJSON().replace(/:/g, '-'), '--', address.toString('hex')].join('')
+      //   return ['FOF-Wallet-', ts.toJSON().slice(0, 11), ts.toTimeString().slice(0, 8).replace(/:/g, "-")].join('')
+      // },
+      // getBlob(mime, str) {
+      //   str = (typeof str === 'object') ? JSON.stringify(str) : str
+      //   if (str == null) return ''
+      //   let blob = new Blob([str], {
+      //     type: mime
+      //   })
+      //   return window.URL.createObjectURL(blob)
+      // },
       magrationContract(user, contract, sol, args = [], gas) {//部署类型，账户地址，合约json，合约源文件，部署参数
         return new Promise((resolve, reject) => {
           WEB3OBJ.eth.estimateGas({data: contract.bytecode}).then((gasLimit) => {

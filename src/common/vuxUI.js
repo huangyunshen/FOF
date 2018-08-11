@@ -16,7 +16,8 @@ import {
   XHeader,
   CheckIcon,
   XTextarea,
-  Alert,
+  // Alert,
+  // Loading,
 } from 'vux'
 
 import MyPanel from '../components/utils/MyPanel'
@@ -35,7 +36,8 @@ export default (Vue) => {
   Vue.component('x-header', XHeader)
   Vue.component('check-icon', CheckIcon)
   Vue.component('x-textarea', XTextarea)
-  Vue.component('alert', Alert)
+  // Vue.component('alert', Alert)
+  // Vue.component('loading', Loading)
 
 
   /*  自定义面板  */

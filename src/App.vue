@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view class="app-container" name="default"></router-view>
+    <keep-alive>
+      <router-view class="app-container" name="default" v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view class="app-container" name="default" v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 
@@ -8,14 +11,24 @@
   export default {
     name: 'App',
     data() {
-      return {
-
-      }
+      return {}
     },
-    mounted() {
-      this.$vux.loading.show({
-        text: 'Loading'
-      })
+    beforeCreate() {
+      let wallet = this.$funs.ifWalletExist()
+      if (wallet) {
+        if (this.$route.name === 'NewWallet' ||
+            this.$route.name === 'CreateWallet' ||
+            this.$route.name === 'Agreement' ||
+            this.$route.name === 'CreateSucc' ||
+            this.$route.name === 'BackupWallet' ||
+            this.$route.name === 'ImportWallet') {
+
+          this.$router.replace({name: 'GameLobby'})
+        }
+      }
+      if (wallet && !this.$store.state.isLock) {
+        this.countDown()
+      }
     }
   }
 </script>
@@ -30,18 +43,10 @@
   vux-1px-tb 上下边框
   vux-1px 全边框
   */
-  @import '~vux/src/styles/1px.less';
+  /*@import '~vux/src/styles/1px.less';*/
   /*
     vux-close
    */
-  @import '~vux/src/styles/close.less';
+  /*@import '~vux/src/styles/close.less';*/
 
-  #app {
-    position: relative;
-    .app-container {
-      box-sizing: border-box;
-      height: 100%;
-      overflow-y: auto;
-    }
-  }
 </style>

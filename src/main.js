@@ -18,8 +18,14 @@ Vue.use(Global);
 import './assets/styles/global.less'
 import VuxUI from './common/vuxUI'
 Vue.use(VuxUI);
+import  { ConfirmPlugin } from 'vux'
+Vue.use(ConfirmPlugin)
+import  { AlertPlugin } from 'vux'
+Vue.use(AlertPlugin)
 import  { LoadingPlugin } from 'vux'
 Vue.use(LoadingPlugin)
+import  { ToastPlugin } from 'vux'
+Vue.use(ToastPlugin, {position: 'top'})
 
 
 /*  i18n  */
@@ -33,6 +39,10 @@ const i18n = new VueI18n({
     'en-US': require('./common/lang/en-US'),
   }
 });
+
+/*  copy  */
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
 

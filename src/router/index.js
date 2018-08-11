@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import NewWallet from '@/components/NewWallet/NewWallet'
 import CreateWallet from '@/components/NewWallet/CreateWallet'
+import Agreement from '@/components/NewWallet/Agreement'
 import CreateSucc from '@/components/NewWallet/CreateSucc'
 import BackupWallet from '@/components/NewWallet/BackupWallet'
 import ImportWallet from '@/components/NewWallet/ImportWallet'
@@ -22,19 +23,31 @@ export default new Router({
     },
     {
       path:'/CreateWallet',
+      name:'CreateWallet',
       component:CreateWallet,
+      meta: { keepAlive: true }
+    },
+    {
+      path:'/Agreement',
+      name:'Agreement',
+      component:Agreement,
     },
     {
       path:'/CreateSucc',
+      name:'CreateSucc',
       component:CreateSucc,
+      meta: { keepAlive: true }
     },
     {
       path:'/BackupWallet',
+      name:'BackupWallet',
       component:BackupWallet,
     },
     {
       path:'/ImportWallet',
+      name:'ImportWallet',
       component:ImportWallet,
+      meta: { keepAlive: true }
     },
     {
       path:'/HomeScreen',

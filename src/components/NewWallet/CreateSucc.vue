@@ -12,10 +12,10 @@
     <div class="succ-btn mt-20 pd-40">
       <flexbox>
         <flexbox-item>
-          <x-button class="radius-button" link="HomeScreen">{{ $t('enterIntoWallet') }}</x-button>
+          <x-button class="radius-button" @click.native="enterWallet">{{ $t('enterIntoWallet') }}</x-button>
         </flexbox-item>
         <flexbox-item>
-          <x-button class="radius-button" type="primary" link="/BackupWallet">{{ $t('backupWallet') }}</x-button>
+          <x-button class="radius-button" type="primary" @click.native="backupWallet">{{ $t('backupWallet') }}</x-button>
         </flexbox-item>
       </flexbox>
     </div>
@@ -33,6 +33,29 @@
     name: "CreateSucc",
     components:{
       WalletInfo
+    },
+    data() {
+      return {
+        backupStatus:false
+      }
+    },
+    methods: {
+      enterWallet() {
+        if (this.backupStatus) {
+          this.$router.replace({name:'GameLobby'})
+        } else {
+          this.$vux.confirm.show({
+            content: this.$t('notBackupWallet'),
+            onConfirm: () => {
+              this.$router.replace({name:'GameLobby'})
+            }
+          })
+        }
+      },
+      backupWallet() {
+        this.backupStatus = true
+        this.$router.replace({name:'BackupWallet'})
+      }
     }
   }
 </script>

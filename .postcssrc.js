@@ -18,9 +18,12 @@ module.exports = {
     },
     "postcss-viewport-units":{},
     "cssnano": {
-      preset: "advanced",
+      preset: ['advanced', {
+        mergeLonghand: false,
+        reduceIdents: false
+      }],
       autoprefixer: false,
       "postcss-zindex": false
     }
   }
-}
+};

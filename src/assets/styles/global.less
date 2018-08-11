@@ -18,6 +18,13 @@ html, body {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+
+  position: relative;
+  .app-container {
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: auto;
+  }
 }
 
 #app {
@@ -117,45 +124,7 @@ html, body {
       }
     }
   }
-  /*  alert  */
-  .vux-alert {
-    .weui-mask {
-      background:rgba(28,28,28,0.4);
-    }
-    .weui-dialog {
-      max-width: 940px;
-      border-radius:32px;
-      box-shadow:0 8px 20px 0 rgba(0,0,0,0.07);
-      .weui-dialog__title {
-        margin-top: 70px;
-        margin-bottom: 30px;
-        font-size: 50px;
-        line-height: 70px;
-        color: @primary-text-color;
-      }
-      .weui-dialog__bd {
-        min-height: 0;
-        font-size: 44px;
-        color: @text-color-1;
-      }
-      .weui-dialog__ft {
-        margin-top: 70px;
-        line-height: 150px;
-        .weui-dialog__btn {
-          font-size: 56px;
-          color: @primary-color;
-        }
-      }
-    }
-  }
 
-  /* wallet loading */
-  //.wallet-loading {
-  //  font-size: @base-font-size;
-  //  color: @primary-color;
-  //  line-height: 130px;
-  //  animation: toggleShowHide 1s linear infinite alternate;
-  //}
 
   .game-lobby {
     .vux-tab-container {
@@ -184,6 +153,68 @@ html, body {
           }
         }
       }
+    }
+  }
+}
+
+/* confirm / alert  */
+.vux-confirm, .vux-alert {
+  .weui-mask {
+    background:rgba(28,28,28,0.4);
+  }
+  .weui-dialog {
+    max-width: 940px;
+    border-radius:32px;
+    box-shadow:0 8px 20px 0 rgba(0,0,0,0.07);
+    .weui-dialog__title {
+      margin-top: 70px;
+      margin-bottom: 30px;
+      font-size: 50px;
+      line-height: 70px;
+      color: @primary-text-color;
+    }
+    .weui-dialog__bd {
+      min-height: 0;
+      font-size: 44px;
+      color: @primary-text-color;
+    }
+    .weui-dialog__ft {
+      margin-top: 70px;
+      line-height: 150px;
+      .weui-dialog__btn {
+        font-size: 56px;
+        color: @primary-color;
+      }
+      .weui-dialog__btn_default {
+        color: @text-color-1;
+      }
+    }
+  }
+}
+
+/* loading */
+.vux-loading {
+  .weui-toast {
+    top: 45%;
+    .weui-loading {
+      margin-top: 60px;
+      width: 120px;
+      height: 120px;
+    }
+    .weui-toast__content {
+      margin-top: 20px;
+      font-size: @base-font-size;
+    }
+  }
+}
+
+/*  toast  */
+.vux-toast {
+  .weui-toast_text{
+    border-radius: 20px;
+    .weui-toast__content {
+      padding: 30px 50px!important;
+      font-size: @base-font-size;
     }
   }
 }
