@@ -16,11 +16,11 @@ import {
   XHeader,
   CheckIcon,
   XTextarea,
-  // Alert,
-  // Loading,
+  LoadMore,
 } from 'vux'
+import { Actionsheet } from 'vux'
 
-import MyPanel from '../components/utils/MyPanel'
+import GamePanel from '../components/utils/GamePanel'
 
 export default (Vue) => {
   Vue.component('group', Group)
@@ -36,10 +36,9 @@ export default (Vue) => {
   Vue.component('x-header', XHeader)
   Vue.component('check-icon', CheckIcon)
   Vue.component('x-textarea', XTextarea)
-  // Vue.component('alert', Alert)
-  // Vue.component('loading', Loading)
+  Vue.component('load-more', LoadMore)
 
 
   /*  自定义面板  */
-  Vue.component('my-panel', MyPanel)
+  Vue.component('game-panel', GamePanel)
 }

@@ -11,7 +11,6 @@ Vue.use(Axios);
 import Global from './common/global'
 Vue.use(Global);
 
-
 /* vux */
 // const FastClick = require('fastclick'); //TODO 移除移动端页面点击延迟
 // FastClick.attach(document.body);
@@ -32,11 +31,11 @@ Vue.use(ToastPlugin, {position: 'top'})
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n);
 const i18n = new VueI18n({
-  locale: 'zh-CN',
+  locale: 'zhcn',
   messages: {
-    'zh-CN': require('./common/lang/zh-CN'),
-    'zh-TW': require('./common/lang/zh-TW'),
-    'en-US': require('./common/lang/en-US'),
+    'zhcn': require('./common/lang/zh-CN'),
+    'zhtw': require('./common/lang/zh-TW'),
+    'en': require('./common/lang/en-US'),
   }
 });
 

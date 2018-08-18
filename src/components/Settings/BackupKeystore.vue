@@ -2,8 +2,8 @@
   <div class="backup-wallet">
 
     <div class="x-header">
-      <x-header :title="$t('backupWallet')" :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:routeName})"></x-header>
-    </div>
+    <x-header :title="$t('backupKeystore')" :left-options="{preventGoBack:true}" @on-click-back="back"></x-header>
+  </div>
 
     <div class="backup-info warning-bg tl pd-40">
       <ul>
@@ -22,57 +22,44 @@
       </ul>
     </div>
 
-    <div class="mt-60">
-      <group>
-        <x-textarea readonly v-model="walletContent" :rows="6"></x-textarea>
-      </group>
-    </div>
+    <div class="copy-content">{{ copyContent }}</div>
 
     <div class="mt-20 pd-40">
-      <x-button type="primary" v-clipboard:copy="walletContent" v-clipboard:success="onCopy">{{ $t('copyWalletKeystore') }}</x-button>
-    </div>
-
-    <div class="mt-20 pd-40" v-if="isLoggedOut">
-      <x-button type="warn" :disabled="!isCopy" @click.native="logOut">{{ loggedOutText }}</x-button>
+      <x-button type="primary" v-clipboard:copy="copyContent" v-clipboard:success="onCopy">{{ $t('copy') }}</x-button>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: "BackupWallet",
+    name: "BackupKeystore",
+    props:['address'],
     data() {
       return {
-        walletContent:``,
-        routeName:'',
-        isCopy:false,
-        isLoggedOut:false,
-        loggedOutText:''
+        copyContent:``,
       }
     },
     methods: {
+      back() {
+        this.$emit('onBack')
+      },
       onCopy() {
         this.$vux.toast.text(this.$t('copySucc'))
         this.isCopy = true
         this.loggedOutText = this.$t('submitLoggedOut')
-      },
-      logOut() {
-        localStorage.removeItem('web3js_wallet')
-        localStorage.removeItem('active_account')
-        window.location.reload()
       }
     },
     created() {
-      this.walletContent = this.$funs.ifWalletExist() || '';
-      let name = this.$route.params.routeName;
+      let walletJson = localStorage.getItem('web3js_wallet')
+      walletJson = JSON.parse(walletJson)
+      let myAddr = this.address.toLowerCase()
 
-      if(name === 'logOut') {//退出钱包
-        this.isLoggedOut = true
-        this.loggedOutText = this.$t('loggedOutShouldBeBackup')
-        name = 'Setting'
+      for (let i=0; i<walletJson.length; i++) {
+        let address = '0x' + walletJson[i].address
+        if (myAddr == address) {
+          this.copyContent = JSON.stringify(walletJson[i])
+        }
       }
-
-      this.routeName = name ? name : 'GameLobby'
     }
   }
 </script>
@@ -86,6 +73,18 @@
         list-style: disc outside none;
         line-height: 50px;
       }
+    }
+    .copy-content {
+      margin: 60px 40px;
+      border: 1px solid #DEDEDE;
+      max-height: 600px;
+      overflow-y: auto;
+      padding: 40px;
+      word-break: break-word;
+      background: @base-background-color;
+      border-radius:20px;
+      text-align: left;
+      color: @primary-text-color;
     }
   }
 </style>

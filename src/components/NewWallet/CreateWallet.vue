@@ -1,6 +1,8 @@
 <template>
   <div class="create-wallet">
-    <x-header :title="$t('createWallet')" :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:'NewWallet'})"></x-header>
+    <div class="x-header">
+      <x-header :title="$t('createWallet')" :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:'NewWallet'})"></x-header>
+    </div>
 
     <div class="warning-content warning-bg warning-text tl pd-40">
       <ul>
@@ -116,6 +118,7 @@
 
 <style lang="less" scoped>
   .create-wallet {
+    padding-top: 120px;
     .warning-content {
       padding-left: 80px;
       ul li {
@@ -168,6 +171,7 @@
           outline: none;
           font-size: 44px;
           color: #5F5F5F;
+          background: none;
         }
       }
     }

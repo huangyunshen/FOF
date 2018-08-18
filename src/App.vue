@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="bb-content h-100">
     <keep-alive>
-      <router-view class="app-container bb-content h-100" name="default" v-if="$route.meta.keepAlive"></router-view>
+      <router-view class="bb-content h-100 empty-content" name="default" v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
-    <router-view class="app-container bb-content h-100" name="default" v-if="!$route.meta.keepAlive"></router-view>
+    <router-view class="bb-content h-100 empty-content" name="default" v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 
@@ -11,24 +11,49 @@
   export default {
     name: 'App',
     data() {
-      return {}
+      return {
+        timer:null
+      }
     },
-    beforeCreate() {
-      let wallet = this.$funs.ifWalletExist()
-      if (wallet) {
+    methods: {
+      getAccountInfo() {
+        let address = localStorage.getItem('active_account')
+        if(address) {
+          this.$store.commit('setAddress', address)
+          this.$funs.getBalanceByWei(address, balance => {
+            balance = Math.floor(balance / (10 ** 16)) / 100
+            this.$store.commit('setBalance', balance)
+          })
+        }
+      }
+    },
+    created() {
+      let walletJSON = this.$funs.ifWalletExist()
+      if (walletJSON) {
+
+        let wallet = this.$web3.eth.accounts.wallet.length
+        if(!wallet){
+          this.$router.replace({name:'UnlockWallet', params: {routeName: this.$route.name}})
+          return
+        }
+
         if (this.$route.name === 'NewWallet' ||
-            this.$route.name === 'CreateWallet' ||
-            this.$route.name === 'Agreement' ||
-            this.$route.name === 'CreateSucc' ||
-            this.$route.name === 'BackupWallet' ||
-            this.$route.name === 'ImportWallet') {
+          this.$route.name === 'CreateWallet' ||
+          this.$route.name === 'Agreement' ||
+          this.$route.name === 'CreateSucc' ||
+          this.$route.name === 'BackupWallet' ||
+          this.$route.name === 'ImportWallet') {
 
           this.$router.replace({name: 'GameLobby'})
         }
       }
-      if (wallet && !this.$store.state.isLock) {
-        this.countDown()
-      }
+    },
+    mounted() {
+      this.timer = null
+      this.getAccountInfo()
+      this.timer = setInterval( () => {
+        this.getAccountInfo()
+      }, 2000)
     }
   }
 </script>

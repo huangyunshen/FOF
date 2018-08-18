@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+Vue.use(Router)
+
+//new wallet
 import NewWallet from '@/components/NewWallet/NewWallet'
 import CreateWallet from '@/components/NewWallet/CreateWallet'
 import Agreement from '@/components/NewWallet/Agreement'
@@ -8,11 +11,22 @@ import CreateSucc from '@/components/NewWallet/CreateSucc'
 import BackupWallet from '@/components/NewWallet/BackupWallet'
 import ImportWallet from '@/components/NewWallet/ImportWallet'
 
+//home screen
 import HomeScreen from '@/components/HomeScreen/HomeScreen'
 import GameLobby from '@/components/HomeScreen/GameLobby/GameLobby'
 import GameSearchDetail from '@/components/HomeScreen/GameLobby/GameSearchDetail'
+import MyAssets from '@/components/HomeScreen/MyAssets/MyAssets'
+import SendTransaction from '@/components/HomeScreen/MyAssets/SendTransaction'
 
-Vue.use(Router)
+//unlock wallet
+import UnlockWallet from '@/components/UnlockWallet/UnlockWallet'
+
+//settings
+import Setting from '@/components/Settings/Setting'
+import AccountManagement from '@/components/Settings/AccountManagement'
+import AccountInfo from '@/components/Settings/AccountInfo'
+import Language from '@/components/Settings/Language'
+
 
 export default new Router({
   routes: [
@@ -52,6 +66,7 @@ export default new Router({
     {
       path:'/HomeScreen',
       component:HomeScreen,
+      // meta: { keepAlive: true },
       children:[
         {
           path:'/',
@@ -61,13 +76,50 @@ export default new Router({
           path:'GameLobby',
           name:'GameLobby',
           component:GameLobby,
+          meta: { keepAlive: true }
         },
         {
           path:'GameSearchDetail',
           name:'GameSearchDetail',
           component:GameSearchDetail,
         },
+        {
+          path:'MyAssets',
+          name:'MyAssets',
+          component:MyAssets,
+          meta: { keepAlive: true }
+        },
+        {
+          path:'SendTransaction',
+          name:'SendTransaction',
+          component:SendTransaction,
+        },
       ]
-    }
+    },
+    {
+      path:'/UnlockWallet',
+      name:'UnlockWallet',
+      component:UnlockWallet,
+    },
+    {
+      path:'/Setting',
+      name:'Setting',
+      component:Setting,
+    },
+    {
+      path:'/AccountManagement',
+      name:'AccountManagement',
+      component:AccountManagement,
+    },
+    {
+      path:'/AccountInfo',
+      name:'AccountInfo',
+      component:AccountInfo,
+    },
+    {
+      path:'/Language',
+      name:'Language',
+      component:Language,
+    },
   ]
 })

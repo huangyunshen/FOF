@@ -16,41 +16,44 @@ html, body {
   text-align: center;
   background: fade(#F8F8F8, 75%);
   width: 100%;
-
   position: relative;
-  .app-container {
-    overflow-y: auto;
-  }
 }
 
 #app {
   /*
   header
    */
-  .vux-header {
+  .x-header {
+    width: 100%;
+    position: fixed;
+    top: 0;
     height: 120px;
-    .vux-header-left {
-      top: 35px;
-      .vux-header-back {
-        font-size: 50px;
-        line-height: 50px;
-        padding-left: 40px;
-      }
-      .left-arrow {
-        width: 50px;
-        height: 50px;
-        position: static;
-        &:before {
-          width: 30px;
-          height: 30px;
-          content: "";
+
+    .vux-header {
+      height: 100%;
+      .vux-header-left {
+        top: 35px;
+        .vux-header-back {
+          font-size: 50px;
+          line-height: 50px;
+          padding-left: 40px;
+        }
+        .left-arrow {
+          width: 50px;
+          height: 50px;
+          position: static;
+          &:before {
+            width: 30px;
+            height: 30px;
+            content: "";
+          }
         }
       }
-    }
-    .vux-header-title {
-      height: 120px;
-      line-height: 120px;
-      font-size: 50px;
+      .vux-header-title {
+        height: 120px;
+        line-height: 120px;
+        font-size: 50px;
+      }
     }
   }
 
@@ -116,7 +119,6 @@ html, body {
     }
   }
 
-
   .game-lobby {
     .vux-tab-container {
       height: auto;
@@ -138,7 +140,7 @@ html, body {
         .vux-tab-ink-bar {
           top: 80px;
           span {
-            width: 30px  !important;
+            width: 30px !important;
             height: 8px;
             border-radius: 10px;
           }
@@ -151,12 +153,12 @@ html, body {
 /* confirm / alert  */
 .vux-confirm, .vux-alert {
   .weui-mask {
-    background:rgba(28,28,28,0.4);
+    background: rgba(28, 28, 28, 0.4);
   }
   .weui-dialog {
     max-width: 940px;
-    border-radius:32px;
-    box-shadow:0 8px 20px 0 rgba(0,0,0,0.07);
+    border-radius: 32px;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.07);
     .weui-dialog__title {
       margin-top: 70px;
       margin-bottom: 30px;
@@ -186,9 +188,12 @@ html, body {
 /* loading */
 .vux-loading {
   .weui-toast {
+    width: auto;
+    padding: 40px;
+    max-width: 600px;
+    min-height: auto;
     top: 40%;
     .weui-loading {
-      margin-top: 60px;
       width: 120px;
       height: 120px;
     }
@@ -199,12 +204,30 @@ html, body {
   }
 }
 
+/*  load more  */
+.vux-loadmore {
+  width: 80% !important;
+  line-height: 60px !important;
+  .weui-loading {
+    width: 70px;
+    height: 70px;
+  }
+  .weui-loadmore__tips {
+    font-size: 40px;
+    color: @text-color-1;
+    top: 0!important;
+  }
+  &:before, &:after {
+    top: 1em!important;
+  }
+}
+
 /*  toast  */
 .vux-toast {
-  .weui-toast_text{
+  .weui-toast_text {
     border-radius: 20px;
     .weui-toast__content {
-      padding: 30px 50px!important;
+      padding: 30px 50px !important;
       font-size: @base-font-size;
     }
   }
@@ -421,6 +444,10 @@ input::-ms-input-placeholder {
   padding-bottom: 50px;
 }
 
+.pb-150 {
+  padding-bottom: 150px;
+}
+
 //left
 .pl-10 {
   padding-left: 10px;
@@ -484,6 +511,11 @@ clear float
   zoom: 1;
 }
 
+.empty-content:before {
+  content: '';
+  display: table;
+}
+
 /*
   box
  */
@@ -494,9 +526,11 @@ clear float
 .inline-block {
   display: inline-block;
 }
+
 .bb-content {
   box-sizing: border-box;
 }
+
 .h-100 {
   height: 100%;
 }
@@ -555,7 +589,6 @@ warning
   color: #D46F6E;
   font-size: 42px;
 }
-
 
 /*
   animations

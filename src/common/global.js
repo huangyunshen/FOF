@@ -5,34 +5,44 @@ import Web3 from 'web3'
 import $router from "../router/index"
 import $store from './store'
 
-const HOST = 'ws://39.104.81.103:8662'
-const UpLoadHost = 'http://39.104.81.103:8661'
-const WEB3OBJ = new Web3(UpLoadHost)
+const HOST = 'ws://120.79.182.14:8561'
+const UpLoadHost = 'http://39.108.159.230:8551'
+const WEB3OBJ = new Web3(HOST)
 
 export default {
   install(Vue, options) {
     /*  axios  */
     Vue.prototype.$axios = {
-      getAppListData(type, addr, size, num) { //get apps list
+
+      //get apps list
+      getAppListData(type = 0, addr = '', pageSize = 20, pageNum = 1) {
         return new Promise((resolve, reject) => {
-          Axios.post('/api/requestContract.php', {
-            "type": type,
-            "addr": addr,
-            "pageSize": size,
-            "pageNum": num,
-          }).then((res) => {
-            if (res.data.code == 200) {
-              if (res.data.result.length) {
-                resolve(res.data.result)
-              } else {
-                reject(new Error('no consistent result'))
-              }
+          Axios.post('/api/requestContract.php', {type, addr, pageSize, pageNum}).then((res) => {
+            if (res.data.code === '200') {
+              resolve(res.data.result)
             }
           }).catch((error) => {
-            console.log(error);
+            reject(error)
           })
         })
       },
+
+      // get trade record
+      getTradeRecord(addr , pageSize = 20, pageNum = 1) {
+        return new Promise( (resolve, reject) => {
+          if (WEB3OBJ.utils.isAddress(addr)) {
+            Axios.post('/api/requestTx.php', {addr, pageSize, pageNum}).then((res) => {
+              if (res.data.code === '200') {
+                resolve(res.data.result)
+              }
+            }).catch((error) => {
+              reject(error)
+            })
+          } else {
+            reject(new Error('not found address'))
+          }
+        })
+      }
     }
 
     /*  web3  */
@@ -68,12 +78,6 @@ export default {
       },
       loadWallet(pwd) {
         return WEB3OBJ.eth.accounts.wallet.load(pwd)
-      },
-      loadActivWallet() {
-        let wallet = this.getActiveAccount()
-        this.getBalance()
-        $store.commit('setLock', false)
-        $store.commit('setAddress', wallet.address)
       },
       verifyWalletPwd(pwd) {
         return new Promise((resolve, reject) => {
@@ -178,13 +182,13 @@ export default {
       },
       getBalanceByWei(address, callback) {        //获取余额 bywei
         let addr = address || this.getActiveAccount().address
-        if (addr) {
+        if (WEB3OBJ.utils.isAddress(addr)) {
           WEB3OBJ.eth.getBalance(addr).then((balance) => {
             if (callback)
               callback(balance)
           })
         } else {
-          return callback(new Error(msg.invalidBalanceAddr))
+          console.log('not found address')
         }
       },
       getBalance(callback) {        //获取余额 fromwei
@@ -227,7 +231,6 @@ export default {
                 txType: 0,
               })
               .on('error', (err) => {
-                $store.commit('setCryptPercent', {percent: false, text: ''})
                 reject(err.message)
               })
               .on('receipt', (receipt) => {
@@ -249,11 +252,9 @@ export default {
               txType: 0,
             })
             .on('error', (err) => {
-              $store.commit('setCryptPercent', {percent: false, text: ''})
               reject(err)
             })
             .on('receipt', (receipt) => {
-              $store.commit('setCryptPercent', {percent: false, text: ''})
               resolve(receipt)
             })
         })
@@ -262,7 +263,78 @@ export default {
         WEB3OBJ.eth.getVoteBalance(this.getActiveAccount().address).then((b) => {
           $store.commit('setVoteFof', WEB3OBJ.utils.fromWei(b, "ether"))
         })
-      }
+      },
+
+      /*  获取logo资源  */
+      getLogoImgUrl(type) {
+        switch (type) {
+          case "1":
+            return '/static/gameLogo/longhudou.png';
+          case "2":
+            return '/static/gameLogo/ssjc.png';
+          case "3":
+            return '/static/gameLogo/baijiale.png';
+          case "4":
+            return '/static/gameLogo/game_icon8.png';
+        }
+      },
+
+      /*  获取游戏链接  */
+      getGameUrl(item) {
+        switch (item.gameType) {
+          case "1":
+            return `http://39.104.81.103/DragonTigerFight/?${item.contractAddr}`
+          case "2":
+            return `http://39.104.81.103/quiz/?${item.contractAddr}`
+          case "3":
+            return `http://39.104.81.103/baccarat/?${item.contractAddr}`
+          // case "1":
+          //   return `/DragonTigerFight/?${item.contractAddr}`
+          // case "2":
+          //   return `/quiz/?${item.contractAddr}`
+          // case "3":
+          //   return `/baccarat/?${item.contractAddr}`
+        }
+      },
+
+      /*  判断是否滚动到底部，用于加载更多  */
+      isScrollBottom(e) {
+        let clientHeight = e.target.clientHeight;
+        let scrollTop = e.target.scrollTop;
+        let scrollHeight = e.target.scrollHeight;
+        if(scrollTop + clientHeight == scrollHeight){
+          return true
+        }
+        return false
+      },
+
+      //点击play存储该应用信息到最近在玩
+      setLatestPlay(item) {
+        let list = this.getHistoryStorageList()
+        for (let i = 0; i < list.length; i++) {
+          if(list[i].contractAddr === item.contractAddr) {
+            list.splice(i, 1)
+            break
+          }
+        }
+        let obj = {
+          contractAddr:item.contractAddr,
+          gameType:item.gameType
+        }
+        list.unshift(obj)
+        list.length > 10 && list.length--
+
+        $store.commit('setNearestPlay', list)
+
+        list = JSON.stringify(list)
+        localStorage.setItem('nearestPlay',list)
+      },
+
+      getHistoryStorageList() {
+        let list = localStorage.getItem('nearestPlay')
+        list = list ? JSON.parse(list) : []
+        return list
+      },
     }
   }
 }

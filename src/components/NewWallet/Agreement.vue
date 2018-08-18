@@ -1,6 +1,6 @@
 <template>
   <div class="agreement bb-content h-100">
-    <div class="header">
+    <div class="x-header">
       <x-header :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:'CreateWallet'})"></x-header>
     </div>
     <div class="content bb-content h-100 tl pd-40">
@@ -97,12 +97,6 @@
 <style lang="less" scoped>
   .agreement {
     padding-top: 120px;
-
-    .header {
-      width: 100%;
-      position: fixed;
-      top: 0;
-    }
 
     .content {
       .wrapper {

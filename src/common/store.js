@@ -5,13 +5,18 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    routeIndex:1, //tabbar index
     gasPrice: 41, // 保存gasPrice
     address: '', // 保存账户地址
     balance: '0', //账户余额
-    isLock: true,
+    // isLock: true,
     // voteFof: '', // 投票额度
+    nearestPlay:[],//最近在玩
   },
   mutations: {
+    setRouteIndex(state, data) {
+      state.routeIndex = data
+    },
     setGasPrice(state, data) {
       state.gasPrice = data
     },
@@ -21,12 +26,15 @@ const store = new Vuex.Store({
     setBalance(state, data) {
       state.balance = data
     },
-    setLock(state, data) {
-      state.isLock = data
-    },
+    // setLock(state, data) {
+    //   state.isLock = data
+    // },
     // setVoteFof(state, data) {
     //   state.voteFof = data
     // }
+    setNearestPlay(state, data) {
+      state.nearestPlay = data
+    }
   }
 })
 
