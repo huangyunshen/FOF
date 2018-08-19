@@ -134,7 +134,7 @@
         }
       },
       show() {  //vue处理v-bind:class有时间延迟
-        if(this.account.address === this.$store.state.address) {
+        if(this.account.address === localStorage.getItem('active_account')) {
           this.$vux.alert.show({
             content: this.$t('accountIsActive'),
           })

@@ -23,7 +23,7 @@
           <x-button class="radius-button" @click.native="createAcc">{{ $t('createAccount') }}</x-button>
         </flexbox-item>
         <flexbox-item>
-          <x-button class="radius-button" type="primary" @click.native="importAcc">{{ $t('importAccount') }}</x-button>
+          <x-button class="radius-button" type="primary" @click.native="$router.replace({name: 'ImportAccount'})">{{ $t('importAccount') }}</x-button>
         </flexbox-item>
       </flexbox>
     </div>
@@ -32,7 +32,7 @@
 
 <script>
   export default {
-    name: "BackupAccount",
+    name: "AccountManagement",
     data() {
       return {
         accList: [],
@@ -60,9 +60,6 @@
           this.loadList()
           this.$vux.toast.text(this.$t('walletCreateSucc'))
         }, 500)
-      },
-      importAcc() {
-
       },
       loadList() {
 

@@ -4,7 +4,7 @@
     <!--wallet password-->
     <div class="wallet-pwd pt-40">
       <group>
-        <x-input type="password" v-model="pwd" :placeholder="$t('walletPwd')"></x-input>
+        <x-input type="password" v-model="pwd" :placeholder="$t('enterPwd')"></x-input>
       </group>
     </div>
 

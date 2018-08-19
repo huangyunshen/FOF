@@ -23,7 +23,7 @@ module.exports = {
         reduceIdents: false
       }],
       autoprefixer: false,
-      "postcss-zindex": false
+      "postcss-zindex": false,
     }
   }
 };

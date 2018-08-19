@@ -140,27 +140,6 @@
   .game-lobby {
     overflow-y: auto;
 
-    .search-box {
-      position: relative;
-      .search-input {
-        width: @base-cel-width;
-        font-size: @base-font-size;
-        color: @text-color-1;
-        line-height: @base-font-size;
-        box-sizing: border-box;
-        border: none;
-        padding: 30px 100px 30px 30px;
-        outline: none;
-        border-radius: @base-radius;
-      }
-      .search-icon {
-        position: absolute;
-        top: 30px;
-        right: 30px;
-        font-size: 50px;
-      }
-    }
-
     .lastest-play {
       height: 200px;
       background: @base-background-color;

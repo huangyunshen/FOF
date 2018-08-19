@@ -65,13 +65,12 @@
     beforeMount() {
       this.getDesc1()
       /*  赛事竞猜数据处理  */
-      if(this.newItem.gameType === '2' && this.newItem.extraInfo.quiz) {
-        let info = this.newItem.extraInfo.quiz.replace(/\'/g, '"')
-        info = JSON.parse(info);
-        this.newItem.teams = info[2] + ' VS ' + info[3]
-        let hTeam = this.$t('homeTeamWin') + Number(info[4]) / 100
-        let draw = this.$t('noTeamWin') + Number(info[5]) / 100
-        let vTeam = this.$t('visitingTeamWin') + Number(info[6]) / 100
+      if(this.newItem.gameType === '2' && this.newItem.extraInfo[0]) {
+        let info = this.newItem.extraInfo
+        this.newItem.teams = info[0] + ' VS ' + info[1]
+        let hTeam = this.$t('homeTeamWin') + Number(info[2]) / 100
+        let draw = this.$t('noTeamWin') + Number(info[3]) / 100
+        let vTeam = this.$t('visitingTeamWin') + Number(info[4]) / 100
         this.newItem.odds = [hTeam, draw, vTeam]
       }
     }

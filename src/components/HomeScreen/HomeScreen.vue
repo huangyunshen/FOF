@@ -16,10 +16,10 @@
         <img class="icon" v-show="index === 2" src="../../assets/images/default/icon_bar_qkcx_choice.png">
       </div>
 
-      <div @click="select(3)">
-        <img class="icon" v-show="index !== 3" src="../../assets/images/default/icon_bar_tp.png">
-        <img class="icon" v-show="index === 3" src="../../assets/images/default/icon_bar_tp_choice.png">
-      </div>
+      <!--<div @click="select(3)">-->
+        <!--<img class="icon" v-show="index !== 3" src="../../assets/images/default/icon_bar_tp.png">-->
+        <!--<img class="icon" v-show="index === 3" src="../../assets/images/default/icon_bar_tp_choice.png">-->
+      <!--</div>-->
 
       <div @click="select(4)">
         <img class="icon" v-show="index !== 4" src="../../assets/images/default/icon_bar_zc.png">
@@ -52,11 +52,11 @@
               this.$router.replace({name: 'GameLobby'})
               break
             case 2:
-              this.$router.replace({name: 'GameLobby'})
+              this.$router.replace({name: 'BlockQuery'})
               break
-            case 3:
-              this.$router.replace({name: 'GameLobby'})
-              break
+            // case 3:
+            //   this.$router.replace({name: 'GameLobby'})
+            //   break
             case 4:
               this.$router.replace({name: 'MyAssets'})
               break

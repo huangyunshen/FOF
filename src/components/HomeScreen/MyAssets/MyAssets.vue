@@ -5,7 +5,7 @@
       <div class="header">
         <span class="setting" @click="$router.replace({name:'Setting'})"></span>
         <span class="title">{{ $t('totalAssets') }}</span>
-        <span class="accounts"></span>
+        <span class="accounts" @click="show"></span>
       </div>
 
       <p class="balance">{{ $store.state.balance }}</p>
@@ -22,6 +22,26 @@
       <trade-record v-show="tabIndex === 1" ref="record"></trade-record>
       <create-tranc v-show="tabIndex === 2"></create-tranc>
     </div>
+
+    <!--switch account-->
+
+    <div class="switch-acc" @click="hide" style="z-index: 10000" v-show="showSwitch"> <!--postcss issus-->
+      <div class="container" :class="{'dialog-show':showDialog, 'dialog-hide':!showDialog}">
+        <div class="head-img"></div>
+        <div class="list">
+          <div class="account" :class="{active:item.address === activeAddr}"
+               v-for="(item, index) in accList" :key="index" @click.stop="select(item)">
+            <div class="list-content">
+              <span class="icon"></span>
+              <div class="content tl text-c1">
+                <p class="balance">{{ item.balance }}</p>
+                <p class="address">{{ item.address }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,11 +53,15 @@
     name: "MyAssets",
     components: {
       createTranc,
-      tradeRecord
+      tradeRecord,
     },
     data() {
       return {
         tabIndex: 1,
+        showSwitch:false,
+        showDialog:false,
+        accList: [],
+        activeAddr: '',
       }
     },
     computed: {
@@ -59,9 +83,41 @@
           }
         }
       },
-    },
-    beforeMount() {
 
+      show() {
+        this.showSwitch = true
+        this.loadList()
+        setTimeout(() => {
+          this.showDialog = true
+        }, 50)
+      },
+      hide() {
+        this.showDialog = false
+        setTimeout(() => {
+          this.showSwitch = false
+        }, 300)
+      },
+      select(item) {
+        if(item.address !== this.activeAddr) {
+          this.$funs.setActiveAccount(item.address)
+          this.activeAddr = item.address
+        }
+      },
+      loadList() {
+        this.accList = []
+        let wallet = this.$web3.eth.accounts.wallet
+        for (let i = 0; i < 1000; i++) {
+          if (wallet[i]) {
+            this.$funs.getBalanceByWei(wallet[i].address, balance => {
+              balance = Math.floor(balance / (10 ** 16)) / 100
+              let obj = {}
+              obj.address = wallet[i].address
+              obj.balance = balance + ' FOF'
+              this.accList.push(obj)
+            })
+          }
+        }
+      }
     },
   }
 </script>
@@ -144,6 +200,84 @@
 
     .body-content {
       margin-top: 100px;
+    }
+
+    .switch-acc {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.3);
+
+      .container {
+        width: 900px;
+        height: 100%;
+        background: @base-background-color;
+        float: right;
+        transition: transform .3s;
+
+        .head-img {
+          width: 100%;
+          height: 440px;
+          background: url("../../../assets/images/default/bg_qhzh.png") -40px no-repeat;
+          background-size: cover;
+        }
+
+        .list {
+          height: calc(100% - 440px);
+          overflow-y: auto;
+
+          .account {
+            background: @base-background-color;
+            border-left: 10px solid transparent;
+            box-sizing: border-box;
+            padding-left: 20px;
+            margin-bottom: 20px;
+
+            .list-content {
+              padding: 20px;
+
+              .icon {
+                float: left;
+                display: inline-block;
+                width: 186px;
+                height: 186px;
+                border-radius: 50%;
+                box-shadow: 0 7px 18px 0 rgba(71, 105, 245, 0.16);
+                background: url("../../../assets/images/default/userface.png") no-repeat;
+                background-size: cover;
+              }
+
+              .content {
+                height: 186px;
+                padding-left: 220px;
+                padding-top: 10px;
+                box-sizing: border-box;
+                .balance {
+                  font-size: 64px;
+                }
+                .address {
+                  font-size: 36px;
+                  line-height: 50px;
+                  word-break: break-word;
+                }
+              }
+            }
+          }
+          .active {
+            border-left: 10px solid #4CA1FE;
+            background: #F2F8FF;
+          }
+        }
+      }
+
+      .dialog-show {
+        transform: translateX(0);
+      }
+      .dialog-hide {
+        transform: translateX(100%);
+      }
     }
   }
 </style>

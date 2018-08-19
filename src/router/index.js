@@ -15,6 +15,7 @@ import ImportWallet from '@/components/NewWallet/ImportWallet'
 import HomeScreen from '@/components/HomeScreen/HomeScreen'
 import GameLobby from '@/components/HomeScreen/GameLobby/GameLobby'
 import GameSearchDetail from '@/components/HomeScreen/GameLobby/GameSearchDetail'
+import BlockQuery from '@/components/HomeScreen/BlockQuery/BlockQuery'
 import MyAssets from '@/components/HomeScreen/MyAssets/MyAssets'
 import SendTransaction from '@/components/HomeScreen/MyAssets/SendTransaction'
 
@@ -26,6 +27,7 @@ import Setting from '@/components/Settings/Setting'
 import AccountManagement from '@/components/Settings/AccountManagement'
 import AccountInfo from '@/components/Settings/AccountInfo'
 import Language from '@/components/Settings/Language'
+import ImportAccount from '@/components/Settings/ImportAccount'
 
 
 export default new Router({
@@ -84,6 +86,12 @@ export default new Router({
           component:GameSearchDetail,
         },
         {
+          path:'BlockQuery',
+          name:'BlockQuery',
+          component:BlockQuery,
+          meta: { keepAlive: true }
+        },
+        {
           path:'MyAssets',
           name:'MyAssets',
           component:MyAssets,
@@ -110,6 +118,11 @@ export default new Router({
       path:'/AccountManagement',
       name:'AccountManagement',
       component:AccountManagement,
+    },
+    {
+      path:'/ImportAccount',
+      name:'ImportAccount',
+      component:ImportAccount,
     },
     {
       path:'/AccountInfo',

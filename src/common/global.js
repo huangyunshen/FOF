@@ -4,6 +4,7 @@ import Axios from './axios'
 import Web3 from 'web3'
 import $router from "../router/index"
 import $store from './store'
+import {Wallet} from 'ethers'
 
 const HOST = 'ws://120.79.182.14:8561'
 const UpLoadHost = 'http://39.108.159.230:8551'
@@ -12,41 +13,11 @@ const WEB3OBJ = new Web3(HOST)
 export default {
   install(Vue, options) {
     /*  axios  */
-    Vue.prototype.$axios = {
-
-      //get apps list
-      getAppListData(type = 0, addr = '', pageSize = 20, pageNum = 1) {
-        return new Promise((resolve, reject) => {
-          Axios.post('/api/requestContract.php', {type, addr, pageSize, pageNum}).then((res) => {
-            if (res.data.code === '200') {
-              resolve(res.data.result)
-            }
-          }).catch((error) => {
-            reject(error)
-          })
-        })
-      },
-
-      // get trade record
-      getTradeRecord(addr , pageSize = 20, pageNum = 1) {
-        return new Promise( (resolve, reject) => {
-          if (WEB3OBJ.utils.isAddress(addr)) {
-            Axios.post('/api/requestTx.php', {addr, pageSize, pageNum}).then((res) => {
-              if (res.data.code === '200') {
-                resolve(res.data.result)
-              }
-            }).catch((error) => {
-              reject(error)
-            })
-          } else {
-            reject(new Error('not found address'))
-          }
-        })
-      }
-    }
+    Vue.prototype.$axios = Axios
 
     /*  web3  */
     Vue.prototype.$web3 = WEB3OBJ
+    Vue.prototype.$Wallet = Wallet
 
     /*  funs  */
     Vue.prototype.$funs = {
