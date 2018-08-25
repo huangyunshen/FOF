@@ -9,25 +9,38 @@
       </div>
 
       <div class="search-content" @scroll="onContentScroll">
-        <div class="list" :class="{active:item.txHash === detailList.txHash}" v-for="(item, index) in list" :key="index" @click="showDetail(item)">
+        <div class="list" :class="{active:item.txHash === detailList.txHash}" v-for="(item, index) in list" :key="index"
+             @click="showDetail(item)">
           <flexbox>
-            <flexbox-item :span="3"><div class="tc">{{ $t('transactionAmount') }}</div></flexbox-item>
-            <flexbox-item><div>
-              <span class="blue-text">{{ item.txValue }}</span>
-              <span class="fr text-c1">{{ item.time }}</span>
-            </div></flexbox-item>
+            <flexbox-item :span="3">
+              <div class="tc">{{ $t('transactionAmount') }}</div>
+            </flexbox-item>
+            <flexbox-item class="ml-40">
+              <div class="ml-20">
+                <span class="blue-text">{{ item.txValue }}</span>
+                <span class="fr text">{{ item.time }}</span>
+              </div>
+            </flexbox-item>
           </flexbox>
           <!--<flexbox class="mt-20" style="align-items: flex-start">-->
-            <!--<flexbox-item :span="3"><div class="title fz-38">{{ $t('transactionHash') }}</div></flexbox-item>-->
-            <!--<flexbox-item><div class="text-c1 fz-38">{{ item.txHash }}</div></flexbox-item>-->
+          <!--<flexbox-item :span="3"><div class="title fz-38">{{ $t('transactionHash') }}</div></flexbox-item>-->
+          <!--<flexbox-item><div class="text-c1 fz-38">{{ item.txHash }}</div></flexbox-item>-->
           <!--</flexbox>-->
           <flexbox class="mt-20" style="align-items: flex-start">
-            <flexbox-item :span="3"><div class="title fz-38">{{ $t('rollOutSide') }}</div></flexbox-item>
-            <flexbox-item><div class="from fz-38">{{ item.txFrom }}</div></flexbox-item>
+            <flexbox-item :span="3">
+              <div class="title fz-38">{{ $t('rollOutSide') }}</div>
+            </flexbox-item>
+            <flexbox-item>
+              <div class="text ml-20">{{ item.txFrom }}</div>
+            </flexbox-item>
           </flexbox>
           <flexbox class="mt-20" style="align-items: flex-start">
-            <flexbox-item :span="3"><div class="title fz-38">{{ $t('theTransferee') }}</div></flexbox-item>
-            <flexbox-item><div class="to fz-38">{{ item.txTo }}</div></flexbox-item>
+            <flexbox-item :span="3">
+              <div class="title fz-38">{{ $t('theTransferee') }}</div>
+            </flexbox-item>
+            <flexbox-item>
+              <div class="text ml-20">{{ item.txTo }}</div>
+            </flexbox-item>
           </flexbox>
 
         </div>
@@ -55,19 +68,19 @@
     data() {
       return {
         searchVal: '',
-        list:[],
-        pageNum:1,
-        pageSize:20,
-        addr:null,
-        hash:null,
-        noMoreFlag:false,
-        isDetail:false,
-        detailList:{},
+        list: [],
+        pageNum: 1,
+        pageSize: 20,
+        addr: null,
+        hash: null,
+        noMoreFlag: false,
+        isDetail: false,
+        detailList: {},
       }
     },
     methods: {
       onSearch() {
-        if(!this.searchVal) {
+        if (!this.searchVal) {
           this.addr = null
           this.hash = null
           this.noMoreFlag = false
@@ -77,7 +90,7 @@
           return
         }
 
-        if(this.$web3.utils.isAddress(this.searchVal)) {
+        if (this.$web3.utils.isAddress(this.searchVal)) {
           this.addr = this.searchVal
           this.hash = null
           this.noMoreFlag = true
@@ -97,28 +110,33 @@
       },
       onContentScroll(e) {
         let isBottom = this.$funs.isScrollBottom(e)
-        if (isBottom && !this.noMoreFlag ) {
+        if (isBottom && !this.noMoreFlag) {
           this.pageNum++
           this.getData()
         }
       },
       getData() {
-        this.$axios.getTransactionList(this.addr, this.hash, this.pageSize, this.pageNum).then( data => {
-          for(let i=0; i<data.length; i++) {
-            data[i].txValue = Math.round(data[i].txValue / 10**16) / 100 + ' FOF'
+        this.$axios.getTradeRecord(this.addr, this.hash, this.pageSize, this.pageNum).then(data => {
+          for (let i = 0; i < data.length; i++) {
+            data[i].txValue = Math.round(data[i].txValue / 10 ** 16) / 100 + ' FOF'
             this.list.push(data[i])
           }
-          if(data.length < this.pageSize) {
+          if (data.length < this.pageSize) {
             this.noMoreFlag = true
           }
         })
       },
       showDetail(item) {
-        // this.$web3.eth.getTransaction(item.txHash, (err, data) => {
-        //   console.log(data);
-          this.detailList = item
-          this.isDetail = true
-        // })
+        this.$web3.eth.getTransaction(item.txHash, (err, data) => {
+          if (data) {
+            delete data.transactionIndex
+            delete data.datasourcecode
+            this.detailList = data
+            this.isDetail = true
+          }
+          if (err)
+            console.log(err);
+        })
       }
     },
     created() {
@@ -142,28 +160,24 @@
           box-sizing: border-box;
           margin-bottom: 40px;
           background: @base-background-color;
-          box-shadow:0px 8px 20px 0px rgba(0,0,0,0.07);
-          border-radius:32px;
-          
+          box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.07);
+          border-radius: 32px;
+
           .blue-text {
             color: #4769F5;
           }
 
           .title {
+            padding: 5px 0;
             background: #F0F0F0;
             border-radius: 10px;
-            color: @text-color-1;
+            color:  @text-color-1;
             text-align: center;
+            font-size: 38px;
           }
-          .from {
-            color: #F06C64;
+          .text {
+            color:  @text-color-2;
             word-break: break-all;
-          }
-          .to {
-            color: #40B74B;
-            word-break: break-all;
-          }
-          .fz-38 {
             font-size: 38px;
           }
         }
@@ -184,19 +198,19 @@
         margin-bottom: 0;
         padding: 40px;
         background: @base-background-color;
-        border:1px solid #E0E0E0;
+        border: 1px solid #E0E0E0;
         border-radius: 32px;
 
         .list {
           display: flex;
           padding: 20px 0;
           &:not(:first-child) {
-            border-top:1px solid #E0E0E0;
+            border-top: 1px solid #E0E0E0;
           }
 
-
           .head {
-            width: 200px;
+            width: 280px;
+            font-size: 44px;
             word-break: break-word;
           }
           .body {
@@ -204,6 +218,7 @@
             padding-left: 40px;
             text-align: left;
             color: @text-color-1;
+            font-size: 44px;
             word-break: break-all;
           }
         }

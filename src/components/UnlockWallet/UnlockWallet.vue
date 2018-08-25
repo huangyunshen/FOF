@@ -22,7 +22,7 @@
     name: "UnlockWallet",
     data() {
       return {
-        pwd: '111111111',
+        pwd: '',
         routeName:'',
       }
     },
@@ -56,13 +56,13 @@
     },
     created() {
       let name = this.$route.params.routeName;
+      let index = sessionStorage.getItem('setRouteIndex')
 
-      if(name) {
+      if(name && index) {
         this.routeName = name
       } else {
         this.routeName = 'GameLobby'
-        let index = sessionStorage.getItem('setRouteIndex')
-        index && sessionStorage.setItem('setRouteIndex', 1)
+        sessionStorage.setItem('setRouteIndex', 1)
       }
     }
   }

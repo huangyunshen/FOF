@@ -29,8 +29,7 @@
       <div class="container" :class="{'dialog-show':showDialog, 'dialog-hide':!showDialog}">
         <div class="head-img"></div>
         <div class="list">
-          <div class="account" :class="{active:item.address === activeAddr}"
-               v-for="(item, index) in accList" :key="index" @click.stop="select(item)">
+          <div class="account" v-for="(item, index) in accList" :key="index" @click.stop="select(item)" :class="{active:item.address === activeAddr}">
             <div class="list-content">
               <span class="icon"></span>
               <div class="content tl text-c1">
@@ -101,6 +100,11 @@
         if(item.address !== this.activeAddr) {
           this.$funs.setActiveAccount(item.address)
           this.activeAddr = item.address
+          this.$store.commit('setAddress', item.address)
+          this.$refs.record.noMoreFlag = false
+          this.$refs.record.pageNum = 1
+          this.$refs.record.recordData = {}
+          this.$refs.record.getData()
         }
       },
       loadList() {
@@ -117,6 +121,7 @@
             })
           }
         }
+        this.activeAddr = this.$store.state.address
       }
     },
   }

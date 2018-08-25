@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script>
+      if ( !navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i) ) {
+        window.location.href = location.origin
+      }
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>fof</title>

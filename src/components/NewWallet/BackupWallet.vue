@@ -59,6 +59,8 @@
       logOut() {
         localStorage.removeItem('web3js_wallet')
         localStorage.removeItem('active_account')
+        localStorage.removeItem('network')
+        sessionStorage.removeItem('setRouteIndex')
         window.location.reload()
       }
     },

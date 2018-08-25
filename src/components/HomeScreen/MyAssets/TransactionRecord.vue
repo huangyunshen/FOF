@@ -25,7 +25,7 @@
     },
     data() {
       return {
-        pageSize:30,
+        pageSize:5,
         pageNum:1,
         recordData:{},
 
@@ -57,7 +57,7 @@
         this.showLoading = true
         this.loadingTip = this.$t('isSearching')
 
-        this.$axios.getTradeRecord(this.address, this.pageSize, this.pageNum).then(data => {
+        this.$axios.getTradeRecord(this.address, null, this.pageSize, this.pageNum).then(data => {
           if(data.length) {
             for (let i = 0; i < data.length; i++) {
               //地址处理
@@ -86,7 +86,11 @@
                   title = this.$t('shiyixuanwu')
                   break
                 default:
-                  title = data[i].txFrom
+                  if(data[i].txFrom === this.address && data[i].txTo) {
+                    title = data[i].txTo
+                  } else {
+                    title = data[i].txFrom
+                  }
                   break
               }
               data[i].title = title

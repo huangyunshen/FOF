@@ -26,6 +26,7 @@ import UnlockWallet from '@/components/UnlockWallet/UnlockWallet'
 import Setting from '@/components/Settings/Setting'
 import AccountManagement from '@/components/Settings/AccountManagement'
 import AccountInfo from '@/components/Settings/AccountInfo'
+import Network from '@/components/Settings/Network'
 import Language from '@/components/Settings/Language'
 import ImportAccount from '@/components/Settings/ImportAccount'
 
@@ -128,6 +129,11 @@ export default new Router({
       path:'/AccountInfo',
       name:'AccountInfo',
       component:AccountInfo,
+    },
+    {
+      path:'/Network',
+      name:'Network',
+      component:Network,
     },
     {
       path:'/Language',

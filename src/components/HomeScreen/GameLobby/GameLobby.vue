@@ -58,6 +58,7 @@
         pageNum: 1,
         selectedIndex: 0,   //tab index
         noMoreFlag: false,  //用于判断是否还有更多数据
+        isDone:false,   //判断前一个网络请求是否完成
       }
     },
     computed: {
@@ -98,16 +99,19 @@
       },
       /*  tab切换  */
       onItemClick(index) {
-        if (index !== this.selectedIndex) {
+        if (index !== this.selectedIndex && this.isDone) {
           this.selectedIndex = index
           this.pageNum = 1
           this.noMoreFlag = false
           this.getData()
+        } else {
+          event.preventDefault()
         }
       },
       /*  获取列表数据  */
       getData() {
         this.gameList = []
+        this.isDone = false
         this.searchStatus = true
         this.showLoading = true
         this.loadingTip = this.$t('isSearching')
@@ -121,10 +125,12 @@
               this.showLoading = false
               this.loadingTip = this.$t('noSearchResult')
             }
+            this.isDone = true
           }, err => {
             console.log(err);
             this.showLoading = false
             this.loadingTip = this.$t('loadingError')
+            this.isDone = true
           })
       },
     },

@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const PRODUCT = 'http://39.104.81.103'
-const TEST = 'http://120.79.88.105'
+const PRODUCT = 'http://47.75.103.95'
 const LOCAL = '/url'
 
 axios.defaults.baseURL = LOCAL
@@ -23,26 +22,9 @@ axios.getAppListData = function (type = 0, addr = '', pageSize = 20, pageNum = 1
 }
 
 // get trade record
-axios.getTradeRecord = function (addr, pageSize = 20, pageNum = 1) {
+axios.getTradeRecord = function (addr, hash, pageSize = 20, pageNum = 1) {
   return new Promise((resolve, reject) => {
-    if (addr.length === 42) {
-      axios.post('/api/requestTx.php', {addr, pageSize, pageNum}).then((res) => {
-        if (res.data.code === '200') {
-          resolve(res.data.result)
-        }
-      }).catch((error) => {
-        reject(error)
-      })
-    } else {
-      reject(new Error('not found address'))
-    }
-  })
-}
-
-// get block list
-axios.getBlockList = function (blockNum, hash, pageSize = 20, pageNum = 1) {
-  return new Promise((resolve, reject) => {
-    axios.post('/api/requestBlock.php', {blockNum, hash, pageSize, pageNum}).then((res) => {
+    axios.post('/api/requestTx.php', {addr, hash, pageSize, pageNum}).then((res) => {
       if (res.data.code === '200') {
         resolve(res.data.result)
       }
@@ -52,10 +34,10 @@ axios.getBlockList = function (blockNum, hash, pageSize = 20, pageNum = 1) {
   })
 }
 
-// get transaction list
-axios.getTransactionList = function (addr, hash, pageSize = 20, pageNum = 1) {
+// get block list
+axios.getBlockList = function (blockNum, hash, pageSize = 20, pageNum = 1) {
   return new Promise((resolve, reject) => {
-    axios.post('/api/requestTx.php', {addr, hash, pageSize, pageNum}).then((res) => {
+    axios.post('/api/requestBlock.php', {blockNum, hash, pageSize, pageNum}).then((res) => {
       if (res.data.code === '200') {
         resolve(res.data.result)
       }

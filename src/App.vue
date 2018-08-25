@@ -12,15 +12,18 @@
     name: 'App',
     data() {
       return {
-        timer:null
+        timer: null
       }
     },
     methods: {
       getAccountInfo() {
         let address = localStorage.getItem('active_account')
-        if(address) {
+        if (address) {
           this.$store.commit('setAddress', address)
           this.$funs.getBalanceByWei(address, balance => {
+            //if(typeof balance === 'object') {
+              //clearInterval(this.timer)
+            //}
             balance = Math.floor(balance / (10 ** 16)) / 100
             this.$store.commit('setBalance', balance)
           })
@@ -32,8 +35,8 @@
       if (walletJSON) {
 
         let wallet = this.$web3.eth.accounts.wallet.length
-        if(!wallet){
-          this.$router.replace({name:'UnlockWallet', params: {routeName: this.$route.name}})
+        if (!wallet) {
+          this.$router.replace({name: 'UnlockWallet', params: {routeName: this.$route.name}})
           return
         }
 
@@ -51,7 +54,7 @@
     mounted() {
       this.timer = null
       this.getAccountInfo()
-      this.timer = setInterval( () => {
+      this.timer = setInterval(() => {
         this.getAccountInfo()
       }, 2000)
     }

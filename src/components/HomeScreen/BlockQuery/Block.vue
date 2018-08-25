@@ -12,7 +12,7 @@
         <div class="list" :class="{active:item.height === detailList.height}" v-for="(item, index) in list" :key="index" @click="showDetail(item)">
           <div>
             <div class="head">Blocks</div>
-            <div class="mind-by mt-30">Mined By</div>
+            <div class="mind-by mt-30 fz-38">Mined By</div>
           </div>
           <div class="right-content">
             <div>
@@ -20,7 +20,7 @@
               <span class="fr text-c2">{{ item.timeStamp }}</span>
             </div>
             <div class="mt-30">
-              <span class="address">{{ item.coinbase }}</span>
+              <span class="address fz-38">{{ item.coinbase }}</span>
             </div>
           </div>
         </div>
@@ -109,8 +109,14 @@
         })
       },
       showDetail(item) {
-        this.detailList = item
-        this.isDetail = true
+        this.$web3.eth.getBlock(item.height, (err, data) => {
+          if (err)
+            console.log(err);
+          if (data) {
+            this.detailList = data
+            this.isDetail = true
+          }
+        })
       }
     },
     created() {
@@ -149,6 +155,8 @@
 
           .mind-by {
             width: 220px;
+            padding: 10px 0;
+            box-sizing: border-box;
             margin-right: 20px;
             background: #F0F0F0;
             border-radius: 10px;
@@ -160,6 +168,9 @@
             width: 600px;
             color: @text-color-2;
             word-break: break-all;
+          }
+          .fz-38 {
+            font-size: 38px;
           }
         }
         .active {
@@ -191,7 +202,8 @@
 
 
           .head {
-            width: 200px;
+            width: 300px;
+            font-size: 44px;
             word-break: break-word;
           }
           .body {
@@ -199,6 +211,7 @@
             padding-left: 40px;
             text-align: left;
             color: @text-color-1;
+            font-size: 44px;
             word-break: break-all;
           }
         }

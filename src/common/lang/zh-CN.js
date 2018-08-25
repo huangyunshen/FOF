@@ -128,8 +128,12 @@ module.exports = {
   isDeleting:'正在删除',
   isDeleted:'已删除',
   cancle:'取消',
+  selectAnNetwork:'网络',
+  isConnecting:'正在连接网络',
+  connectSuccess:'连接成功',
+  connectError:'连接失败',
   languageSetting:'语言设置',
-  ZHTW:'繁体中文', //英文请翻译成 English
+  currentLanguage:'简体中文', //英文请翻译成 English
   helpCenter:'帮助中心',
   aboutFOF:'关于FOF',
   loggedOut:'退出登陆',
