@@ -3,54 +3,55 @@
     <div class="x-header">
       <x-header :title="$t('importAccount')" :left-options="{preventGoBack:true}"
                 @on-click-back="$router.replace({name:'AccountManagement'})"></x-header>
+      <!-- $router.replace({name:'AccountManagement'}) @on-click-back-->
     </div>
 
-    <div class="ps-r">
-      <wallet-info></wallet-info>
-    </div>
-
-    <!--tab-->
-
-    <div class="tab-content">
-      <span :class="{active: tabIndex === 1}" @click="tabIndex = 1">{{ $t('privateKey') }}</span>
-      <span :class="{active: tabIndex === 2}" @click="tabIndex = 2">{{ $t('mnemonic') }}</span>
-      <span :class="{active: tabIndex === 3}" @click="tabIndex = 3">{{ $t('keystore') }}</span>
-    </div>
-
-    <!--privateKey-->
-    <div v-show="tabIndex === 1">
-      <p class="pl-40 tl danger-text">{{ $t('importAccountInfo1') }}</p>
-      <group>
-        <x-input v-model="privateKey" :placeholder="$t('privateKey')"></x-input>
-      </group>
-    </div>
-
-    <!--mnenomic-->
-    <div v-show="tabIndex === 2">
-      <p class="pl-40 tl danger-text">{{ $t('importAccountInfo2') }}</p>
-      <group>
-        <x-input v-model="mnemonic" :placeholder="$t('mnemonic')"></x-input>
-      </group>
-    </div>
-
-    <!--keystore-->
-    <div v-show="tabIndex === 3">
-      <p class="pl-40 tl danger-text">{{ $t('importAccountInfo3') }}</p>
-      <group>
-        <x-textarea v-model="keystore" :rows="6"></x-textarea>
-      </group>
-      <group class="mt-50">
-        <x-input type="password" v-model="pwd" :placeholder="$t('password')"></x-input>
-      </group>
-    </div>
-
-
-    <!--submit btn-->
-    <div class="mt-20 pd-40">
-      <x-button type="primary" @click.native="importAcc">{{ $t('importAccount') }}</x-button>
-    </div>
-
+  <div class="ps-r">
+    <wallet-info></wallet-info>
   </div>
+
+  <!--tab-->
+
+      <div class="tab-content">
+        <span :class="{active: tabIndex === 1}" @click="tabIndex = 1">{{ $t('privateKey') }}</span>
+        <!--<span :class="{active: tabIndex === 2}" @click="tabIndex = 2">{{ $t('mnemonic') }}</span>-->
+        <span :class="{active: tabIndex === 3}" @click="tabIndex = 3">{{ $t('keystore') }}</span>
+      </div>
+
+      <!--privateKey-->
+      <div v-show="tabIndex === 1">
+        <p class="pl-40 tl danger-text">{{ $t('importAccountInfo1') }}</p>
+        <group>
+          <x-input v-model="privateKey" :placeholder="$t('privateKey')"></x-input>
+        </group>
+      </div>
+
+      <!--mnenomic-->
+      <div v-show="tabIndex === 2">
+        <p class="pl-40 tl danger-text">{{ $t('importAccountInfo2') }}</p>
+        <group>
+          <x-input v-model="mnemonic" :placeholder="$t('mnemonic')"></x-input>
+        </group>
+      </div>
+
+      <!--keystore-->
+      <div v-show="tabIndex === 3">
+        <p class="pl-40 tl danger-text">{{ $t('importAccountInfo3') }}</p>
+        <group>
+          <x-textarea v-model="keystore" :rows="6"></x-textarea>
+        </group>
+        <group class="mt-50">
+          <x-input type="password" v-model="pwd" :placeholder="$t('password')"></x-input>
+        </group>
+      </div>
+
+
+      <!--submit btn-->
+      <div class="mt-20 pd-40">
+        <x-button type="primary" @click.native="importAcc">{{ $t('importAccount') }}</x-button>
+      </div>
+
+    </div>
 </template>
 <script>
   import walletInfo from '../utils/WalletInfo'
@@ -70,6 +71,11 @@
       }
     },
     methods: {
+      back1() {
+        this.$route.go(-1)
+
+        
+      },
       importAcc() {
         if (this.tabIndex === 1) {          //私钥
           if (this.privateKey && this.privateKey.indexOf('0x') === -1)

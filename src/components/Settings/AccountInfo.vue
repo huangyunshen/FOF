@@ -24,9 +24,9 @@
           <span>{{ $t('backupPrivateKye') }}</span>
         </div>
 
-        <div class="list" @click="backup(3)">
+        <!--<div class="list" @click="backup(3)">
           <span>{{ $t('backupMnemonic') }}</span>
-        </div>
+        </div>-->
 
         <div class="list" @click="backup(4)">
           <span>{{ $t('backupKeystore') }}</span>

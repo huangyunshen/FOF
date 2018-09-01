@@ -1,5 +1,7 @@
 module.exports = {
   /*  wallet  */
+  logoTitle:'致力于打造公平、公开、公正的区块链博彩平台',
+  inputPassWord:'请输入钱包密码解锁钱包',
   createWallet: '创建钱包',
   loginWallet: '登录钱包',
   pasteKeystore: '请在下方粘贴FOF官方钱包Keystore文件内容',
@@ -36,7 +38,7 @@ module.exports = {
   backupWalletWarning1:'请复制粘贴Keystore文件内容到安全、离线的地方保存。切勿保存至邮箱、网盘、云笔记、聊天工具等，非常危险！',
   backupWalletWarning2:'请勿通过网络工具传输Keystore文件，一旦被其他人获取将造成不可挽回的资产损失。',
   backupWalletWarning3:'请确保四周无人及无任何摄像头，勿用截图或拍照的方式保存Keystore文件。',
-  loginWalletWarning1:'注意：fof.com不会保留您的私钥。我们无法访问账户，恢复私钥，重置密码，也无法撤销交易。保护您的私钥并检查您的网址是否正确。',
+  loginWalletWarning1:'注意：fofgame.io不会保留您的私钥。我们无法访问账户，恢复私钥，重置密码，也无法撤销交易。保护您的私钥并检查您的网址是否正确。',
 
   /*  HomeScreen  */
   //game lobby
@@ -145,5 +147,16 @@ module.exports = {
   longhudou:'龙虎斗',
   saishijingcai:'赛事竞猜',
   baijiale:'百家乐',
-  shiyixuanwu:'11选5',
-};
+  shiyixuanwu: '11选5',
+
+  BlockSearch: "区块查询",
+  TransactionSearch: '交易查询',
+  TraRecond: '交易记录',
+  zhuanzhang:'对外转账',
+  xialashuaxin:'下拉刷新',
+  shuaxinzhong:'刷新中',
+  shuaxinwancheng:'刷新完成',
+  jiazaizhong:'加载中',
+  jiazaiwancheng:'加载完成',
+  meiyougengduo:'没有更多',
+}

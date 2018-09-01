@@ -27,12 +27,12 @@
         <span>{{ $t('languageSetting') }}</span>
         <span class="description">{{ $t('currentLanguage') }}</span>
       </div>
-      <div class="list">
+      <div class="list" @click="$router.replace({name:'FAQ'})">
         <span>{{ $t('helpCenter') }}</span>
       </div>
-      <div class="list">
+      <!--<div class="list">
         <span>{{ $t('aboutFOF') }}</span>
-      </div>
+      </div>-->
       <div class="list" @click="$router.replace({name:'BackupWallet', params: {routeName: 'logOut'}})">
         <span>{{ $t('loggedOut') }}</span>
       </div>

@@ -3,16 +3,16 @@
     <div class="scroll-top" :style="{height:top+'px'}">
       <div v-if="aspect==2">
         <p v-if="state==6">
-          下拉刷新
+          {{ $t('xialashuaxin') }}
         </p>
         <p v-if="state==1">
-          <br/>
-          刷新中
+          <br />
+          {{ $t('shuaxinzhong') }}
         </p>
         <p v-if="state==2">松开刷新</p>
         <p v-if="state==3">
-          <br/>
-          刷新完成
+          <br />
+          {{ $t('shuaxinwancheng') }}
         </p>
       </div>
     </div>
@@ -20,9 +20,9 @@
     <div class="scroll-list" :style="{ transform: 'translate3d(0, ' + top + 'px, 0)'}">
       <slot name='scrollList'></slot>
       <div class="scroll-bottom">
-        <div v-if="state==4">加载中</div>
-        <div v-if="state==5">加载完成</div>
-        <div v-if="state==7">没有更多</div>
+        <div v-if="state==4">{{ $t('jiazaizhong') }}</div>
+        <div v-if="state==5">{{ $t('jiazaiwancheng') }}</div>
+        <div v-if="state==7">{{ $t('meiyougengduo') }}</div>
       </div>
     </div>
   </div>

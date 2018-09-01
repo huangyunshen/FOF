@@ -33,13 +33,14 @@
     name: "Language",
     data() {
       return {
-        language: 'zhcn',
+        language: localStorage.getItem('languageType')
       }
     },
     methods: {
       changeLang(lang) {
         this.language = lang
-        // this.$i18n.locale = lang
+        this.$i18n.locale = lang
+        localStorage.setItem('languageType', lang)
       }
     }
   }

@@ -1,8 +1,8 @@
 <template>
   <div class="block-query">
     <div class="header-tab">
-      <div class="block" :class="{active: tabIndex === 1}" @click="select(1)">区块查询</div>
-      <div class="tranc" :class="{active: tabIndex === 2}" @click="select(2)">交易查询</div>
+      <div class="block" :class="{active: tabIndex === 1}" @click="select(1)">{{ $t('BlockSearch') }}</div>
+      <div class="tranc" :class="{active: tabIndex === 2}" @click="select(2)">{{ $t('TransactionSearch') }}</div>
     </div>
 
     <block class="content" v-show=" tabIndex === 1"></block>

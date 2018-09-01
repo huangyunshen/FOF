@@ -2,6 +2,10 @@
   <div class="unlock-wallet">
 
     <!--wallet password-->
+
+    <div class="label_color">
+      <label>{{ $t('inputPassWord') }}</label>
+    </div>
     <div class="wallet-pwd pt-40">
       <group>
         <x-input type="password" v-model="pwd" :placeholder="$t('enterPwd')"></x-input>
@@ -14,6 +18,7 @@
     </div>
 
   </div>
+
 </template>
 
 <script>
@@ -73,7 +78,11 @@
     height: auto;
     width: 100%;
     position: absolute;
-    top: 50%;
+    top: 60%;
     transform: translateY(-50%);
   }
+  .label_color {
+    color:blue;
+  }
+
 </style>

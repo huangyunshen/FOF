@@ -6,7 +6,7 @@ import $router from "../router/index"
 import $store from './store'
 import {Wallet} from 'ethers'
 
-let HOST = localStorage.getItem('network') || 'ws://112.74.175.96:8561'
+let HOST = localStorage.getItem('network') || 'ws://112.74.175.96:8581'
 // const UpLoadHost = 'http://39.108.159.230:8551'
 const WEB3OBJ = new Web3(HOST)
 localStorage.setItem('network', HOST)

@@ -9,7 +9,7 @@
       <icon class="search-icon" type="search"></icon>
     </div>
 
-    <div class="mt-60" v-if="nearestPlayList.length">
+    <div class="mt-60" >
       <p class="tl text-c1">{{ $t('recentlyPlay') }}</p>
       <div class="lastest-play base-shadow mt-20">
         <flexbox :gutter="0" justify="flex-start" wrap="nowrap" align="flex-start">

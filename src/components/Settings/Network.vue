@@ -8,8 +8,8 @@
 
     <div class="setting-list pl-50 pr-50">
       <div class="list" v-for="(item, index) in netList" :key="index" @click="switchNet(item)">
-        <span>{{ item }}</span>
-        <span class="icon" v-if="network === item"></span>
+        <span>{{ item.title }}</span>
+        <span class="icon" v-if="network === item.url"></span>
       </div>
     </div>
   </div>
@@ -21,26 +21,33 @@
     data() {
       return {
         network: '',
-        netList: {
-          n1: 'ws://39.108.159.230:8561',
-          n2: 'ws://120.79.182.14:8561',
-          n3: 'ws://39.108.231.134:8561',
-          n4: 'ws://112.74.175.96:8561',
-          n5: 'ws://39.108.93.202:8561',
-          n6: 'ws://47.106.160.141:8561',
-          n7: 'ws://120.78.157.63:8561',
-        },
+        netList: [	
+		{title: 'A1', url: 'ws://39.108.159.230:8581'},
+		{title: 'A2', url: 'ws://39.108.159.230:8582'},
+		{title: 'B1', url: 'ws://120.79.182.14:8581'},
+		{title: 'B2', url: 'ws://120.79.182.14:8582'},
+		{title: 'C1', url: 'ws://39.108.231.134:8581'},
+		{title: 'C2', url: 'ws://39.108.231.134:8582'},
+		{title: 'D1', url: 'ws://112.74.175.96:8581'},
+		{title: 'D2', url: 'ws://112.74.175.96:8582'},
+		{title: 'E1', url: 'ws://39.108.93.202:8581'},
+		{title: 'E2', url: 'ws://39.108.93.202:8582'},
+		{title: 'F1', url: 'ws://47.106.160.141:8581'},
+		{title: 'F2', url: 'ws://47.106.160.141:8582'},
+		{title: 'G1', url: 'ws://120.78.157.63:8581'},
+		{title: 'G2', url: 'ws://120.78.157.63:8582'},
+        ],
       }
     },
     methods: {
       switchNet(net) {
-        if (this.network !== net) {
+        if (this.network !== net.url) {
 
           this.$vux.loading.show({
             text: this.$t('isConnecting')
           })
 
-          this.$web3.setProvider(net)
+          this.$web3.setProvider(net.url)
           setTimeout(() => {
             this.$web3.eth.getBlock('latest', (err, data) => {
 
@@ -55,8 +62,8 @@
                     if (data) {
                       this.$vux.loading.hide()
                       this.$vux.toast.text(this.$t('connectSuccess'))
-                      this.network = net
-                      localStorage.setItem('network', net)
+                      this.network = net.url
+                      localStorage.setItem('network', net.url)
                     }
                   })
                 }, 7000)
@@ -65,8 +72,8 @@
               if (data) { 
                 this.$vux.loading.hide()
                 this.$vux.toast.text(this.$t('connectSuccess'))
-                this.network = net
-                localStorage.setItem('network', net)
+                this.network = net.url
+                localStorage.setItem('network', net.url)
               }
             })
           }, 1000)

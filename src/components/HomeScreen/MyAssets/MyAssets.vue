@@ -12,8 +12,8 @@
       <p class="address">{{ $store.state.address }}</p>
 
       <div class="tab-content">
-        <div class="tab-record" :class="{active: tabIndex === 1}" @click="changeTab(1)">交易记录</div>
-        <div class="tab-tranc" :class="{active: tabIndex === 2}" @click="changeTab(2)">对外转账</div>
+        <div class="tab-record" :class="{active: tabIndex === 1}" @click="changeTab(1)">{{ $t('TraRecond')}}</div>
+        <div class="tab-tranc" :class="{active: tabIndex === 2}" @click="changeTab(2)">{{ $t('zhuanzhang') }}</div>
       </div>
     </div>
 
@@ -39,9 +39,22 @@
             </div>
           </div>
         </div>
+        <div>
+          <flexbox>
+            <flexbox-item>
+              <x-button class="creat_btn" @click.native="createAcc2">{{ $t('createAccount') }}</x-button>
+            </flexbox-item>
+            <flexbox-item>
+              <x-button class="import_btn" type="primary" @click.native="$router.replace({name: 'ImportAccount'})">{{ $t('importAccount') }}</x-button>
+            </flexbox-item>
+          </flexbox>
+        </div>
       </div>
+
     </div>
   </div>
+
+
 </template>
 
 <script>
@@ -122,13 +135,34 @@
           }
         }
         this.activeAddr = this.$store.state.address
-      }
+      },
+
+       createAcc2() {
+
+        this.$vux.loading.show({
+          text: this.$t('isCreating')
+        })
+
+        let wallet = this.$web3.eth.accounts.wallet
+        let newAcc = this.$web3.eth.accounts.create()
+        wallet.add(newAcc)
+
+        this.$funs.setActiveAccount(newAcc.address)
+
+        setTimeout(() => {
+          wallet.save(wallet.myPwd)
+          this.$vux.loading.hide()
+          this.loadList()
+          this.$vux.toast.text(this.$t('walletCreateSucc'))
+        }, 500)
+      },
     },
   }
 </script>
 
 <style lang="less" scoped>
   .my-assets {
+
     overflow-y: auto;
 
     .head-content {
@@ -206,14 +240,26 @@
     .body-content {
       margin-top: 100px;
     }
+  .creat_btn {
+    position: relative;
+    left: 240px;
+    top: 220px;
+  }
 
-    .switch-acc {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.3);
+  .import_btn {
+    position: relative;
+    left: -220px;
+    top: 50px;
+  }
+  .switch-acc {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+  
+
 
       .container {
         width: 900px;
@@ -230,7 +276,7 @@
         }
 
         .list {
-          height: calc(100% - 440px);
+          height: calc(80% - 440px);
           overflow-y: auto;
 
           .account {

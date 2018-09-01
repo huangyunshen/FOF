@@ -29,6 +29,7 @@ import AccountInfo from '@/components/Settings/AccountInfo'
 import Network from '@/components/Settings/Network'
 import Language from '@/components/Settings/Language'
 import ImportAccount from '@/components/Settings/ImportAccount'
+import FAQ from '@/components/Settings/FAQ'
 
 
 export default new Router({
@@ -139,6 +140,11 @@ export default new Router({
       path:'/Language',
       name:'Language',
       component:Language,
+    },
+    {
+      path: '/FAQ',
+      name: 'FAQ',
+      component: FAQ,
     },
   ]
 })
