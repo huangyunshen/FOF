@@ -1,8 +1,10 @@
 <template>
   <div class="block-query">
     <div class="header-tab">
-      <div class="block" :class="{active: tabIndex === 1}" @click="select(1)">{{ $t('BlockSearch') }}</div>
-      <div class="tranc" :class="{active: tabIndex === 2}" @click="select(2)">{{ $t('TransactionSearch') }}</div>
+      <div class="tab-list">
+        <div class="tab" :class="{active:tabIndex === 1}" @click="select(1)">{{ $t('BlockSearch') }}</div>
+        <div class="tab" :class="{active:tabIndex === 2}" @click="select(2)">{{ $t('TransactionSearch') }}</div>
+      </div>
     </div>
 
     <block class="content" v-show=" tabIndex === 1"></block>
@@ -37,26 +39,35 @@
 <style lang="less" scoped>
   .block-query {
     .header-tab {
-      height: 120px;
-      display: flex;
-      align-items: center;
-      background: #ECECEC;
-      div {
-        flex: 1;
-        height: 100%;
-        line-height: 120px;
-        box-sizing: border-box;
-        border-bottom: 2px solid transparent;
-        color: @text-color-1;
-      }
-      .active {
-        background: @base-background-color;
-        border-bottom: 2px solid #4769F5;
-        color: #4769F5;
+      height: 310px;
+      padding: 0 40px;
+      box-sizing: border-box;
+      position: relative;
+      background: linear-gradient(#3C32EE, #6DB2FC);
+
+      .tab-list {
+        width: 1000px;
+        height: 134px;
+        position: absolute;
+        bottom: -70px;
+        background: #ffffff;
+        border-radius: 80px;
+        font-size: 46px;
+        color: #606060;
+        display: flex;
+        justify-content:space-around;
+        align-items: center;
+
+        .tab {
+          &.active {
+            color: #4769F5;
+          }
+        }
       }
     }
     .content {
-      height: calc(100% - 120px);
+      height: calc(100% - 310px);
+      margin-top: 120px;
     }
   }
 </style>

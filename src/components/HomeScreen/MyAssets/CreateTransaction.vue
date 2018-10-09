@@ -28,7 +28,7 @@
     name: "CreateTransaction",
     data() {
       return {
-        recAccount: '0x62f94E9AC9349BCCC61Bfe66ddAdE6292702EcB6',
+        recAccount: '',
         amount: ''
       }
     },

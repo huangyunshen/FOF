@@ -2,7 +2,7 @@
   <div class="acc-manage">
 
     <div class="x-header">
-      <x-header :title="$t('accountManagement')" :left-options="{preventGoBack:true}"
+      <x-header :title="$t('accountManagement')" :left-options="{preventGoBack:true, backText: ''}"
                 @on-click-back="$router.replace({name:'Setting'})"></x-header>
     </div>
 

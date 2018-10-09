@@ -14,7 +14,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: fade(#F8F8F8, 75%);
+  background: #DFE1E4;
   width: 100%;
   position: relative;
 }
@@ -67,12 +67,19 @@ html, body {
   }
 
   /*  input  */
-  .weui-input {
-    height: @base-cell-height;
-    font-size: @base-font-size;
-    color: @text-color-1;
-    padding: 0 60px;
-    box-sizing: border-box;
+  .vux-x-input {
+    .weui-input {
+      height: @base-cell-height;
+      font-size: @base-font-size;
+      color: @text-color-1;
+      padding: 0 60px;
+      box-sizing: border-box;
+    }
+    &.text-c {
+      .weui-input {
+        text-align: center;
+      }
+    }
   }
   /* textarea */
   .weui-textarea {
@@ -590,23 +597,6 @@ warning
   font-size: 42px;
 }
 
-/*
-  animations
- */
-
-//@keyframes toggleShowHide {
-//  0% {
-//    opacity: 1;
-//  }
-//  50% {
-//    opacity: 0.2;
-//  }
-//  100% {
-//    opacity: 1;
-//  }
-//}
-
-
 .search-box {
   position: relative;
   .search-input {
@@ -621,9 +611,16 @@ warning
     border-radius: @base-radius;
   }
   .search-icon {
+    width: 54px;
+    height: 54px;
     position: absolute;
     top: 30px;
     right: 30px;
     font-size: 50px;
+    background: url("../../assets/images/default/icon_basis_seach.png") no-repeat;
+    background-size: cover;
+    &:before {
+      content: none;
+    }
   }
 }

@@ -2,7 +2,7 @@
   <div class="backup-wallet">
 
     <div class="x-header">
-      <x-header :title="$t('backupWallet')" :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:routeName})"></x-header>
+      <x-header :title="$t('backupWallet')" :left-options="{preventGoBack:true, backText: ''}" @on-click-back="$router.replace({name:routeName})"></x-header>
     </div>
 
     <div class="backup-info warning-bg tl pd-40">

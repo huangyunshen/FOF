@@ -1,7 +1,7 @@
 <template>
   <div class="import-acc">
     <div class="x-header">
-      <x-header :title="$t('importAccount')" :left-options="{preventGoBack:true}"
+      <x-header :title="$t('importAccount')" :left-options="{preventGoBack:true, backText: ''}"
                 @on-click-back="$router.replace({name:'AccountManagement'})"></x-header>
       <!-- $router.replace({name:'AccountManagement'}) @on-click-back-->
     </div>

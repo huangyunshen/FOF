@@ -2,7 +2,7 @@
   <div class="language">
 
     <div class="x-header">
-      <x-header :title="$t('languageSetting')" :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:'Setting'})"></x-header>
+      <x-header :title="$t('languageSetting')" :left-options="{preventGoBack:true, backText: ''}" @on-click-back="$router.replace({name:'Setting'})"></x-header>
     </div>
 
     <div class="setting-list pl-50 pr-50">
@@ -33,14 +33,14 @@
     name: "Language",
     data() {
       return {
-        language: localStorage.getItem('languageType')
+        language: localStorage.getItem('language')
       }
     },
     methods: {
       changeLang(lang) {
         this.language = lang
         this.$i18n.locale = lang
-        localStorage.setItem('languageType', lang)
+        localStorage.setItem('language', lang)
       }
     }
   }

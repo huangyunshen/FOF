@@ -6,8 +6,9 @@ import $router from "../router/index"
 import $store from './store'
 import {Wallet} from 'ethers'
 
-let HOST = localStorage.getItem('network') || 'ws://112.74.175.96:8581'
-// const UpLoadHost = 'http://39.108.159.230:8551'
+localStorage.removeItem('network')
+let HOST = localStorage.getItem('network') || 'ws://112.74.175.96:8561'
+// let HOST = localStorage.getItem('network') || 'ws://120.79.180.141:8561' //test
 const WEB3OBJ = new Web3(HOST)
 localStorage.setItem('network', HOST)
 
@@ -71,80 +72,6 @@ export default {
         let activeAccount = wallet[index] || new Error('Wallet Is Locked')
         return activeAccount
       },
-      /**
-       * 截取当前活动账户的私钥最后9位为密码
-       */
-      // getActiveAccountPwd() {
-      //   let privateKey = this.getActiveAccount().privateKey
-      //   return privateKey.substring(privateKey.length - 16)
-      // },
-      /**
-       * 得到KeyStore文件的字符串
-       */
-      // getKeyStore() {
-      //   let privateKey = this.getActiveAccount().privateKey
-      //   let myWallet = new Wallet(privateKey)
-      //   return myWallet.encrypt(this.getActiveAccountPwd())
-      // },
-      /**
-       * 上传KeyStore
-       */
-      // uploadKeyStore() {
-      //   return new Promise((resolve, reject) => {
-      //     this.getKeyStore().then((data) => {
-      //       let ts = new Date()
-      //       let name = ['UTC--', ts.toJSON().replace(/:/g, '-'), '--', this.getActiveAccount().address.toString('hex')].join('')
-      //       // console.log(this.getActiveAccount().address)
-      //       // return false
-      //       axios.post(UpLoadHost, {
-      //         "jsonrpc": "2.0",
-      //         "method": "eth_uploadkeyfile",
-      //         "params": [name, data],
-      //         "id": 1
-      //       }).then((res) => {
-      //         if (res.status === 200) {
-      //           if (res.data.id === 1) {
-      //             // this.unlockAccount()
-      //             resolve(true)
-      //           }
-      //         }
-      //       }).catch((error) => {
-      //         console.log(error)
-      //       })
-      //     })
-      //   })
-      // },
-      /**
-       * 解锁
-       */
-      // unlockAccount() {
-      //   return new Promise((resolve, reject) => {
-      //     WEB3OBJ.eth.personal.unlockAccount(this.getActiveAccount().address, this.getActiveAccountPwd(), (error, res) => {
-      //       // WEB3OBJ.eth.personal.unlockAccount(this.getActiveAccount().address, 'hz123456', (error, res) => {
-      //       // Returned error: no key for given address or file             没有keystore
-      //       // Returned error: could not decrypt key with given passphrase  密码错误
-      //       if (error) {
-      //         // 没有keystore
-      //         if (error.message.indexOf('file') !== -1) {
-      //           this.uploadKeyStore().then((flag) => {
-      //             if (flag) {
-      //               WEB3OBJ.eth.personal.unlockAccount(this.getActiveAccount().address, this.getActiveAccountPwd(), (err, data) => {
-      //                 resolve(err)
-      //                 reject(data)
-      //               })
-      //             }
-      //           })
-      //         } else {
-      //           // 密码错误
-      //           reject(error.message)
-      //         }
-      //       }
-      //       if (res) {
-      //         resolve(res)
-      //       }
-      //     })
-      //   })
-      // },
       getAddress() {
         let addr = this.getActiveAccount().address
         if (WEB3OBJ.utils.isAddress(addr)) {
@@ -178,19 +105,6 @@ export default {
             callback(balance)
         })
       },
-      // getV3Filename(address) {
-      //   let ts = new Date()
-      //   // return ['UTC--', ts.toJSON().replace(/:/g, '-'), '--', address.toString('hex')].join('')
-      //   return ['FOF-Wallet-', ts.toJSON().slice(0, 11), ts.toTimeString().slice(0, 8).replace(/:/g, "-")].join('')
-      // },
-      // getBlob(mime, str) {
-      //   str = (typeof str === 'object') ? JSON.stringify(str) : str
-      //   if (str == null) return ''
-      //   let blob = new Blob([str], {
-      //     type: mime
-      //   })
-      //   return window.URL.createObjectURL(blob)
-      // },
       magrationContract(user, contract, sol, args = [], gas) {//部署类型，账户地址，合约json，合约源文件，部署参数
         return new Promise((resolve, reject) => {
           WEB3OBJ.eth.estimateGas({data: contract.bytecode}).then((gasLimit) => {
@@ -241,18 +155,18 @@ export default {
       },
 
       /*  获取logo资源  */
-      getLogoImgUrl(type) {
-        switch (type) {
-          case "1":
-            return '/static/gameLogo/longhudou.png';
-          case "2":
-            return '/static/gameLogo/ssjc.png';
-          case "3":
-            return '/static/gameLogo/baijiale.png';
-          case "4":
-            return '/static/gameLogo/game_icon8.png';
-        }
-      },
+      // getLogoImgUrl(type) {
+      //   switch (type) {
+      //     case "1":
+      //       return '/static/game_logo/longhudou.png';
+      //     case "2":
+      //       return '/static/game_logo/ssjc.png';
+      //     case "3":
+      //       return '/static/game_logo/baijiale.png';
+      //     case "4":
+      //       return '/static/game_logo/game_icon8.png';
+      //   }
+      // },
       
 
       /*  获取游戏链接  */
@@ -291,7 +205,8 @@ export default {
         }
         let obj = {
           contractAddr:item.contractAddr,
-          gameType:item.gameType
+          gameType:item.gameType,
+          pho:item.pho,
         }
         list.unshift(obj)
         list.length > 10 && list.length--

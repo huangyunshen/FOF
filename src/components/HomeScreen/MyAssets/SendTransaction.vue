@@ -1,7 +1,7 @@
 <template>
   <div class="send-tranc bb-content">
     <div class="x-header" v-show="step === 2 || step === 3">
-      <x-header :title="title" :left-options="{preventGoBack:true}" @on-click-back="goBack"></x-header>
+      <x-header :title="title" :left-options="{preventGoBack:true, backText: ''}" @on-click-back="goBack"></x-header>
     </div>
 
 

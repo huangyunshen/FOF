@@ -2,7 +2,7 @@
   <div class="backup-content">
 
     <div class="x-header">
-      <x-header :title="$t('backupPrivateKye')" :left-options="{preventGoBack:true}" @on-click-back="back"></x-header>
+      <x-header :title="$t('backupPrivateKye')" :left-options="{preventGoBack:true, backText: ''}" @on-click-back="back"></x-header>
     </div>
 
     <div class="backup-info warning-bg tl pd-40">

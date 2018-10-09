@@ -1,24 +1,26 @@
 <template>
   <div class="unlock-wallet">
-
-    <!--wallet password-->
-
-    <div class="label_color">
-      <label>{{ $t('inputPassWord') }}</label>
+    <div class="logo-content">
+      <span class="logo"></span>
+      <p class="logo-title">{{ $t("logoTitle") }}</p>
     </div>
-    <div class="wallet-pwd pt-40">
-      <group>
-        <x-input type="password" v-model="pwd" :placeholder="$t('enterPwd')"></x-input>
-      </group>
-    </div>
+    <div class="modal">
+      <div class="dialog">
+        <div class="title">
+          <label>{{ $t('inputPassWord') }}</label>
+        </div>
+        <div class="wallet-pwd pt-40">
+          <group>
+            <x-input class="text-c" type="password" v-model="pwd" :placeholder="$t('enterPwd')"></x-input>
+          </group>
+        </div>
 
-    <!--submit btn-->
-    <div class="mt-20 pd-40">
-      <x-button type="primary" @click.native="login">{{ $t('loginWallet') }}</x-button>
+        <div class="mt-20 pd-40">
+          <x-button class="radius-button" type="primary" @click.native="login">{{ $t('loginWallet') }}</x-button>
+        </div>
+      </div>
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -62,8 +64,7 @@
     created() {
       let name = this.$route.params.routeName;
       let index = sessionStorage.getItem('setRouteIndex')
-
-      if(name && index) {
+      if(name && index && name !== 'NewWallet') {
         this.routeName = name
       } else {
         this.routeName = 'GameLobby'
@@ -75,14 +76,56 @@
 
 <style lang="less" scoped>
   .unlock-wallet {
-    height: auto;
-    width: 100%;
     position: absolute;
-    top: 60%;
-    transform: translateY(-50%);
-  }
-  .label_color {
-    color:blue;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url("../../assets/images/default/login_bg.png") no-repeat;
+    background-size: cover;
+
+    .logo-content  {
+      float: left;
+      width: 100%;
+      height: 600px;
+      padding-top: 300px;
+      .logo {
+        display: inline-block;
+        width: 417px;
+        height: 143px;
+        background: url("../../assets/images/default/logo.png") no-repeat;
+        background-size: cover;
+      }
+      .logo-title {
+        margin-top: 20px;
+        font-size: 24px;
+        color: #ffffff;
+      }
+    }
+
+    .modal {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background:rgba(28,28,28,0.2);
+
+      .dialog {
+        width: 100%;
+        height: 640px;
+        position: absolute;
+        bottom: 0;
+        background: #ffffff;
+
+        .title {
+          font-size: 54px;
+          margin-top: 80px;
+        }
+
+        .radius-button {
+          width: 500px;
+        }
+      }
+    }
   }
 
 </style>

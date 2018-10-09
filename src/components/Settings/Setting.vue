@@ -2,7 +2,7 @@
   <div class="setting">
 
     <div class="x-header">
-      <x-header :title="$t('walletSetting')" :left-options="{preventGoBack:true}"
+      <x-header :title="$t('walletSetting')" :left-options="{preventGoBack:true, backText: ''}"
                 @on-click-back="$router.replace({name:'MyAssets'})"></x-header>
     </div>
 
@@ -49,7 +49,7 @@
       }
     },
     created() {
-     this.network = this.$web3.currentProvider.connection.url
+     //this.network = this.$web3.currentProvider.connection.url
     }
   }
 </script>

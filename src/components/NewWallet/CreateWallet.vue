@@ -1,7 +1,7 @@
 <template>
   <div class="create-wallet">
     <div class="x-header">
-      <x-header :title="$t('createWallet')" :left-options="{preventGoBack:true}" @on-click-back="$router.replace({name:'NewWallet'})"></x-header>
+      <x-header :title="$t('createWallet')" :left-options="{preventGoBack:true, backText: ''}" @on-click-back="$router.replace({name:'NewWallet', params:{index: 1}})"></x-header>
     </div>
 
     <div class="warning-content warning-bg warning-text tl pd-40">

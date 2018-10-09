@@ -2,7 +2,7 @@
   <div class="network">
 
     <div class="x-header">
-      <x-header :title="$t('selectAnNetwork')" :left-options="{preventGoBack:true}"
+      <x-header :title="$t('selectAnNetwork')" :left-options="{preventGoBack:true, backText: ''}"
                 @on-click-back="$router.replace({name:'Setting'})"></x-header>
     </div>
 
@@ -21,21 +21,35 @@
     data() {
       return {
         network: '',
-        netList: [	
-		{title: 'A1', url: 'ws://39.108.159.230:8581'},
-		{title: 'A2', url: 'ws://39.108.159.230:8582'},
-		{title: 'B1', url: 'ws://120.79.182.14:8581'},
-		{title: 'B2', url: 'ws://120.79.182.14:8582'},
-		{title: 'C1', url: 'ws://39.108.231.134:8581'},
-		{title: 'C2', url: 'ws://39.108.231.134:8582'},
-		{title: 'D1', url: 'ws://112.74.175.96:8581'},
-		{title: 'D2', url: 'ws://112.74.175.96:8582'},
-		{title: 'E1', url: 'ws://39.108.93.202:8581'},
-		{title: 'E2', url: 'ws://39.108.93.202:8582'},
-		{title: 'F1', url: 'ws://47.106.160.141:8581'},
-		{title: 'F2', url: 'ws://47.106.160.141:8582'},
-		{title: 'G1', url: 'ws://120.78.157.63:8581'},
-		{title: 'G2', url: 'ws://120.78.157.63:8582'},
+        netList: [
+          {title: 'A1', url: 'ws://39.108.159.230:8561'},
+          {title: 'A2', url: 'ws://39.108.159.230:8562'},
+          {title: 'B1', url: 'ws://120.79.182.14:8561'},
+          {title: 'B2', url: 'ws://120.79.182.14:8562'},
+          {title: 'C1', url: 'ws://39.108.231.134:8561'},
+          {title: 'C2', url: 'ws://39.108.231.134:8562'},
+          {title: 'D1', url: 'ws://112.74.175.96:8561'},
+          {title: 'D2', url: 'ws://112.74.175.96:8562'},
+          {title: 'E1', url: 'ws://39.108.93.202:8561'},
+          {title: 'E2', url: 'ws://39.108.93.202:8562'},
+          {title: 'F1', url: 'ws://47.106.160.141:8561'},
+          {title: 'F2', url: 'ws://47.106.160.141:8562'},
+          {title: 'G1', url: 'ws://120.78.157.63:8561'},
+          {title: 'G2', url: 'ws://120.78.157.63:8562'},
+          // {title: 'A1', url: 'ws://39.108.159.230:8571'},
+          // {title: 'A2', url: 'ws://39.108.159.230:8572'},
+          // {title: 'B1', url: 'ws://120.79.182.14:8571'},
+          // {title: 'B2', url: 'ws://120.79.182.14:8572'},
+          // {title: 'C1', url: 'ws://39.108.231.134:8571'},
+          // {title: 'C2', url: 'ws://39.108.231.134:8572'},
+          // {title: 'D1', url: 'ws://112.74.175.96:8571'},
+          // {title: 'D2', url: 'ws://112.74.175.96:8572'},
+          // {title: 'E1', url: 'ws://39.108.93.202:8571'},
+          // {title: 'E2', url: 'ws://39.108.93.202:8572'},
+          // {title: 'F1', url: 'ws://47.106.160.141:8571'},
+          // {title: 'F2', url: 'ws://47.106.160.141:8572'},
+          // {title: 'G1', url: 'ws://120.78.157.63:8571'},
+          // {title: 'G2', url: 'ws://120.78.157.63:8572'},
         ],
       }
     },
@@ -69,7 +83,7 @@
                 }, 7000)
               }
 
-              if (data) { 
+              if (data) {
                 this.$vux.loading.hide()
                 this.$vux.toast.text(this.$t('connectSuccess'))
                 this.network = net.url

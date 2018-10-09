@@ -1,5 +1,5 @@
 <template>
-  <div class="record-panel-content tl">
+  <div class="record-panel-content tl" @click="getDetail">
     <div class="cf">
       <div class="my-media-box fl">
         <span class="icon" :class="item.style"></span>
@@ -34,6 +34,15 @@
           case '-':
             return 'red'
         }
+      }
+    },
+    methods: {
+      getDetail() {
+        this.$web3.eth.getTransaction(this.item.txHash).then( data => {
+          this.$router.replace({name:'RecordDetail', params: {data}})
+        }, err => {
+          console.log(err);
+        })
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="tranc-record bb-content"  :class="{'pb-150':!noMoreFlag}">
-    <div class="panel-content bb-content pd-40 pl-30 mb-50 base-shadow cf" v-for="(item, index) in recordData" :key="index">
+    <div class="panel-content bb-content pd-40 pl-30 mb-50 base-shadow cf" v-for="(item, index) in recordData" :key="index" v-show="recordData.length !== {}">
       <div class="panel-date fl">{{ index.slice(8,10) }}</div>
       <div class="panels bb-content fl">
         <div class="panel-item bb-content" :class="{border: rI}" v-for="(rItem, rI) in item" :key="rI">
@@ -9,7 +9,12 @@
       </div>
     </div>
 
-    <div v-show="searchStatus" class="more-content">
+    <div class="no-list" v-show="recordData.length === {}">
+      <span></span>
+      <p>{{ $t('noTransactionRecord') }}</p>
+    </div>
+
+    <div v-show="searchStatus && (recordData.length !== {})" class="more-content">
       <load-more :show-loading="showLoading" :tip="loadingTip"></load-more>
     </div>
   </div>
@@ -95,6 +100,7 @@
               }
               data[i].title = title
 
+
               //描述文字处理
               let text, style
               if (data[i].txToType === '0') {
@@ -102,7 +108,7 @@
                   text = this.$t('shiftOut')
                   style = 'recordIcon-4'
                 } else {
-                  if (data[i].txFromType) {
+                  if (Number(data[i].txFromType)) {
                     text = this.$t('extractTheGame')
                     style = 'recordIcon-2'
                   } else {
@@ -145,8 +151,8 @@
           }
         }, err => {
           console.log(err);
-          this.showLoading = false
-          this.loadingTip = this.$t('loadingError')
+          this.searchStatus = false
+          // this.loadingTip = this.$t('loadingError')
         })
       },
     },
@@ -173,6 +179,24 @@
           width: 100%;
           padding:40px 0 40px 20px;
         }
+      }
+    }
+
+    .no-list {
+      height: 100%;
+      width: 100%;
+      span {
+        display: inline-block;
+        width: 518px;
+        height: 436px;
+        margin-top: 190px;
+        background: url("../../../assets/images/default/empty_data_transaction.png") no-repeat;
+        background-size: cover;
+      }
+      p {
+        color: #8A9EED;
+        font-size: 34px;
+        margin-top: 30px;
       }
     }
   }

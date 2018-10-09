@@ -1,20 +1,15 @@
 <template>
-  <div class="new-wallet pd-40 pos-r">
-    <div>
-      <div class="login_icon">
-        <img src="../../assets/images/default/logo.png">
+  <div class="new-wallet">
+    <div class="logo-content">
+      <span class="logo"></span>
+      <p class="logo-title">{{ $t("logoTitle") }}</p>
+    </div>
+    <div class="buttons">
+      <div>
+        <x-button :class="{active:tabIndex === 1}" type="primary" @click.native="$router.replace({name: 'CreateWallet'})">{{ $t("createWallet") }}</x-button>
       </div>
-      <div class="login_title">
-        <label>{{ $t("logoTitle") }}</label>
-      </div>
-      <div class="login_btn1">
-        <x-button type="primary" @click.native="$router.replace({name: 'CreateWallet'})">{{ $t("createWallet") }}</x-button>
-      </div>
-      <div class="login_btn2">
-        <x-button type="primary" @click.native="$router.replace({name: 'ImportWallet'})">{{ $t("loginWallet") }}</x-button>
-      </div>
-      <div class="login_fof">
-        <label>FOFGame</label>
+      <div class="mt-60">
+        <x-button :class="{active:tabIndex === 2}" type="primary" @click.native="$router.replace({name: 'ImportWallet'})">{{ $t("loginWallet") }}</x-button>
       </div>
     </div>
   </div>
@@ -23,39 +18,58 @@
 <script>
   export default {
     name: "NewWallet",
+    data() {
+      return {
+        tabIndex:2,
+      }
+    },
+    created() {
+      let i = this.$route.params.index;
+      this.tabIndex = i ? i : 1;
+    }
   }
 </script>
 
 <style lang="less" scoped>
-  .login_icon {
-    position:relative;
-    top:200px;
+  .new-wallet {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url("../../assets/images/default/login_bg.png") no-repeat;
+    background-size: cover;
 
-  }
- 
-  .login_title {
-    color: blue;
-    font-size: 40px;
-    position:relative;
-    top:300px
+    .logo-content  {
+      width: 100%;
+      height: 600px;
+      padding-top: 300px;
+      .logo {
+        display: inline-block;
+        width: 417px;
+        height: 143px;
+        background: url("../../assets/images/default/logo.png") no-repeat;
+        background-size: cover;
+      }
+      .logo-title {
+        margin-top: 20px;
+        font-size: 24px;
+        color: #ffffff;
+      }
     }
 
-  .login_btn1 {
-    position:relative;
-    left:0px;
-    top:900px
+    .buttons {
+      margin-top: 15vh;
+      padding: 100px;
 
+      button {
+        background: none;
+        border-radius: 30px;
+        border: solid 3px #0cdce8;
+        &.active {
+          background: #0cdce8;
+        }
+      }
+    }
   }
-  .login_btn2 {
-    position: relative;
-    left: 0px;
-    top: 1000px
-  }
-  .login_fof {
-    color: blue;
-    font-size: 40px;
-    position: relative;
-    top: 1250px
-  }
-
 </style>

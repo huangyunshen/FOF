@@ -69,7 +69,7 @@
     },
     data() {
       return {
-        tabIndex: 1,
+        tabIndex: 2,
         showSwitch:false,
         showDialog:false,
         accList: [],
@@ -232,7 +232,7 @@
           width: 40px;
           margin: 0 auto;
           background: #4769F5;
-          border-radius: 10px;
+          border-radius: 25%;
         }
       }
     }

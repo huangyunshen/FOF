@@ -2,7 +2,7 @@
   <div class="game-panel-content tl">
     <div class="cf">
       <div class="my-media-box fl">
-        <img class="my-media-img" :src="$funs.getLogoImgUrl(newItem.gameType)">
+        <img class="my-media-img" :src="item.phoUrl">
       </div>
       <div class="my-media-box fl flex-middle">
         <p class="my-media-title no-wrap" v-text="newItem.contractName"></p>
@@ -44,16 +44,10 @@
           } else {
             balance = this.$web3.utils.fromWei(balance)
             switch (this.item.gameType) {
-              case "1":
-                this.desc1 = this.$t('jackpotAmount') + balance + ' FOF';
-                return
               case "2":
                 this.desc1 =this.item.teams;
                 return
-              case "3":
-                this.desc1 = this.$t('jackpotAmount') + balance + ' FOF';
-                return
-              case "4":
+              default:
                 this.desc1 = this.$t('jackpotAmount') + balance + ' FOF';
                 return
             }
@@ -88,6 +82,7 @@
       .my-media-img {
         width: 160px;
         height: 160px;
+        border-radius: 30px;
       }
       .my-media-title {
         width: 100%;
@@ -115,9 +110,15 @@
         }
       }
       .radius-button {
-        margin-top: 20px;
-        font-size: 46px;
+        margin-top: 30px;
         padding: 0 30px;
+        background: none;
+        width:213px;
+        height:90px;
+        line-height: 90px;
+        font-size:46px;
+        border-radius:45px;
+        border:3px solid rgba(71,105,245,1);
       }
     }
   }

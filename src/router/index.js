@@ -18,6 +18,7 @@ import GameSearchDetail from '@/components/HomeScreen/GameLobby/GameSearchDetail
 import BlockQuery from '@/components/HomeScreen/BlockQuery/BlockQuery'
 import MyAssets from '@/components/HomeScreen/MyAssets/MyAssets'
 import SendTransaction from '@/components/HomeScreen/MyAssets/SendTransaction'
+import RecordDetail from '@/components/HomeScreen/MyAssets/RecordDetail'
 
 //unlock wallet
 import UnlockWallet from '@/components/UnlockWallet/UnlockWallet'
@@ -90,19 +91,22 @@ export default new Router({
         {
           path:'BlockQuery',
           name:'BlockQuery',
-          component:BlockQuery,
-          meta: { keepAlive: true }
+          component:BlockQuery
         },
         {
           path:'MyAssets',
           name:'MyAssets',
-          component:MyAssets,
-          meta: { keepAlive: true }
+          component:MyAssets
         },
         {
           path:'SendTransaction',
           name:'SendTransaction',
           component:SendTransaction,
+        },
+        {
+          path:'RecordDetail',
+          name:'RecordDetail',
+          component:RecordDetail,
         },
       ]
     },

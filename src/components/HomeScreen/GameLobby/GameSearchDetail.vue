@@ -79,6 +79,7 @@
     padding-bottom: 40px !important;
     box-sizing: border-box;
     overflow-y: auto;
+    background: #ffffff;
 
     .search-head {
       height: 150px;

@@ -13,6 +13,7 @@ module.exports = {
     proxyTable: {
       '/url': {  //使用"/url"来代替
         target: 'http://47.75.103.95', //源地址
+        // secure: false,
         changeOrigin: true, //改变源
         pathRewrite: {
           '^/url': 'http://47.75.103.95' //路径重写

@@ -86,7 +86,7 @@
       position: relative;
       z-index: 1000;
       background: @base-background-color;
-      border-top: 1px solid #c3c3c3;
+      border-top: 1px solid #D6D7D8;
       display: flex;
       justify-content: space-around;
       align-items: center;
