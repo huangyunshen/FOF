@@ -24,6 +24,7 @@
     name: 'RecordPanel',
     props: {
       item: Object,
+      tokenItem: Object,
     },
     computed: {
       amountColor() {
@@ -39,7 +40,7 @@
     methods: {
       getDetail() {
         this.$web3.eth.getTransaction(this.item.txHash).then( data => {
-          this.$router.replace({name:'RecordDetail', params: {data}})
+          this.$router.replace({name:'RecordDetail', params: {data, tokenItem: this.tokenItem}})
         }, err => {
           console.log(err);
         })
@@ -65,9 +66,9 @@
         display: inline-block;
         color: #5F5F5F;
         font-size: 36px;
-        padding: 5px 30px;
-        background: rgba(240, 240, 240, 1);
-        border-radius: 6px;
+        padding: 0 30px;
+        background: #D4E8FE;
+        border-radius: 14px;
       }
       .amount {
         line-height: 130px;

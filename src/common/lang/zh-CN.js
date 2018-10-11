@@ -76,7 +76,7 @@ module.exports = {
   noData:'没有数据',
 
   //my assets
-  totalAssets:'总资产 FOF',
+  totalAssets:'总资产',
   extractTheGame:'游戏提取',
   shiftIn:'转入',
   shiftOut:'转出',
@@ -216,6 +216,13 @@ module.exports = {
   Last:'未尽事宜您需遵守FOF基金会不时更新的公告及相关规则，本协议最后更新于2018年7月3日（“修订日期”）。',
   FOF:'FOF基金会',
 
-
+  token001: '添加新Token',
+  token002: '输入Token名或合约地址查询',
+  token003:'请输入搜索内容',
+  token004:'已添加',
+  token005:'已移除',
+  token006:'转账',
+  token007:'兑换',
+  token008:'手续费不足',
 
 }

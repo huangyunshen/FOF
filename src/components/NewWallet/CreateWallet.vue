@@ -135,7 +135,8 @@
       height: 342px;
       border-radius: @base-radius;
       margin: 60px auto 0;
-      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+      /*box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);*/
+      border: 2px solid #4389F5;
       background: @base-background-color;
       p {
         margin: 0 50px;
@@ -143,14 +144,14 @@
         padding-right: 65px;
         position: relative;
         &:first-child {
-          border-bottom: 2px solid #F3F3F3;
+          border-bottom: 2px solid #DFEDFF;
         }
         .title {
           position: absolute;
           left: 0;
           line-height: 170px;
           font-size: 48px;
-          color: #616161;
+          color: #506FF2;
         }
         .close-btn {
           position: absolute;

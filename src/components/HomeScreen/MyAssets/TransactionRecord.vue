@@ -1,21 +1,50 @@
 <template>
-  <div class="tranc-record bb-content"  :class="{'pb-150':!noMoreFlag}">
-    <div class="panel-content bb-content pd-40 pl-30 mb-50 base-shadow cf" v-for="(item, index) in recordData" :key="index" v-show="recordData.length !== {}">
-      <div class="panel-date fl">{{ index.slice(8,10) }}</div>
-      <div class="panels bb-content fl">
-        <div class="panel-item bb-content" :class="{border: rI}" v-for="(rItem, rI) in item" :key="rI">
-          <record-panel :item="rItem"></record-panel>
+  <div class="tranc-record bb-content" :class="{'pb-150':!noMoreFlag}">
+
+    <div class="header">
+      <div class="head">
+        <span class="back" @click="$router.replace({name: 'MyAssets'})"></span>
+        <span class="title">{{tokenItem && tokenItem.tokenName}}</span>
+      </div>
+
+      <div class="head-content pd-40">
+        <div class="content">
+          <p>{{ tokenItem && tokenItem.balance }}</p>
+          <p class="address">{{$store.state.address}}</p>
         </div>
       </div>
     </div>
 
-    <div class="no-list" v-show="recordData.length === {}">
-      <span></span>
-      <p>{{ $t('noTransactionRecord') }}</p>
+    <div class="body">
+      <div class="panel-content bb-content pl-30 pr-30 mb-50 base-shadow cf" v-for="(item, index) in recordData"
+           :key="index" v-show="recordData.length !== {}">
+        <div class="panel-date fl">{{ index.slice(8,10) }}</div>
+        <div class="panels bb-content fl">
+          <div class="panel-item bb-content" :class="{border: rI}" v-for="(rItem, rI) in item" :key="rI">
+            <record-panel :item="rItem" :tokenItem="tokenItem"></record-panel>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-list" v-show="recordData.length === {}">
+        <span></span>
+        <p>{{ $t('noTransactionRecord') }}</p>
+      </div>
+
+      <div v-show="searchStatus && (recordData.length !== {})" class="more-content">
+        <load-more :show-loading="showLoading" :tip="loadingTip"></load-more>
+      </div>
     </div>
 
-    <div v-show="searchStatus && (recordData.length !== {})" class="more-content">
-      <load-more :show-loading="showLoading" :tip="loadingTip"></load-more>
+    <div class="footer">
+      <flexbox>
+        <flexbox-item>
+          <x-button type="primary"  @click.native="$router.push({name: 'SendTransaction', params: {tokenItem}})">{{ $t('token006') }}</x-button>
+        </flexbox-item>
+        <flexbox-item v-if="tokenItem && tokenItem.addr">
+          <x-button type="primary"  @click.native="$router.push({name: 'SendTransaction', params: {tokenItem}})">{{ $t('token007') }}</x-button>
+        </flexbox-item>
+      </flexbox>
     </div>
   </div>
 </template>
@@ -25,19 +54,20 @@
 
   export default {
     name: "TransactionRecord",
-    components:{
+    components: {
       recordPanel
     },
     data() {
       return {
-        pageSize:5,
-        pageNum:1,
-        recordData:{},
+        pageSize: 20,
+        pageNum: 1,
+        recordData: {},
 
-        noMoreFlag:false,
+        noMoreFlag: false,
         searchStatus: true,
         showLoading: false,
         loadingTip: null,
+        tokenItem: null,
       }
     },
     computed: {
@@ -63,7 +93,7 @@
         this.loadingTip = this.$t('isSearching')
 
         this.$axios.getTradeRecord(this.address, null, this.pageSize, this.pageNum).then(data => {
-          if(data.length) {
+          if (data.length) {
             for (let i = 0; i < data.length; i++) {
               //地址处理
               data[i].txFrom = data[i].txFrom.toLowerCase()
@@ -91,7 +121,7 @@
                   title = this.$t('shiyixuanwu')
                   break
                 default:
-                  if(data[i].txFrom === this.address && data[i].txTo) {
+                  if (data[i].txFrom === this.address && data[i].txTo) {
                     title = data[i].txTo
                   } else {
                     title = data[i].txFrom
@@ -140,7 +170,7 @@
             }
 
             this.searchStatus = false
-            if(data.length < this.pageSize) {
+            if (data.length < this.pageSize) {
               this.noMoreFlag = true
             }
 
@@ -158,50 +188,110 @@
     },
     created() {
       this.getData()
+
+      if (this.$route.params.tokenItem) {
+        this.tokenItem = this.$route.params.tokenItem
+      } else {
+        this.$router.replace({name: 'MyAssets'})
+      }
     }
   }
 </script>
 
 <style lang="less" scoped>
   .tranc-record {
-    .panel-content {
-      border-radius: @base-radius;
-      background: #FFFFFF;
 
-      .panel-date {
-        width: 80px;
-        padding-top: 40px;
-        font-size: 68px;
+    .header {
+      height: 573px;
+      background: url("../../../assets/images/default/bg_transaction_transfer_wallet.png") no-repeat;
+      background-size: cover;
+
+      .head {
+        height: 120px;
+        padding: 26px 0;
+        box-sizing: border-box;
+        .back {
+          float: left;
+          width: 65px;
+          height: 65px;
+          background: url("../../../assets/images/default/icon_basis_arrow_left1.png") no-repeat;
+          background-size: cover;
+        }
+        .title {
+          color: #FFFFFF;
+          line-height: 60px;
+        }
       }
-      .panels {
-        width: calc(100% - 80px);
-        .panel-item {
-          width: 100%;
-          padding:40px 0 40px 20px;
+
+      .head-content {
+        .content {
+          p {
+            margin-top: 40px;
+            font-size: 100px;
+            color: #FFFFFF;
+          }
+          .address {
+            font-size: 36px;
+            color: #9AC6FD;
+            font-weight: 500;
+            line-height: 50px;
+            word-break: break-word;
+          }
         }
       }
     }
 
-    .no-list {
-      height: 100%;
-      width: 100%;
-      span {
-        display: inline-block;
-        width: 518px;
-        height: 436px;
-        margin-top: 190px;
-        background: url("../../../assets/images/default/empty_data_transaction.png") no-repeat;
-        background-size: cover;
+    .body {
+      height: calc(100% - 640px);
+      overflow-y: auto;
+      margin-top: 40px;
+      padding: 40px;
+      box-sizing: border-box;
+
+      .panel-content {
+        border-radius: @base-radius;
+        background: #F1F7FF;
+
+        .panel-date {
+          width: 80px;
+          padding-top: 40px;
+          font-size: 68px;
+          color: #4769F5;
+        }
+        .panels {
+          width: calc(100% - 80px);
+          .panel-item {
+            width: 100%;
+            padding: 40px 0 40px 20px;
+          }
+        }
       }
-      p {
-        color: #8A9EED;
-        font-size: 34px;
-        margin-top: 30px;
+
+      .no-list {
+        height: 100%;
+        width: 100%;
+        span {
+          display: inline-block;
+          width: 518px;
+          height: 436px;
+          margin-top: 190px;
+          background: url("../../../assets/images/default/empty_data_transaction.png") no-repeat;
+          background-size: cover;
+        }
+        p {
+          color: #8A9EED;
+          font-size: 34px;
+          margin-top: 30px;
+        }
       }
+    }
+
+    .footer {
+      padding: 30px 40px;
     }
   }
 
   .border {
-    border-top: 1px solid #F3F3F3;
+    border-top: 1px solid #D3E8FE;
   }
 </style>

@@ -7,7 +7,7 @@
     </div>
 
     <div class="acc-list pd-40">
-      <div class="account pd-40 mb-50 base-shadow" v-for="(item, index) in accList" :key="index"
+      <div class="account pd-40 mb-50" v-for="(item, index) in accList" :key="index"
            @click="backupAcc(item)">
         <span class="icon"></span>
         <div class="content tl text-c1">
@@ -15,18 +15,20 @@
           <p class="address">{{ item.address }}</p>
         </div>
       </div>
+      <div class="pt-20">
+        <flexbox>
+          <flexbox-item>
+            <x-button class="radius-button" @click.native="createAcc">{{ $t('createAccount') }}</x-button>
+          </flexbox-item>
+          <flexbox-item>
+            <x-button class="radius-button" type="primary" @click.native="$router.replace({name: 'ImportAccount'})">{{
+              $t('importAccount') }}
+            </x-button>
+          </flexbox-item>
+        </flexbox>
+      </div>
     </div>
 
-    <div class="footer pd-40">
-      <flexbox>
-        <flexbox-item>
-          <x-button class="radius-button" @click.native="createAcc">{{ $t('createAccount') }}</x-button>
-        </flexbox-item>
-        <flexbox-item>
-          <x-button class="radius-button" type="primary" @click.native="$router.replace({name: 'ImportAccount'})">{{ $t('importAccount') }}</x-button>
-        </flexbox-item>
-      </flexbox>
-    </div>
   </div>
 </template>
 
@@ -66,7 +68,7 @@
         this.accList = []
         let wallet = this.$web3.eth.accounts.wallet
         for (let i = 0; i < 1000; i++) {
-          if(wallet[i]) {
+          if (wallet[i]) {
             this.$funs.getBalanceByWei(wallet[i].address, balance => {
               balance = Math.floor(balance / (10 ** 16)) / 100
               let obj = {}
@@ -87,15 +89,14 @@
 
 <style lang="less" scoped>
   .acc-manage {
+    overflow-y: auto;
 
     .acc-list {
       margin-top: 120px;
-      max-height: calc(100% - 400px);
-      overflow-y: auto;
 
       .account {
-        background: @base-background-color;
         border-radius: @base-radius;
+        border: 2px solid #4389F5;
 
         .icon {
           float: left;
@@ -115,6 +116,7 @@
           box-sizing: border-box;
           .balance {
             font-size: 64px;
+            color: #22AE2E;
           }
           .address {
             font-size: 36px;
@@ -123,14 +125,6 @@
           }
         }
       }
-    }
-
-    .footer {
-      width: 100%;
-      box-sizing: border-box;
-      background: fade(#F8F8F8, 75%);
-      position: absolute;
-      bottom: 0;
     }
   }
 </style>

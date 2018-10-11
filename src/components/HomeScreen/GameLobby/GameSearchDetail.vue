@@ -79,7 +79,7 @@
     padding-bottom: 40px !important;
     box-sizing: border-box;
     overflow-y: auto;
-    background: #ffffff;
+    background: #DBE7F6;
 
     .search-head {
       height: 150px;
@@ -87,7 +87,6 @@
       position: fixed;
       top: 0;
       left: 0;
-      background: #ffffff;
       z-index: 99999;
       width: 100%;
       .back {
@@ -95,9 +94,10 @@
         height: 60px;
         position: absolute;
         top: 62px;
-        left: 25px;
-        background: url("../../../assets/images/default/icon_basis_arrow_left.png") no-repeat;
+        left: 0;
+        background: url("../../../assets/images/default/icon_basis_arrow_right.png") no-repeat;
         background-size: contain;
+        transform: rotateY(-180deg);
       }
       .search-box {
         width: 980px;
@@ -106,7 +106,7 @@
         input {
           width: 100%;
           height: 100%;
-          padding: 0 30px;
+          padding: 0 20px;
           box-sizing: border-box;
           font-size: 38px;
           color: @text-color-1;
@@ -136,17 +136,6 @@
             color: @primary-text-color;
             font-size: 32px;
           }
-          /*.title {
-            padding: 10px 0;
-            background: #F0F0F0;
-            border-radius: 10px;
-            color: @primary-text-color;
-            font-size: 32px;
-          }
-          .text {
-            color: @text-color-1;
-            font-size: 34px;
-          }*/
         }
       }
     }

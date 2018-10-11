@@ -15,10 +15,14 @@ import ImportWallet from '@/components/NewWallet/ImportWallet'
 import HomeScreen from '@/components/HomeScreen/HomeScreen'
 import GameLobby from '@/components/HomeScreen/GameLobby/GameLobby'
 import GameSearchDetail from '@/components/HomeScreen/GameLobby/GameSearchDetail'
-import BlockQuery from '@/components/HomeScreen/BlockQuery/BlockQuery'
+// import BlockQuery from '@/components/HomeScreen/BlockQuery/BlockQuery'
+
+//my assets
 import MyAssets from '@/components/HomeScreen/MyAssets/MyAssets'
-import SendTransaction from '@/components/HomeScreen/MyAssets/SendTransaction'
+import Tokens from '@/components/HomeScreen/MyAssets/Tokens'
+import TransactionRecord from '@/components/HomeScreen/MyAssets/TransactionRecord'
 import RecordDetail from '@/components/HomeScreen/MyAssets/RecordDetail'
+import SendTransaction from '@/components/HomeScreen/MyAssets/SendTransaction'
 
 //unlock wallet
 import UnlockWallet from '@/components/UnlockWallet/UnlockWallet'
@@ -88,15 +92,30 @@ export default new Router({
           name:'GameSearchDetail',
           component:GameSearchDetail,
         },
-        {
-          path:'BlockQuery',
-          name:'BlockQuery',
-          component:BlockQuery
-        },
+        // {
+        //   path:'BlockQuery',
+        //   name:'BlockQuery',
+        //   component:BlockQuery
+        // },
         {
           path:'MyAssets',
           name:'MyAssets',
           component:MyAssets
+        },
+        {
+          path:'Tokens',
+          name:'Tokens',
+          component:Tokens,
+        },
+        {
+          path:'TransactionRecord',
+          name:'TransactionRecord',
+          component:TransactionRecord,
+        },
+        {
+          path:'RecordDetail',
+          name:'RecordDetail',
+          component:RecordDetail,
         },
         {
           path:'SendTransaction',
@@ -104,9 +123,39 @@ export default new Router({
           component:SendTransaction,
         },
         {
-          path:'RecordDetail',
-          name:'RecordDetail',
-          component:RecordDetail,
+          path:'Setting',
+          name:'Setting',
+          component:Setting,
+        },
+        {
+          path:'AccountManagement',
+          name:'AccountManagement',
+          component:AccountManagement,
+        },
+        {
+          path:'ImportAccount',
+          name:'ImportAccount',
+          component:ImportAccount,
+        },
+        {
+          path:'AccountInfo',
+          name:'AccountInfo',
+          component:AccountInfo,
+        },
+        {
+          path:'Network',
+          name:'Network',
+          component:Network,
+        },
+        {
+          path:'Language',
+          name:'Language',
+          component:Language,
+        },
+        {
+          path: 'FAQ',
+          name: 'FAQ',
+          component: FAQ,
         },
       ]
     },
@@ -114,41 +163,6 @@ export default new Router({
       path:'/UnlockWallet',
       name:'UnlockWallet',
       component:UnlockWallet,
-    },
-    {
-      path:'/Setting',
-      name:'Setting',
-      component:Setting,
-    },
-    {
-      path:'/AccountManagement',
-      name:'AccountManagement',
-      component:AccountManagement,
-    },
-    {
-      path:'/ImportAccount',
-      name:'ImportAccount',
-      component:ImportAccount,
-    },
-    {
-      path:'/AccountInfo',
-      name:'AccountInfo',
-      component:AccountInfo,
-    },
-    {
-      path:'/Network',
-      name:'Network',
-      component:Network,
-    },
-    {
-      path:'/Language',
-      name:'Language',
-      component:Language,
-    },
-    {
-      path: '/FAQ',
-      name: 'FAQ',
-      component: FAQ,
     },
   ]
 })

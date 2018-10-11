@@ -48,7 +48,7 @@
     padding-top: 120px;
     .copy-content {
       margin: 60px 40px;
-      border: 1px solid #DEDEDE;
+      border: 1px solid #4389F5;
       padding: 40px;
       word-break: break-word;
       background: @base-background-color;

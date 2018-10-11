@@ -48,16 +48,19 @@
 
 <style lang="less" scoped>
   .language {
+    overflow-y: auto;
+
     .setting-list {
       margin-top: 160px;
-      background: @base-background-color;
+      margin-bottom: 30px;
       text-align: left;
-      border: 1px solid #F6F7F7;
+      border-top: 1px solid #506FF2;
+      border-bottom: 1px solid #506FF2;
       .list {
         color: @text-color-1;
         line-height: 150px;
         &:not(:last-child) {
-          border-bottom: 1px solid #F7F7F7;
+          border-bottom: 1px solid #DFEDFF;
         }
         .icon {
           display: inline-block;

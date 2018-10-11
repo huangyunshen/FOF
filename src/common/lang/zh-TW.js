@@ -76,7 +76,7 @@ module.exports = {
   noData:'沒有數據',
 
   //my assets
-  totalAssets: '總資產 FOF',
+  totalAssets: '總資產',
   extractTheGame: '遊戲提取',
   shiftIn: '轉入',
   shiftOut: '轉出',

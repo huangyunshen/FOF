@@ -12,8 +12,8 @@
       </div>
 
       <div @click="select(2)">
-        <img class="icon" v-show="index !== 2" src="../../assets/images/default/icon_bar_qkcx.png">
-        <img class="icon" v-show="index === 2" src="../../assets/images/default/icon_bar_qkcx_choice.png">
+        <img class="icon" v-show="index !== 2" src="../../assets/images/default/icon_bar_zc.png">
+        <img class="icon" v-show="index === 2" src="../../assets/images/default/icon_bar_zc_choice.png">
       </div>
 
       <!--<div @click="select(3)">-->
@@ -22,8 +22,8 @@
       <!--</div>-->
 
       <div @click="select(4)">
-        <img class="icon" v-show="index !== 4" src="../../assets/images/default/icon_bar_zc.png">
-        <img class="icon" v-show="index === 4" src="../../assets/images/default/icon_bar_zc_choice.png">
+        <img class="icon" v-show="index !== 4" src="../../assets/images/default/icon_bar_mine.png">
+        <img class="icon" v-show="index === 4" src="../../assets/images/default/icon_bar_mine_choice.png">
       </div>
     </div>
   </div>
@@ -52,13 +52,13 @@
               this.$router.replace({name: 'GameLobby'})
               break
             case 2:
-              this.$router.replace({name: 'BlockQuery'})
+              this.$router.replace({name: 'MyAssets'})
               break
             // case 3:
             //   this.$router.replace({name: 'GameLobby'})
             //   break
             case 4:
-              this.$router.replace({name: 'MyAssets'})
+              this.$router.replace({name: 'Setting'})
               break
           }
         }
@@ -86,7 +86,8 @@
       position: relative;
       z-index: 1000;
       background: @base-background-color;
-      border-top: 1px solid #D6D7D8;
+      box-shadow: -13px 1px 29px 0px
+      rgba(99, 99, 99, 0.13);
       display: flex;
       justify-content: space-around;
       align-items: center;

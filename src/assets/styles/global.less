@@ -8,13 +8,18 @@ html, body {
   margin: 0;
 }
 
+input, textarea {
+  caret-color: #5C7AF5;
+  font-family: 'Arial', Helvetica, Arial, sans-serif;
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Arial', Helvetica, Arial, sans-serif;
   font-size: @base-font-size;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: #DFE1E4;
+  background: #ffffff;
   width: 100%;
   position: relative;
 }
@@ -53,6 +58,8 @@ html, body {
         height: 120px;
         line-height: 120px;
         font-size: 50px;
+        color: #FFFFFF;
+        //text-align: left;
       }
     }
   }
@@ -64,14 +71,18 @@ html, body {
       font-size: @input-height;
       color: fade(@primary-text-color, 45%);
     }
+    &:before, &:after {
+      display: none;
+    }
   }
 
   /*  input  */
   .vux-x-input {
+    background: #F2F7FE;
     .weui-input {
       height: @base-cell-height;
       font-size: @base-font-size;
-      color: @text-color-1;
+      color: @primary-text-color;
       padding: 0 60px;
       box-sizing: border-box;
     }
@@ -82,12 +93,17 @@ html, body {
     }
   }
   /* textarea */
-  .weui-textarea {
-    font-size: @base-font-size;
-    color: @text-color-1;
-    line-height: 70px;
-    padding: 0 60px;
-    box-sizing: border-box;
+  .vux-x-textarea {
+    background: #F2F7FE;
+
+    .weui-textarea {
+      font-size: @base-font-size;
+      color: @primary-text-color;
+      line-height: 70px;
+      padding: 0 60px;
+      box-sizing: border-box;
+      background: #F2F7FE;
+    }
   }
 
   /*  button  */
@@ -98,6 +114,7 @@ html, body {
   }
   .radius-button {
     border-radius: 100px;
+    border: 2px solid #4770FB;
   }
 
   /*  vux-check-icon  */
@@ -584,16 +601,16 @@ base box-shadow
 warning
  */
 .warning-bg {
-  background: rgba(223, 145, 96, 0.11);;
+  background: #FEF9F7;
 }
 
 .warning-text {
-  color: #DF9160;
+  color: #E38E58;
   font-size: 38px;
 }
 
 .danger-text {
-  color: #D46F6E;
+  color: #E55458;
   font-size: 42px;
 }
 

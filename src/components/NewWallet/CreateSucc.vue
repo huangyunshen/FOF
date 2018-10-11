@@ -1,6 +1,6 @@
 <template>
   <div class="create-succ">
-    <succ-res :title="$t('walletCreateSucc')" class="ml-40 mr-40"></succ-res>
+    <succ-res :title="$t('walletCreateSucc')"></succ-res>
 
     <div class="succ-btn mt-20 pd-40">
       <flexbox>

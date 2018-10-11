@@ -1,11 +1,13 @@
 <template>
-  <div class="succ-icon">
-    <p>
-      <icon type="success" is-msg></icon>
-    </p>
-    <p class="mt-30">
-      <span class="create-succ-title">{{ title }}</span>
-    </p>
+  <div class="succ-res">
+    <div class="succ-bg">
+      <span class="succ-icon">
+        <img src="../../assets/images/default/icon_basis_choice.png" alt="">
+      </span>
+      <div class="mt-30">
+        <span class="create-succ-title">{{ title }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,21 +21,32 @@
 </script>
 
 <style lang="less" scoped>
-  .succ-icon {
-    height: 500px;
-    border-bottom: 1px solid #E7E7E7;
-
-    .weui-icon_msg {
-      color: #5BB473;
-      font-size: 210px;
-      border-radius: 50%;
-      height: 200px;
-      box-shadow: 0 14px 32px 0 rgba(91, 180, 115, 0.53);
-      margin-top: 70px;
+  .succ-res {
+    .succ-bg {
+      width: 100%;
+      height: 731px;
+      padding-top: 150px;
+      box-sizing: border-box;
+      background: url("../../assets/images/default/bg_success.png") no-repeat;
+      background-size: cover;
+      .succ-icon {
+        display: block;
+        width: 170px;
+        height: 170px;
+        padding: 60px;
+        margin: 0 auto;
+        background: #FFFFFF;
+        border-radius: 50%;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
+
     .create-succ-title {
       font-size: @base-font-size;
-      color: #5BB473;
+      color: #FFFFFF;
     }
   }
 </style>

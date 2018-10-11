@@ -6,11 +6,13 @@
       <!-- $router.replace({name:'AccountManagement'}) @on-click-back-->
     </div>
 
-  <div class="ps-r">
-    <wallet-info></wallet-info>
-  </div>
+    <div class="content">
 
-  <!--tab-->
+      <div class="ps-r">
+        <wallet-info></wallet-info>
+      </div>
+
+      <!--tab-->
 
       <div class="tab-content">
         <span :class="{active: tabIndex === 1}" @click="tabIndex = 1">{{ $t('privateKey') }}</span>
@@ -50,8 +52,8 @@
       <div class="mt-20 pd-40">
         <x-button type="primary" @click.native="importAcc">{{ $t('importAccount') }}</x-button>
       </div>
-
     </div>
+  </div>
 </template>
 <script>
   import walletInfo from '../utils/WalletInfo'
@@ -74,7 +76,7 @@
       back1() {
         this.$route.go(-1)
 
-        
+
       },
       importAcc() {
         if (this.tabIndex === 1) {          //私钥
@@ -164,25 +166,30 @@
   .import-acc {
     padding-top: 120px;
 
-    .tab-content {
-      padding: 60px 40px;
-      text-align: left;
+    .content {
+      height: 100%;
+      overflow-y: auto;
 
-      span {
-        display: inline-block;
-        height: 100px;
-        width: 250px;
-        margin-right: 50px;
-        background: #ECECEC;
-        border-radius: 100px;
-        line-height: 100px;
-        color: @text-color-1;
-        text-align: center;
+      .tab-content {
+        padding: 60px 40px;
+        text-align: left;
 
-        &.active {
-          background: @base-background-color;
-          box-shadow: 0px 4px 12px 0px rgba(71, 105, 245, 0.16);
-          color: #4769F5;
+        span {
+          display: inline-block;
+          height: 100px;
+          width: 250px;
+          margin-right: 50px;
+          background: #ECECEC;
+          border-radius: 100px;
+          line-height: 100px;
+          color: @text-color-1;
+          text-align: center;
+
+          &.active {
+            background: @base-background-color;
+            box-shadow: 0 4px 12px 0 rgba(71, 105, 245, 0.16);
+            color: #4769F5;
+          }
         }
       }
     }

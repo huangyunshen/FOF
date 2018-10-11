@@ -1,21 +1,19 @@
 <template>
   <div class="game-panel-content tl">
-    <div class="cf">
-      <div class="my-media-box fl">
-        <img class="my-media-img" :src="item.phoUrl">
-      </div>
-      <div class="my-media-box fl flex-middle">
-        <p class="my-media-title no-wrap" v-text="newItem.contractName"></p>
-        <p class="my-media-desc1 no-wrap" v-text="desc1"></p>
-        <p class="my-media-desc2">
-          <span v-for="(desc, descIndex) in newItem.odds">{{desc}}</span>
-        </p>
-      </div>
-      <div class="my-media-box fr">
-        <a :href="$funs.getGameUrl(newItem)" target="_blank">
-          <x-button class="radius-button" @click.native="$funs.setLatestPlay(newItem)">{{ $t('playGame') }}</x-button>
-        </a>
-      </div>
+    <div class="my-media-box fl">
+      <img class="my-media-img" :src="item.phoUrl">
+    </div>
+    <div class="my-media-box fl flex-middle">
+      <p class="my-media-title no-wrap" v-text="newItem.contractName"></p>
+      <p class="my-media-desc1 no-wrap" v-text="desc1"></p>
+      <p class="my-media-desc2">
+        <span v-for="(desc, descIndex) in newItem.odds">{{desc}}</span>
+      </p>
+    </div>
+    <div class="my-media-box fr">
+      <a :href="$funs.getGameUrl(newItem)" target="_blank">
+        <x-button class="radius-button" type="primary" @click.native="$funs.setLatestPlay(newItem)">{{ $t('playGame') }}</x-button>
+      </a>
     </div>
     <slot></slot>
   </div>
@@ -74,11 +72,13 @@
 <style lang="less" scoped>
   .game-panel-content {
     height: 100%;
-    box-sizing: border-box;
 
     .my-media-box {
-      padding-top: 40px;
-      height: 160px;
+      height: 100%;
+      max-height: 220px;
+      display: flex;
+      align-items: center;
+
       .my-media-img {
         width: 160px;
         height: 160px;
@@ -86,39 +86,31 @@
       }
       .my-media-title {
         width: 100%;
-        line-height: 60px;
         color: @primary-text-color;
         font-size: 46px;
       }
       .my-media-desc1 {
         width: 100%;
-        line-height: 50px;
         color: #5F5F5F;
         font-size: 38px;
       }
       .my-media-desc2 {
         width: 100%;
-        line-height: 40px;
         span {
           margin-right: 20px;
           color: #5F5F5F;
           font-size: 26px;
           padding: 5px 10px;
           padding-top: 10px;
-          background: rgba(240, 240, 240, 1);
+          background: #D4E8FE;
           border-radius: 6px;
         }
       }
       .radius-button {
-        margin-top: 30px;
-        padding: 0 30px;
-        background: none;
         width:213px;
         height:90px;
+        font-size: 46px;
         line-height: 90px;
-        font-size:46px;
-        border-radius:45px;
-        border:3px solid rgba(71,105,245,1);
       }
     }
   }

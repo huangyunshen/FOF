@@ -2,6 +2,7 @@
   <div class="acc-info-content">
     <!--账户列表界面-->
     <div v-show="backupPage === 1" class="acc-info">
+
       <div class="header">
         <div class="head">
           <span class="back" @click="$router.replace({name: 'AccountManagement'})"></span>
@@ -38,7 +39,7 @@
       </div>
 
       <!--modal-->
-      <div class="modal" v-show="showModal">
+      <div class="modal" v-show="showModal" @click.self="cancel">
         <div class="dialog" :class="{'dialog-show':showDialog, 'dialog-hide':!showDialog}">
           <div class="title">警告：你即将移除该账户，请确保已备份此账户，确认移除请在下方输入钱包密码</div>
 
@@ -62,13 +63,13 @@
     </div>
 
     <!--备份界面-->
-    <div v-show="backupPage === 2">
+    <div v-if="backupPage === 2" style="height: 100%; overflow-y:auto;">
       <backup-priv :address="account.address" @onBack="onComponentBack"></backup-priv>
     </div>
-    <div v-show="backupPage === 3">
+    <div v-if="backupPage === 3" style="height: 100%; overflow-y:auto;">
       <backup-mnemonic :address="account.address" @onBack="onComponentBack"></backup-mnemonic>
     </div>
-    <div v-show="backupPage === 4">
+    <div v-if="backupPage === 4" style="height: 100%; overflow-y:auto;">
       <backup-keystore :address="account.address" @onBack="onComponentBack"></backup-keystore>
     </div>
   </div>
@@ -167,119 +168,120 @@
 </script>
 
 <style lang="less" scoped>
-  .acc-info {
-    .header {
-      height: 400px;
-      background: linear-gradient(#3C32EE, #6DB2FC);
+  .acc-info-content {
+    position: relative;
+    .acc-info {
 
-      .head {
-        height: 120px;
-        padding: 30px;
-        box-sizing: border-box;
-        .back {
-          float: left;
-          width: 60px;
-          height: 60px;
-          background: url("../../assets/images/default/icon_basis_arrow_left1.png") no-repeat;
-          background-size: cover;
-        }
-        .title {
-          color: @title-color;
-          line-height: 60px;
-        }
-      }
+      .header {
+        height: 573px;
+        background: url("../../assets/images/default/bg_transaction_transfer_wallet.png") no-repeat;
+        background-size: cover;
 
-      .head-content {
-        .icon-border {
-          float: left;
-          display: inline-block;
-          width: 204px;
-          height: 204px;
-          border: 1px solid #DEDED7;
-          border-radius: 50%;
+        .head {
+          height: 120px;
+          padding: 26px 0;
           box-sizing: border-box;
-          padding: 7px;
-          .icon {
-            display: inline-block;
-            width: 186px;
-            height: 186px;
-            border-radius: 50%;
-            box-shadow: 0 7px 18px 0 rgba(71, 105, 245, 0.16);
-            background: #FFFFFF url("../../assets/images/default/userface.png") no-repeat;
+          .back {
+            float: left;
+            width: 65px;
+            height: 65px;
+            background: url("../../assets/images/default/icon_basis_arrow_left1.png") no-repeat;
             background-size: cover;
           }
+          .title {
+            color: @title-color;
+            line-height: 60px;
+          }
         }
 
-        .content {
-          height: 196px;
-          padding-left: 230px;
-          padding-top: 20px;
-          box-sizing: border-box;
-          color: @title-color;
-          .address {
-            font-size: 40px;
-            line-height: 50px;
-            word-break: break-word;
+        .head-content {
+          .icon-border {
+            float: left;
+            display: inline-block;
+            width: 204px;
+            height: 204px;
+            border: 1px solid #DEDED7;
+            border-radius: 50%;
+            box-sizing: border-box;
+            padding: 7px;
+            .icon {
+              display: inline-block;
+              width: 186px;
+              height: 186px;
+              border-radius: 50%;
+              box-shadow: 0 7px 18px 0 rgba(71, 105, 245, 0.16);
+              background: #FFFFFF url("../../assets/images/default/userface.png") no-repeat;
+              background-size: cover;
+            }
+          }
+
+          .content {
+            padding-left: 240px;
+            box-sizing: border-box;
+            color: @title-color;
+            line-height: 90px;
+            .address {
+              font-size: 40px;
+              line-height: 50px;
+              word-break: break-word;
+            }
           }
         }
       }
-    }
 
-    .setting-list {
-      background: @base-background-color;
-      text-align: left;
-      border: 1px solid #F6F7F7;
-      .list {
-        color: @text-color-1;
-        line-height: 150px;
-        &:not(:last-child) {
-          border-bottom: 1px solid #F7F7F7;
+      .setting-list {
+        text-align: left;
+        border-top: 1px solid #506FF2;
+        border-bottom: 1px solid #506FF2;
+        .list {
+          line-height: 150px;
+          &:not(:last-child) {
+            border-bottom: 1px solid #DFEDFF;
+          }
         }
       }
-    }
 
-    .footer {
-      width: 100%;
-      box-sizing: border-box;
-      position: absolute;
-      bottom: 0;
-    }
-
-    .modal {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.3);
-
-      .dialog {
-        height: 700px;
+      .footer {
         width: 100%;
-        position: fixed;
+        padding-top: 60px;
+        box-sizing: border-box;
+      }
+
+      .modal {
+        position: absolute;
+        top: 0;
+        right: 0;
         bottom: 0;
-        background: @base-background-color;
-        /*transform: translateY(100%);*/
-        transition: transform .3s;
+        left: 0;
+        background: rgba(0, 0, 0, 0.3);
 
-        .title {
-          padding: 70px;
-          color: @supplement-color2;
-        }
-
-        .foot {
+        .dialog {
+          height: 700px;
           width: 100%;
-          box-sizing: border-box;
-          background: fade(#F8F8F8, 75%);
-          position: absolute;
-          bottom: 0;
+          position: fixed;
+          bottom: 144px;
+          background: @base-background-color;
+          transition: transform .3s;
+
+          .title {
+            padding: 70px;
+            color: @supplement-color2;
+          }
+
+          .foot {
+            width: 100%;
+            box-sizing: border-box;
+            background: fade(#F8F8F8, 75%);
+            position: absolute;
+            bottom: 0;
+          }
         }
-      }
-      .dialog-show {
-        transform: translateY(0);
-      }
-      .dialog-hide {
-        transform: translateY(100%);
+        .dialog-show {
+          transform: translateY(0);
+        }
+        .dialog-hide {
+          transform: translateY(100%);
+        }
       }
     }
   }

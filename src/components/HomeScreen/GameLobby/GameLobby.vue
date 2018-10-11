@@ -16,7 +16,7 @@
           <flexbox :gutter="0" justify="flex-start" wrap="nowrap" align="flex-start">
             <flexbox-item v-for="(item, index) in nearestPlayList" :key="index">
               <a :href="$funs.getGameUrl(item)" target="_blank">
-                <img :src="item.pho" class="lastest-item" @click="$funs.setLatestPlay(item)">
+                <img :src="item.phoUrl" class="lastest-item" @click="$funs.setLatestPlay(item)">
               </a>
             </flexbox-item>
           </flexbox>
@@ -28,26 +28,40 @@
       </div>
     </div>
 
+    <div class="tab-list">
+      <div class="tab" @click="onItemClick(0)">
+        <div class="tab-icon tab-icon-0" :class="{'tab-icon-0_active': selectedIndex === 0}"></div>
+        <p class="tab-text" :class="{'tab-text_active': selectedIndex === 0}">{{ $t('all') }}</p>
+      </div>
+      <div class="tab" @click="onItemClick(1)">
+        <div class="tab-icon tab-icon-1" :class="{'tab-icon-1_active': selectedIndex === 1}"></div>
+        <p class="tab-text" :class="{'tab-text_active': selectedIndex === 1}">{{ $t('chessAndCard') }}</p>
+      </div>
+      <div class="tab" @click="onItemClick(2)">
+        <div class="tab-icon tab-icon-2" :class="{'tab-icon-2_active': selectedIndex === 2}"></div>
+        <p class="tab-text" :class="{'tab-text_active': selectedIndex === 2}">{{ $t('competition') }}</p>
+      </div>
+      <div class="tab" @click="onItemClick(3)">
+        <div class="tab-icon tab-icon-3" :class="{'tab-icon-3_active': selectedIndex === 3}"></div>
+        <p class="tab-text" :class="{'tab-text_active': selectedIndex === 3}">{{ $t('lottery') }}</p>
+      </div>
+    </div>
+
     <div class="games-container">
-      <div class="tab-list">
-        <div class="tab" :class="{active:selectedIndex === 0}" @click="onItemClick(0)">{{ $t('all') }}</div>
-        <div class="tab" :class="{active:selectedIndex === 1}" @click="onItemClick(1)">{{ $t('chessAndCard') }}</div>
-        <div class="tab" :class="{active:selectedIndex === 2}" @click="onItemClick(2)">{{ $t('competition') }}</div>
-        <div class="tab" :class="{active:selectedIndex === 3}" @click="onItemClick(3)">{{ $t('lottery') }}</div>
-      </div>
-
-      <div class="game-content base-shadow" @scroll="onContentScroll" v-show="gameList.length">
-        <div class="my-panel" v-for="(item, index) in gameList" :key="index">
-          <game-panel :class="{border:index > 0}" :item="item"></game-panel>
+      <div class="game-content" @scroll="onContentScroll">
+        <div v-show="gameList.length">
+          <div class="my-panel" v-for="(item, index) in gameList" :key="index">
+            <game-panel :item="item"></game-panel>
+          </div>
         </div>
-      </div>
 
-      <div class="no-list" v-show="!gameList.length && !searchStatus">
-        <span></span>
-      </div>
+        <div v-show="searchStatus">
+          <load-more :show-loading="showLoading" :tip="loadingTip"></load-more>
+        </div>
 
-      <div v-show="searchStatus">
-        <load-more :show-loading="showLoading" :tip="loadingTip"></load-more>
+        <div class="no-list" v-show="!gameList.length && !searchStatus">
+          <span></span>
+        </div>
       </div>
     </div>
   </div>
@@ -153,14 +167,16 @@
 
 <style lang="less" scoped>
   .game-lobby {
+    height: 100%;
 
     .header {
       width: 100%;
-      height: 650px;
+      height: 691px;
       padding: 40px;
-      float: left;
       box-sizing: border-box;
-      background: linear-gradient(#3C32EE, #6DB2FC);
+      float: left;
+      background: url("../../../assets/images/default/bg_home_account.jpg") no-repeat;
+      background-size: cover;
 
       .title {
         color: #ffffff;
@@ -216,58 +232,79 @@
       }
     }
 
+    .tab-list {
+      width: 100%;
+      height: 220px;
+      padding: 0 40px;
+      box-sizing: border-box;
+      overflow-x: auto;
+      float: left;
+      font-size: 34px;
+      color: @text-color-3;
+      display: flex;
+      justify-content:space-around;
+      align-items: center;
+
+      .tab {
+        .tab-text {
+          color: @text-color-2;
+          margin-top: 10px;
+        }
+        .tab-text_active {
+          color: #475fec;
+        }
+        .tab-icon-0 {
+          background: url("../../../assets/images/game_type/gameclassicon_qb.png") no-repeat;
+        }
+        .tab-icon-0_active {
+          background: url("../../../assets/images/game_type/gameclassicon_qb_xz.png") no-repeat;
+        }
+        .tab-icon-1 {
+          background: url("../../../assets/images/game_type/gameclassicon_qp.png") no-repeat;
+        }
+        .tab-icon-1_active {
+          background: url("../../../assets/images/game_type/gameclassicon_qp_xz.png") no-repeat;
+        }
+        .tab-icon-2 {
+          background: url("../../../assets/images/game_type/gameclassicon_ss.png") no-repeat;
+        }
+        .tab-icon-2_active {
+          background: url("../../../assets/images/game_type/gameclassicon_ss_xz.png") no-repeat;
+        }
+        .tab-icon-3 {
+          background: url("../../../assets/images/game_type/gameclassicon_bc.png") no-repeat;
+        }
+        .tab-icon-3_active {
+          background: url("../../../assets/images/game_type/gameclassicon_bc_xz.png") no-repeat;
+        }
+
+        .tab-icon {
+          width: 163px;
+          height: 118px;
+          background-size: contain;
+        }
+      }
+    }
+
     .games-container {
       width: 100%;
       height: 100%;
-      padding: 40px;
-      padding-top: 740px;
+      padding-top: 911px;
       box-sizing: border-box;
 
-      .tab-list {
-        width: 1000px;
-        height: 134px;
-        position: absolute;
-        top: 573px;
-        background: #ffffff;
-        border-radius: 80px;
-        font-size: 46px;
-        color: #606060;
-        display: flex;
-        justify-content:space-around;
-        align-items: center;
-
-        .tab {
-          &.active {
-            color: #4769F5;
-            &:after {
-              background: #4769F5;
-            }
-          }
-          &:after {
-            content: '';
-            display: block;
-            width: 30px;
-            height: 10px;
-            margin: 6px auto 0;
-            border-radius: 25%;
-          }
-        }
-      }
-
       .game-content {
-        width: 1000px;
         height: 100%;
-        padding: 0 40px;
-        overflow-y: auto;
+        padding: 40px;
         box-sizing: border-box;
-        background: @base-background-color;
-        border-radius: @base-radius;
+        overflow-y: auto;
 
         .my-panel {
-          height: 240px;
-          .border {
-            border-top: 2px solid #F3F3F3;
-          }
+          height: 220px;
+          padding: 0 40px;
+          box-sizing: border-box;
+          margin-bottom: 36px;
+          border-radius:32px;
+          background: #F1F7FF;
         }
       }
 

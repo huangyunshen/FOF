@@ -206,7 +206,7 @@ export default {
         let obj = {
           contractAddr:item.contractAddr,
           gameType:item.gameType,
-          pho:item.pho,
+          phoUrl:item.phoUrl,
         }
         list.unshift(obj)
         list.length > 10 && list.length--

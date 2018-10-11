@@ -1,9 +1,9 @@
 <template>
-  <div class="FAQ bb-content h-100">
+  <div class="FAQ">
     <div class="x-header">
       <x-header :left-options="{preventGoBack:true, backText: ''}" @on-click-back="$router.replace({name:'Setting'})"></x-header>
     </div>
-    <div class="content bb-content h-100 tl pd-40">
+    <div class="content tl">
       <section class="wrapper bb-content h-100">
 
         <p class="strong mb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAQ</p>
@@ -86,13 +86,14 @@
     box-sizing: border-box;
 
     .content {
-      overflow-y: auto;
       height: 100%;
       padding: 40px;
       box-sizing: border-box;
 
       .wrapper {
-        border: 1px solid rgba(222,222,222,1);
+        overflow-y: auto;
+        padding: 40px;
+        border: 1px solid #4389F5;
         border-radius: 20px;
       }
     }

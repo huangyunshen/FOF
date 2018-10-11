@@ -2,7 +2,7 @@
   <div class="detail-list">
 
     <div class="x-header">
-      <x-header :title="$t('tradeRecordDetail')" :left-options="{preventGoBack:true, backText: ''}" @on-click-back="$router.replace({name: 'MyAssets'})"></x-header>
+      <x-header :title="$t('tradeRecordDetail')" :left-options="{preventGoBack:true, backText: ''}" @on-click-back="$router.replace({name: 'TransactionRecord', params:{tokenItem}})"></x-header>
     </div>
 
     <div class="detail-content">
@@ -19,12 +19,19 @@
     name: "RecordDetail",
     data() {
       return {
-        detailList: {}
+        detailList: {},
+        tokenItem: null
       }
     },
     created() {
       this.detailList = this.$route.params.data;
       delete (this.detailList.datasourcecode)
+
+      if (this.$route.params.tokenItem) {
+        this.tokenItem = this.$route.params.tokenItem
+      } else {
+        this.$router.replace({name: 'MyAssets'})
+      }
     }
   }
 </script>
@@ -43,20 +50,21 @@
       margin-bottom: 0;
       padding: 40px;
       background: @base-background-color;
-      border: 1px solid #E0E0E0;
+      border: 1px solid #4389F5;
       border-radius: 32px;
 
       .list {
         display: flex;
         padding: 40px 0;
         &:not(:first-child) {
-          border-top: 1px solid #E0E0E0;
+          border-top: 1px solid #F1F7FF;
         }
 
         .head {
           width: 280px;
           font-size: 44px;
           word-break: break-word;
+          color: #506FF2;
         }
         .body {
           flex: 1;

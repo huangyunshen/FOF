@@ -47,4 +47,73 @@ axios.getBlockList = function (blockNum, hash, pageSize = 20, pageNum = 1) {
   })
 }
 
+// get all token list
+axios.getAllToken = function (addr, pageSize = 20, pageNum = 1, tokenName) {
+  return new Promise((resolve, reject) => {
+    axios.post('/api/requestToken.php', {addr, pageSize, pageNum, tokenName}).then((res) => {
+      if (res.data.code === '200') {
+        resolve(res.data)
+      }
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+// get my token list
+axios.getMyToken = function (creator, addr, pageSize = 20, pageNum = 1, tokenName) {
+  return new Promise((resolve, reject) => {
+    if(creator) {
+      axios.post('/api/requestMyToken.php', {creator, addr, pageSize, pageNum, tokenName}).then((res) => {
+        if (res.data.code === '200') {
+          resolve(res.data)
+        }
+      }).catch((error) => {
+        reject(error)
+      })
+    } else {
+      reject(new Error('no creator'))
+    }
+  })
+}
+
+// add an token to my acc
+axios.addMyToken = function (myAddr, tokenAddr) {
+  return new Promise((resolve, reject) => {
+    axios.post('/api/addTokenList.php', {myAddr, tokenAddr}).then((res) => {
+      if (res.data.code === '200') {
+        resolve(res.data)
+      }
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+// delete an token from my acc
+axios.deleteMyToken = function (myAddr, tokenAddr) {
+  return new Promise((resolve, reject) => {
+    axios.post('/api/deleteTokenList.php', {myAddr, tokenAddr}).then((res) => {
+      if (res.data.code === '200') {
+        resolve(res.data)
+      }
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+// request account tokens
+axios.getAccToken = function (myAddr, pageNum = 1, pageSize = 2000) {
+  return new Promise((resolve, reject) => {
+    axios.post('/api/requestTokenList.php', {myAddr, pageNum, pageSize}).then((res) => {
+      if (res.data.code === '200') {
+        resolve(res.data)
+      }
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
 export default axios

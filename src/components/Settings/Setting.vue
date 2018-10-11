@@ -1,10 +1,10 @@
 <template>
   <div class="setting">
 
-    <div class="x-header">
-      <x-header :title="$t('walletSetting')" :left-options="{preventGoBack:true, backText: ''}"
-                @on-click-back="$router.replace({name:'MyAssets'})"></x-header>
-    </div>
+    <!--<div class="x-header">-->
+      <!--<x-header :title="$t('walletSetting')" :left-options="{preventGoBack:true, backText: ''}"-->
+                <!--@on-click-back="$router.replace({name:'MyAssets'})"></x-header>-->
+    <!--</div>-->
 
     <div class="wallet-content">
       <div class="content base-shadow" @click="$router.replace({name: 'AccountManagement'})">
@@ -57,10 +57,12 @@
 <style lang="less" scoped>
   .setting {
     .wallet-content {
-      margin-top: 120px;
-      padding: 60px 40px;
+      height: 573px;
+      background: url("../../assets/images/default/bg_transaction_transfer_wallet.png") no-repeat;
+      background-size: cover;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      align-items: center;
 
       .content {
         width: 480px;
@@ -89,14 +91,14 @@
     }
 
     .setting-list {
-      background: @base-background-color;
+      margin-top: 50px;
       text-align: left;
-      border: 1px solid #F6F7F7;
+      border-top: 1px solid #506FF2;
+      border-bottom: 1px solid #506FF2;
       .list {
-        color: @text-color-1;
         line-height: 150px;
         &:not(:last-child) {
-          border-bottom: 1px solid #F7F7F7;
+          border-bottom: 1px solid #DFEDFF;
         }
         .description {
           float: right;
