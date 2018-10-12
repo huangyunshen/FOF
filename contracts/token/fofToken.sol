@@ -23,13 +23,18 @@ contract fofToken {
     address [] user;    //账户地址数组
 
     mapping(address => uint) public tokenAccount;                //地址对应余额
+    mapping(address => mapping(address => uint256)) public allowed;//转账授权
 
     event returnTransferResult(bool _bool, address _addr, string _msg); // 返回转账信息
     event returnExchangeResult(bool _bool, address _addr, string _msg); // 返回兑换货币信息
 
-    event Transfer(address indexed _from, address indexed _to, uint indexed _value, string _tokenName); // 返回转账成功信息
+    event Transfer(address indexed _from, address indexed _to, uint indexed _value); // 返回转账信息
+    event Approval(address _owner, address _spender, uint256 _value);//授权转账
 
     uint256 public gameType = 0;     //合约类型为0，发行token
+    address _fromCreate = 0x0000000000000000000000000000000000000001;
+    address _fromNull;
+    address _toNull;
 
     constructor (string _tokenName, uint _supply, uint _rateA, uint _rateB, string _tokenDetail) public{
         creator = msg.sender;
@@ -43,13 +48,6 @@ contract fofToken {
         //判断，兑换比率不能小于等于0
         require(_rateA > 0, "兑换比率不能小于等于0");
         require(_rateB > 0, "兑换比率不能小于等于0");
-
-        /*//代币名称转换为byte32储存
-        bytes memory _name = bytes(_tokenNameString);
-        bytes32 _tokenName;
-        assembly {
-            _tokenName := mload(add(_name, 32))
-        }*/
 
         //设置名称和信息
         tokenName = _tokenName;
@@ -68,6 +66,7 @@ contract fofToken {
             //设置代币流通量
             curSupply = _supply;
             tokenAccount[creator] = _supply;
+            emit Transfer(_fromCreate, creator, _supply);
             user.push(creator);
         }
 
@@ -92,6 +91,16 @@ contract fofToken {
         return _balance;
     }
 
+    function approve(address _spender, uint256 _value) public returns (bool success) {
+        allowed[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
+        return true;
+    }
+
+    function allowance(address _owner, address _spender) public constant returns (uint256 remaining) {
+        return allowed[_owner][_spender];
+    }
+
     //兑换货币，fof兑换token
     function fofToToken(uint _tokenAmount) public payable {
         address _addr = msg.sender;
@@ -109,6 +118,7 @@ contract fofToken {
                 tokenAccount[_addr] += _tokenAmount;
                 //增加用户地址
                 user.push(_addr);
+                emit Transfer(_fromNull, _addr, _tokenAmount);
                 emit returnExchangeResult(true, _addr, "兑换货币成功");
             } else {
                 if (_tokenAmount <= curSupply) {
@@ -121,6 +131,7 @@ contract fofToken {
                     tokenAccount[creator] -= _tokenAmount;
                     //增加用户地址
                     user.push(_addr);
+                    emit Transfer(creator, _addr, _tokenAmount);
                     emit returnExchangeResult(true, _addr, "兑换货币成功");
                 } else {
                     emit returnExchangeResult(false, _addr, "兑换货币失败，兑换量大于市场流通量");
@@ -147,19 +158,20 @@ contract fofToken {
             tokenAccount[_addr] -= _tokenAmount;
             //转出fof到兑换账户
             _addr.transfer(_fofAmount);
+            emit Transfer(_addr, _toNull, _tokenAmount);
             emit returnExchangeResult(true, _addr, "兑换货币成功");
         } else {
             emit returnExchangeResult(false, _addr, "兑换货币失败，该货币不支持双向兑换");
         }
     }
 
-    //token转账
+    //token转账，游戏调用的提现方法
     function transfer(address _to, uint256 _tokenAmount) public returns (bool){
-        address _from =msg.sender;
+        address _from = msg.sender;
         if (tokenAccount[_from] >= _tokenAmount) {
             tokenAccount[_from] -= _tokenAmount;
             tokenAccount[_to] += _tokenAmount;
-            emit Transfer(_from, _to, _tokenAmount, tokenName);
+            emit Transfer(_from, _to, _tokenAmount);
             return true;
         } else {
             return false;
@@ -207,6 +219,19 @@ contract fofToken {
     //合约余额
     function getTokenBalance() public view returns (uint){
         return address(this).balance;
+    }
+
+    //游戏调用的充值方法
+    function transferFrom(address _from, uint256 _value) public returns (bool success) {
+        //same as above. Replace this line with the following if you want to protect against wrapping uints.
+        address _to = msg.sender;
+        if (tokenAccount[_from] >= _value && allowed[_from][msg.sender] >= _value && _value > 0) {
+            tokenAccount[_to] += _value;
+            tokenAccount[_from] -= _value;
+            allowed[_from][msg.sender] -= _value;
+            emit Transfer(_from, _to, _value);
+            return true;
+        } else {return false;}
     }
 
     function deposit() public payable {}

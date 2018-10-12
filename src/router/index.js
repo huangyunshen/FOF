@@ -23,6 +23,7 @@ import Tokens from '@/components/HomeScreen/MyAssets/Tokens'
 import TransactionRecord from '@/components/HomeScreen/MyAssets/TransactionRecord'
 import RecordDetail from '@/components/HomeScreen/MyAssets/RecordDetail'
 import SendTransaction from '@/components/HomeScreen/MyAssets/SendTransaction'
+import Conversion from '@/components/HomeScreen/MyAssets/Conversion'
 
 //unlock wallet
 import UnlockWallet from '@/components/UnlockWallet/UnlockWallet'
@@ -121,6 +122,11 @@ export default new Router({
           path:'SendTransaction',
           name:'SendTransaction',
           component:SendTransaction,
+        },
+        {
+          path:'Conversion',
+          name:'Conversion',
+          component:Conversion,
         },
         {
           path:'Setting',

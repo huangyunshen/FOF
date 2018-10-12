@@ -1,5 +1,5 @@
 <template>
-  <div class="tranc-record bb-content" :class="{'pb-150':!noMoreFlag}">
+  <div class="tranc-record bb-content">
 
     <div class="header">
       <div class="head">
@@ -15,9 +15,8 @@
       </div>
     </div>
 
-    <div class="body">
-      <div class="panel-content bb-content pl-30 pr-30 mb-50 base-shadow cf" v-for="(item, index) in recordData"
-           :key="index" v-show="recordData.length !== {}">
+    <div class="body" @scroll="scroll">
+      <div class="panel-content bb-content pl-30 pr-30 mb-50 base-shadow cf" v-for="(item, index) in recordData"  :key="index" v-if="recordData">
         <div class="panel-date fl">{{ index.slice(8,10) }}</div>
         <div class="panels bb-content fl">
           <div class="panel-item bb-content" :class="{border: rI}" v-for="(rItem, rI) in item" :key="rI">
@@ -26,12 +25,12 @@
         </div>
       </div>
 
-      <div class="no-list" v-show="recordData.length === {}">
+      <div class="no-list" v-show="!recordData">
         <span></span>
         <p>{{ $t('noTransactionRecord') }}</p>
       </div>
 
-      <div v-show="searchStatus && (recordData.length !== {})" class="more-content">
+      <div v-show="searchStatus && recordData" class="more-content">
         <load-more :show-loading="showLoading" :tip="loadingTip"></load-more>
       </div>
     </div>
@@ -42,7 +41,7 @@
           <x-button type="primary"  @click.native="$router.push({name: 'SendTransaction', params: {tokenItem}})">{{ $t('token006') }}</x-button>
         </flexbox-item>
         <flexbox-item v-if="tokenItem && tokenItem.addr">
-          <x-button type="primary"  @click.native="$router.push({name: 'SendTransaction', params: {tokenItem}})">{{ $t('token007') }}</x-button>
+          <x-button type="primary"  @click.native="$router.push({name: 'Conversion', params: {tokenItem}})">{{ $t('token007') }}</x-button>
         </flexbox-item>
       </flexbox>
     </div>
@@ -59,9 +58,9 @@
     },
     data() {
       return {
-        pageSize: 20,
+        pageSize: 5,
         pageNum: 1,
-        recordData: {},
+        recordData: null,
 
         noMoreFlag: false,
         searchStatus: true,
@@ -78,8 +77,9 @@
 
     methods: {
       /*  scroll get more  */
-      scroll() {
-        if (!this.noMoreFlag) {
+      scroll(e) {
+        let isBottom = this.$funs.isScrollBottom(e)
+        if (isBottom && !this.noMoreFlag) {
           this.pageNum++
           this.getData()
         }
@@ -90,10 +90,13 @@
 
         this.searchStatus = true
         this.showLoading = true
+        this.noMoreFlag = true
         this.loadingTip = this.$t('isSearching')
 
-        this.$axios.getTradeRecord(this.address, null, this.pageSize, this.pageNum).then(data => {
+        this.$axios.getTradeRecord(this.address, null, this.pageSize, this.pageNum, this.tokenItem.addr).then(data => {
           if (data.length) {
+            if(!this.recordData)this.recordData = {}
+
             for (let i = 0; i < data.length; i++) {
               //地址处理
               data[i].txFrom = data[i].txFrom.toLowerCase()
@@ -169,6 +172,7 @@
               this.recordData[date].push(data[i])
             }
 
+            this.noMoreFlag = false
             this.searchStatus = false
             if (data.length < this.pageSize) {
               this.noMoreFlag = true
@@ -187,10 +191,9 @@
       },
     },
     created() {
-      this.getData()
-
       if (this.$route.params.tokenItem) {
         this.tokenItem = this.$route.params.tokenItem
+        this.getData()
       } else {
         this.$router.replace({name: 'MyAssets'})
       }
@@ -242,10 +245,11 @@
     }
 
     .body {
-      height: calc(100% - 640px);
+      height: calc(100% - 800px);
       overflow-y: auto;
       margin-top: 40px;
       padding: 40px;
+      padding-bottom: 100px;
       box-sizing: border-box;
 
       .panel-content {

@@ -22,9 +22,9 @@ axios.getAppListData = function (type = 0, addr = '', pageSize = 20, pageNum = 1
 }
 
 // get trade record
-axios.getTradeRecord = function (addr, hash, pageSize = 20, pageNum = 1) {
+axios.getTradeRecord = function (addr, hash, pageSize = 20, pageNum = 1, tokenAddr) {
   return new Promise((resolve, reject) => {
-    axios.post('/api/requestTx.php', {addr, hash, pageSize, pageNum}).then((res) => {
+    axios.post('/api/requestTx.php', {addr, hash, pageSize, pageNum, tokenAddr}).then((res) => {
       if (res.data.code === '200') {
         resolve(res.data.result)
       }

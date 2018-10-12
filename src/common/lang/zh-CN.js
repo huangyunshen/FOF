@@ -216,13 +216,19 @@ module.exports = {
   Last:'未尽事宜您需遵守FOF基金会不时更新的公告及相关规则，本协议最后更新于2018年7月3日（“修订日期”）。',
   FOF:'FOF基金会',
 
-  token001: '添加新Token',
-  token002: '输入Token名或合约地址查询',
+  token001:'添加新Token',
+  token002:'输入Token名或合约地址查询',
   token003:'请输入搜索内容',
   token004:'已添加',
   token005:'已移除',
   token006:'转账',
   token007:'兑换',
   token008:'手续费不足',
+  token009:'用户中心',
+  token010:'开始兑换',
+  token011:'兑换成功',
+  token012:'余额不足',
+  token013:'请输入正确的数量',
+  token014:'TOKEN兑换',
 
 }

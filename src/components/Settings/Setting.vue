@@ -1,12 +1,8 @@
 <template>
   <div class="setting">
 
-    <!--<div class="x-header">-->
-      <!--<x-header :title="$t('walletSetting')" :left-options="{preventGoBack:true, backText: ''}"-->
-                <!--@on-click-back="$router.replace({name:'MyAssets'})"></x-header>-->
-    <!--</div>-->
-
     <div class="wallet-content">
+      <div class="title">{{$t('token009')}}</div>
       <div class="content base-shadow" @click="$router.replace({name: 'AccountManagement'})">
         <span class="icon icon-acc"></span>
         <span class="text-c1 ml-40">{{ $t('accountManagement') }}</span>
@@ -63,6 +59,13 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
+      position: relative;
+
+      .title {
+        position: absolute;
+        top: 40px;
+        color: #FFFFFF;
+      }
 
       .content {
         width: 480px;
