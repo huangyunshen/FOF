@@ -6,10 +6,26 @@
     </div>
 
     <div class="detail-content">
-      <div class="list" v-for="(item, index) in detailList" :key="index">
-        <div class="head">{{ index }}</div>
-        <div class="body">{{ item }}</div>
+      <div class="list">
+        <div class="head">{{ $t('rollOutSide') }}</div>
+        <div class="body">{{ detailList.txFrom }}</div>
       </div>
+      <div class="list">
+        <div class="head">{{ $t('theTransferee') }}</div>
+        <div class="body">{{ detailList.txTo }}</div>
+      </div>
+      <div class="list">
+        <div class="head">{{ $t('token015') }}</div>
+        <div class="body">{{ detailList.amount }}</div>
+      </div>
+      <div class="list">
+        <div class="head">{{ $t('token016') }}</div>
+        <div class="body">{{ detailList.time }}</div>
+      </div>
+    </div>
+
+    <div class="footer" @click="$router.replace({name: 'BlockQuery', params: {data: detailList, type: 2}})">
+      {{ $t('token017') }}
     </div>
   </div>
 </template>
@@ -24,8 +40,8 @@
       }
     },
     created() {
-      this.detailList = this.$route.params.data;
-      delete (this.detailList.datasourcecode)
+      this.detailList = this.$route.params.item
+      console.log(this.detailList);
 
       if (this.$route.params.tokenItem) {
         this.tokenItem = this.$route.params.tokenItem
@@ -38,19 +54,13 @@
 
 <style lang="less" scoped>
   .detail-list {
-    height: 100%;
     box-sizing: border-box;
     padding-top: 120px;
 
     .detail-content {
-      height: calc(100% - 80px);
-      overflow-y: auto;
-      box-sizing: border-box;
       margin: 40px;
-      margin-bottom: 0;
       padding: 40px;
-      background: @base-background-color;
-      border: 1px solid #4389F5;
+      border: 2px solid #4389F5;
       border-radius: 32px;
 
       .list {
@@ -75,6 +85,11 @@
           word-break: break-all;
         }
       }
+    }
+
+    .footer {
+      margin-top: 80px;
+      color: #5c7af5;
     }
   }
 </style>

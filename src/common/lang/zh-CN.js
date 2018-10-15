@@ -230,5 +230,9 @@ module.exports = {
   token012:'余额不足',
   token013:'请输入正确的数量',
   token014:'TOKEN兑换',
+  token015:'金额',
+  token016:'时间',
+  token017:'更多信息',
+  token018:'返回资产管理',
 
 }

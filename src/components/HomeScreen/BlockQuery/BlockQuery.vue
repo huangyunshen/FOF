@@ -1,6 +1,11 @@
 <template>
   <div class="block-query">
     <div class="header-tab">
+      <div class="head" @click="$router.replace({name: 'MyAssets'})">
+        <span class="back"></span>
+        <span class="title">{{ $t('token018') }}</span>
+      </div>
+
       <div class="tab-list">
         <div class="tab" :class="{active:tabIndex === 1}" @click="select(1)">{{ $t('BlockSearch') }}</div>
         <div class="tab" :class="{active:tabIndex === 2}" @click="select(2)">{{ $t('TransactionSearch') }}</div>
@@ -9,7 +14,7 @@
 
     <block class="content" v-show=" tabIndex === 1"></block>
 
-    <tranc class="content" v-show="tabIndex === 2"></tranc>
+    <tranc class="content" ref="hash" v-show="tabIndex === 2"></tranc>
   </div>
 </template>
 
@@ -32,6 +37,17 @@
       select(i) {
         this.tabIndex = i
       }
+    },
+    mounted() {
+      let type = this.$route.params.type
+      let data = this.$route.params.data
+      if(type && data) {
+        this.tabIndex = type
+
+        if(type === 2) {
+          this.$refs.hash.showDetail(data)
+        }
+      }
     }
   }
 </script>
@@ -39,17 +55,36 @@
 <style lang="less" scoped>
   .block-query {
     .header-tab {
-      height: 310px;
+      height: 600px;
       padding: 0 40px;
       box-sizing: border-box;
       position: relative;
-      background: linear-gradient(#3C32EE, #6DB2FC);
+      background: url("../../../assets/images/default/bg_block_query.png") no-repeat;
+      background-size: cover;
+
+      .head {
+        height: 120px;
+        padding: 26px 0;
+        box-sizing: border-box;
+        text-align: left;
+        .back {
+          float: left;
+          width: 65px;
+          height: 65px;
+          background: url("../../../assets/images/default/icon_basis_arrow_left1.png") no-repeat;
+          background-size: cover;
+        }
+        .title {
+          color: #FFFFFF;
+          line-height: 60px;
+        }
+      }
 
       .tab-list {
         width: 1000px;
-        height: 134px;
+        height: 124px;
         position: absolute;
-        bottom: -70px;
+        bottom: 100px;
         background: #ffffff;
         border-radius: 80px;
         font-size: 46px;
@@ -66,8 +101,7 @@
       }
     }
     .content {
-      height: calc(100% - 310px);
-      margin-top: 120px;
+      height: calc(100% - 600px);
     }
   }
 </style>

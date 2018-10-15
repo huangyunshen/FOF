@@ -10,15 +10,15 @@
 
     <div class="search-list" v-show="!isDetail && list.length">
       <div class="search-content" @scroll="onContentScroll">
-        <div class="list" :class="{active:item.txHash === detailList.txHash}" v-for="(item, index) in list" :key="index"
+        <div class="list" v-for="(item, index) in list" :key="index"
              @click="showDetail(item)">
           <flexbox>
             <flexbox-item :span="3">
-              <div class="tc">{{ $t('transactionAmount') }}</div>
+              <div class="tc blue-text">{{ $t('transactionAmount') }}</div>
             </flexbox-item>
             <flexbox-item class="ml-40">
               <div class="ml-20">
-                <span class="blue-text">{{ item.txValue }}</span>
+                <span class="green-text">{{ item.txValue }}</span>
                 <span class="fr text">{{ item.time }}</span>
               </div>
             </flexbox-item>
@@ -157,7 +157,7 @@
 
     .search-box {
       position: absolute;
-      top: -370px;
+      top: -420px;
       width: 100%;
       padding: 0 40px;
       box-sizing: border-box;
@@ -169,7 +169,7 @@
     .search-list {
       height: 100%;
       .search-content {
-        height: calc(100% - 160px);
+        height: 100%;
         overflow-y: auto;
         padding: 40px;
         padding-top: 0;
@@ -178,31 +178,30 @@
         .list {
           padding: 40px;
           box-sizing: border-box;
-          margin-bottom: 40px;
-          background: @base-background-color;
-          box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.07);
+          margin-top: 40px;
+          border:2px solid #4389F5;
           border-radius: 32px;
 
           .blue-text {
             color: #4769F5;
           }
+          .green-text {
+            color: #5BB473;
+          }
 
           .title {
             padding: 5px 0;
-            background: #F0F0F0;
+            background: #F1F7FF;
             border-radius: 10px;
             color:  @text-color-1;
             text-align: center;
             font-size: 38px;
           }
           .text {
-            color:  @text-color-2;
+            color:  @text-color-1;
             word-break: break-all;
             font-size: 38px;
           }
-        }
-        .active {
-          background: #F2F8FF;
         }
       }
     }
@@ -227,29 +226,31 @@
 
     .detail-list {
       height: 100%;
+      padding: 40px;
+      box-sizing: border-box;
 
       .detail-content {
-        height: calc(100% - 320px);
+        height: calc(100% - 170px);
         overflow-y: auto;
         box-sizing: border-box;
-        margin: 40px;
         margin-bottom: 0;
         padding: 40px;
-        background: @base-background-color;
-        border: 1px solid #E0E0E0;
+        border:2px solid #4389F5;
         border-radius: 32px;
 
         .list {
           display: flex;
           padding: 20px 0;
           &:not(:first-child) {
-            border-top: 1px solid #E0E0E0;
+            border-top:1px solid #DFEDFF;
           }
 
+
           .head {
-            width: 280px;
+            width: 300px;
             font-size: 44px;
             word-break: break-word;
+            color: #506FF2;
           }
           .body {
             flex: 1;

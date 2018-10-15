@@ -3,7 +3,7 @@ import axios from 'axios'
 const PRODUCT = "http://fofgame.io"
 const LOCAL = '/url'
 
-axios.defaults.baseURL = LOCAL
+axios.defaults.baseURL = PRODUCT
 
 // 设置请求头
 axios.defaults.headers.post['Content-Type'] = 'application/json'

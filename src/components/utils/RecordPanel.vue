@@ -39,11 +39,12 @@
     },
     methods: {
       getDetail() {
-        this.$web3.eth.getTransaction(this.item.txHash).then( data => {
-          this.$router.replace({name:'RecordDetail', params: {data, tokenItem: this.tokenItem}})
-        }, err => {
-          console.log(err);
-        })
+        this.$router.replace({name:'RecordDetail', params: {item: this.item, tokenItem: this.tokenItem}})
+        // this.$web3.eth.getTransaction(this.item.txHash).then( data => {
+        //   this.$router.replace({name:'RecordDetail', params: {data, tokenItem: this.tokenItem}})
+        // }, err => {
+        //   console.log(err);
+        // })
       }
     }
   }

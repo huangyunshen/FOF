@@ -92,6 +92,7 @@ contract fofToken {
     }
 
     function approve(address _spender, uint256 _value) public returns (bool success) {
+        require(tokenAccount[msg.sender] >= _value, "账户余额不足，授权失败");
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         return true;

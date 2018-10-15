@@ -220,13 +220,12 @@
               flag ++
 
               balance = this.$web3.utils.fromWei(balance, 'ether')
-              balance = Math.round(balance * 10000) / 10000
-              data[i].balance = balance
+              balance = Math.round(balance * 100000000000) / 100000000000
+              data[i].balance = Number(balance)
 
 
               data[i].rate = this.$web3.utils.fromWei(String(data[i].rate), 'gwei')
-
-              data[i].fofBalance = balance / data[i].rate
+              data[i].fofBalance = Math.round(balance / data[i].rate * 100000000000) / 100000000000
               if(data[i].type == 1) {
                 total += data[i].fofBalance
               }

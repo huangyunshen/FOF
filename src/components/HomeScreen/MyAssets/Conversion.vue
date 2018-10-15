@@ -27,7 +27,7 @@
             </span>
             <span class="token-name">FOF</span>
             <div class="token-input">
-              <x-input v-model="from1" placeholder="FOF" :show-clear="false" :max="10" @on-change="setFrom1" :debounce="500"></x-input>
+              <x-input v-model="from1" placeholder="FOF" :show-clear="false" :max="10"></x-input>
             </div>
           </flexbox-item>
           <flexbox-item :span="4">
@@ -44,7 +44,7 @@
             </span>
             <span class="token-name">{{tokenItem && tokenItem.tokenName}}</span>
             <div class="token-input">
-              <x-input v-model="to1" :placeholder="tokenItem && tokenItem.tokenName" :show-clear="false" :max="10" @on-change="setTo1" :debounce="500"></x-input>
+              <x-input v-model="to1" :placeholder="tokenItem && tokenItem.tokenName" :show-clear="false" :max="10"></x-input>
             </div>
           </flexbox-item>
         </flexbox>
@@ -61,7 +61,7 @@
             </span>
             <span class="token-name">{{tokenItem && tokenItem.tokenName}}</span>
             <div class="token-input">
-              <x-input v-model="from2" :placeholder="tokenItem && tokenItem.tokenName" :show-clear="false" :max="10" @on-change="setFrom2"></x-input>
+              <x-input v-model="from2" :placeholder="tokenItem && tokenItem.tokenName" :show-clear="false" :max="10"></x-input>
             </div>
           </flexbox-item>
           <flexbox-item :span="4">
@@ -78,7 +78,7 @@
             </span>
             <span class="token-name">FOF</span>
             <div class="token-input">
-              <x-input v-model="to2" placeholder="FOF" :show-clear="false" :max="10" @on-change="setTo2"></x-input>
+              <x-input v-model="to2" placeholder="FOF" :show-clear="false" :max="10"></x-input>
             </div>
           </flexbox-item>
         </flexbox>
@@ -110,53 +110,23 @@
         to2: null,                //兑换输入2-2
       }
     },
+    watch: {
+      from1(n, o) {
+        this.to1 = Math.round(n * this.tokenItem.rate * 10000) / 10000
+      },
+      to1(n, o) {
+        this.from1 = Math.round(n / this.tokenItem.rate * 10000) / 10000
+      },
+      from2(n, o) {
+        this.to2 = Math.round(n / this.tokenItem.rate * 10000) / 10000
+      },
+      to2(n, o) {
+        this.from2 = Math.round(n * this.tokenItem.rate * 10000) / 10000
+      },
+    },
     methods: {
 
       //兑换代币
-      setFrom1() {
-        if(this.from1 === '') {
-          this.to1 = ''
-          return
-        }
-        if (!this.$funs.validateFloatNum(this.from1)) {
-          this.$vux.toast.text(this.$t('token013'))
-          return
-        }
-        this.to1 = parseInt(this.from1 * this.tokenItem.rate * 10 ** 4) / 10 ** 4
-      },
-      setTo1() {
-        if(this.to1 === '') {
-          this.from1 = ''
-          return
-        }
-        if (!this.$funs.validateFloatNum(this.to1)) {
-          this.$vux.toast.text(this.$t('token013'))
-          return
-        }
-        this.from1 = parseInt(this.to1 / this.tokenItem.rate * 10 ** 4) / 10 ** 4
-      },
-      setFrom2() {
-        if(this.from2 === '') {
-          this.to2 = ''
-          return
-        }
-        if (!this.$funs.validateFloatNum(this.from2)) {
-          this.$vux.toast.text(this.$t('token013'))
-          return
-        }
-        this.to2 = parseInt(this.from2 / this.tokenItem.rate * 10 ** 4) / 10 ** 4
-      },
-      setTo2() {
-        if(this.to2 === '') {
-          this.from2 = ''
-          return
-        }
-        if (!this.$funs.validateFloatNum(this.to2)) {
-          this.$vux.toast.text(this.$t('token013'))
-          return
-        }
-        this.from2 = parseInt(this.to2 * this.tokenItem.rate * 10 ** 4) / 10 ** 4
-      },
       onConvert(type) {
         let tokenVal = type === 1 ? this.to1 : this.from2
         if (!tokenVal || !this.$funs.validateFloatNum(tokenVal)) {
@@ -228,6 +198,8 @@
       if (this.$route.params.tokenItem) {
         this.tokenItem = this.$route.params.tokenItem
         this.contractIns = new this.$web3.eth.Contract(tokenContract.abi, this.tokenItem.addr)
+        this.to1 = this.from1 * this.tokenItem.rate
+        this.to2 = this.from2 / this.tokenItem.rate
         this.getBalance()
       } else {
         this.$router.replace({name: 'MyAssets'})

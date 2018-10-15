@@ -15,7 +15,6 @@ import ImportWallet from '@/components/NewWallet/ImportWallet'
 import HomeScreen from '@/components/HomeScreen/HomeScreen'
 import GameLobby from '@/components/HomeScreen/GameLobby/GameLobby'
 import GameSearchDetail from '@/components/HomeScreen/GameLobby/GameSearchDetail'
-// import BlockQuery from '@/components/HomeScreen/BlockQuery/BlockQuery'
 
 //my assets
 import MyAssets from '@/components/HomeScreen/MyAssets/MyAssets'
@@ -24,9 +23,6 @@ import TransactionRecord from '@/components/HomeScreen/MyAssets/TransactionRecor
 import RecordDetail from '@/components/HomeScreen/MyAssets/RecordDetail'
 import SendTransaction from '@/components/HomeScreen/MyAssets/SendTransaction'
 import Conversion from '@/components/HomeScreen/MyAssets/Conversion'
-
-//unlock wallet
-import UnlockWallet from '@/components/UnlockWallet/UnlockWallet'
 
 //settings
 import Setting from '@/components/Settings/Setting'
@@ -37,6 +33,11 @@ import Language from '@/components/Settings/Language'
 import ImportAccount from '@/components/Settings/ImportAccount'
 import FAQ from '@/components/Settings/FAQ'
 
+//unlock wallet
+import UnlockWallet from '@/components/UnlockWallet/UnlockWallet'
+
+//block query
+import BlockQuery from '@/components/HomeScreen/BlockQuery/BlockQuery'
 
 export default new Router({
   routes: [
@@ -76,7 +77,6 @@ export default new Router({
     {
       path:'/HomeScreen',
       component:HomeScreen,
-      // meta: { keepAlive: true },
       children:[
         {
           path:'/',
@@ -93,11 +93,6 @@ export default new Router({
           name:'GameSearchDetail',
           component:GameSearchDetail,
         },
-        // {
-        //   path:'BlockQuery',
-        //   name:'BlockQuery',
-        //   component:BlockQuery
-        // },
         {
           path:'MyAssets',
           name:'MyAssets',
@@ -169,6 +164,11 @@ export default new Router({
       path:'/UnlockWallet',
       name:'UnlockWallet',
       component:UnlockWallet,
+    },
+    {
+      path:'/BlockQuery',
+      name:'BlockQuery',
+      component:BlockQuery
     },
   ]
 })
